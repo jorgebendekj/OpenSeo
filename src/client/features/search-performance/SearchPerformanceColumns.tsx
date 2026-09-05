@@ -40,15 +40,19 @@ const rightAligned = {
 
 const dimensionHelper = createColumnHelper<DimensionRow>();
 
+import { Sparkles } from "lucide-react";
+
 export function buildDimensionColumns(
   keyLabel: string,
+  onGenerateArticle?: (query: string) => void,
 ): ColumnDef<DimensionRow>[] {
-  return [
+  const isQuery = keyLabel.toLowerCase().includes("query");
+  const cols: ColumnDef<DimensionRow>[] = [
     dimensionHelper.accessor("key", {
       enableSorting: false,
       header: () => keyLabel,
       cell: ({ getValue }) => (
-        <span className="block max-w-xl truncate" title={getValue()}>
+        <span className="block max-w-xl truncate font-medium" title={getValue()}>
           {getValue()}
         </span>
       ),
@@ -82,20 +86,49 @@ export function buildDimensionColumns(
       meta: rightAligned,
     }),
   ];
+
+  if (isQuery && onGenerateArticle) {
+    cols.push(
+      dimensionHelper.display({
+        id: "actions",
+        header: () => <span className="sr-only">Actions</span>,
+        cell: ({ row }) => (
+          <div className="flex justify-end" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              onClick={() => onGenerateArticle(row.original.key)}
+              className="btn btn-ghost btn-xs text-primary gap-1 hover:bg-primary/10"
+              title="Generate AI Article"
+            >
+              <Sparkles className="size-3" />
+              <span className="hidden lg:inline">Write</span>
+            </button>
+          </div>
+        ),
+        meta: {
+          headerClassName: "text-right w-16",
+          cellClassName: "text-right w-16",
+        },
+      }),
+    );
+  }
+
+  return cols;
 }
 
 const strikingHelper = createColumnHelper<StrikingRow>();
 
 export function buildStrikingColumns(
   anchorRef: MutableRefObject<SelectionAnchor | null>,
+  onGenerateArticle?: (query: string) => void,
 ): ColumnDef<StrikingRow>[] {
-  return [
+  const cols: ColumnDef<StrikingRow>[] = [
     makeSelectionColumn<StrikingRow>(anchorRef),
     strikingHelper.accessor("query", {
       enableSorting: false,
       header: () => "Query",
       cell: ({ getValue }) => (
-        <span className="block max-w-xs truncate" title={getValue()}>
+        <span className="block max-w-xs truncate font-medium" title={getValue()}>
           {getValue()}
         </span>
       ),
@@ -144,4 +177,32 @@ export function buildStrikingColumns(
       meta: rightAligned,
     }),
   ];
+
+  if (onGenerateArticle) {
+    cols.push(
+      strikingHelper.display({
+        id: "actions",
+        header: () => <span className="sr-only">Actions</span>,
+        cell: ({ row }) => (
+          <div className="flex justify-end" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              onClick={() => onGenerateArticle(row.original.query)}
+              className="btn btn-ghost btn-xs text-primary gap-1 hover:bg-primary/10"
+              title="Generate AI Article"
+            >
+              <Sparkles className="size-3" />
+              <span className="hidden lg:inline">Write</span>
+            </button>
+          </div>
+        ),
+        meta: {
+          headerClassName: "text-right w-16",
+          cellClassName: "text-right w-16",
+        },
+      }),
+    );
+  }
+
+  return cols;
 }

@@ -1,0 +1,69 @@
+﻿@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local("Archivo SemiBold"), local("Archivo-SemiBold"),
+       url("/fonts/archivo-600.woff2") format("woff2"),
+       system-ui;
+}
+
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Archivo Bold"), local("Archivo-Bold"),
+       url("/fonts/archivo-700.woff2") format("woff2"),
+       system-ui;
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Inter Regular"), local("Inter-Regular"),
+       url("/fonts/inter-400.woff2") format("woff2"),
+       system-ui;
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local("Inter Medium"), local("Inter-Medium"),
+       url("/fonts/inter-500.woff2") format("woff2"),
+       system-ui;
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local("Inter SemiBold"), local("Inter-SemiBold"),
+       url("/fonts/inter-600.woff2") format("woff2"),
+       system-ui;
+}
+
+@font-face {
+  font-family: "Noto Sans SC";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: local("Noto Sans SC"), local("NotoSansSC-Regular"),
+       url("/fonts/noto-sans-sc.woff2") format("woff2"),
+       system-ui;
+}
+
+@font-face {
+  font-family: "Noto Sans JP";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: local("Noto Sans JP"), local("NotoSansJP-Regular"),
+       url("/fonts/noto-sans-jp.woff2") format("woff2"),
+       system-ui;
+}

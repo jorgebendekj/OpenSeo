@@ -81,7 +81,9 @@ type ToolArgs<Input extends ToolSchema> = Input extends z.ZodType
     ? z.infer<z.ZodObject<Input>>
     : never;
 
-type OpenSeoToolDefinition<Input extends ToolSchema> = {
+import { BRAND } from "@/shared/brand";
+
+type FindableToolDefinition<Input extends ToolSchema> = {
   name: string;
   config: {
     title?: string;
@@ -96,9 +98,9 @@ type OpenSeoToolDefinition<Input extends ToolSchema> = {
   ) => CallToolResult | Promise<CallToolResult>;
 };
 
-function registerOpenSeoTool<Input extends ToolSchema>(
+function registerFindableTool<Input extends ToolSchema>(
   server: McpServer,
-  tool: OpenSeoToolDefinition<Input>,
+  tool: FindableToolDefinition<Input>,
   authProps: McpProps,
 ) {
   const outputSchema = objectSchema(tool.config.outputSchema);
@@ -125,18 +127,18 @@ function registerOpenSeoTool<Input extends ToolSchema>(
   );
 }
 
-export function createOpenSeoMcpServer(authProps: McpProps) {
+export function createFindableMcpServer(authProps: McpProps) {
   const server = new McpServer(
     {
-      name: "OpenSEO MCP",
-      title: "OpenSEO",
-      version: "0.0.12",
+      name: BRAND.mcpServerName,
+      title: BRAND.name,
+      version: "1.0.0",
       description:
-        "SEO research tools for AI agents: keyword research and metrics, SERP and local SERP results, domain and backlink analysis, rank tracking, and Google Search Console performance.",
-      websiteUrl: "https://openseo.so",
+        "Findable SEO & AI search visibility tools: AI citation metrics, keyword research, SERP and local SERP analysis, domain intelligence, backlinks, rank tracking, and Google Search Console data.",
+      websiteUrl: BRAND.url,
       icons: [
         {
-          src: "https://openseo.so/android-chrome-512x512.png",
+          src: `${BRAND.url}/android-chrome-512x512.png`,
           mimeType: "image/png",
           sizes: ["512x512"],
         },
@@ -144,13 +146,13 @@ export function createOpenSeoMcpServer(authProps: McpProps) {
     },
     {
       instructions:
-        "OpenSEO research tools use credits. Proceed with normal focused research, but ask the user for confirmation before planned batches over 2,000 credits.",
+        "Findable research tools use credits. Proceed with normal focused research, but ask the user for confirmation before planned batches over 2,000 credits.",
     },
   );
 
   const register = <Input extends ToolSchema>(
-    tool: OpenSeoToolDefinition<Input>,
-  ) => registerOpenSeoTool(server, tool, authProps);
+    tool: FindableToolDefinition<Input>,
+  ) => registerFindableTool(server, tool, authProps);
 
   register(whoamiTool);
   register(listProjectsTool);
@@ -201,3 +203,5 @@ export function createOpenSeoMcpServer(authProps: McpProps) {
 
   return server;
 }
+
+export const createOpenSeoMcpServer = createFindableMcpServer;

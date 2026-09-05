@@ -119,6 +119,8 @@ async function dispatch(
   return provider.fetch(request, {} as never, executionContext);
 }
 
+import { MCP_AUTH_CONTEXT_PROP } from "@/server/mcp/context";
+
 function tokenExchangeOptions(
   requestedScope: string[],
 ): TokenExchangeCallbackOptions {
@@ -130,7 +132,7 @@ function tokenExchangeOptions(
     scope: ["offline_access", "mcp"],
     requestedScope,
     props: {
-      openSeoAuth: {
+      [MCP_AUTH_CONTEXT_PROP]: {
         userId: "user-1",
         userEmail: "user@example.com",
         organizationId: "org-1",
@@ -226,7 +228,7 @@ describe("OpenSEO OAuth provider configuration", () => {
     ).toThrowError(OAuthError);
     expect(callback(tokenExchangeOptions(["mcp"]))).toEqual({
       accessTokenProps: {
-        openSeoAuth: {
+        [MCP_AUTH_CONTEXT_PROP]: {
           userId: "user-1",
           userEmail: "user@example.com",
           organizationId: "org-1",

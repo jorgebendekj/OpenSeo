@@ -162,6 +162,8 @@ export function AuthenticatedAppLayout({
   );
 }
 
+import { FindableLogo } from "@/client/components/FindableLogo";
+
 function MobileTopBar({
   drawerOpen,
   onOpenDrawer,
@@ -180,8 +182,8 @@ function MobileTopBar({
       >
         <Menu className="h-5 w-5" />
       </button>
-      <Link to="/" className="ml-1 font-semibold text-base-content">
-        OpenSEO
+      <Link to="/" className="ml-1 font-semibold text-base-content hover:opacity-90">
+        <FindableLogo markSize={18} />
       </Link>
     </div>
   );

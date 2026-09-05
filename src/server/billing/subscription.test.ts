@@ -3,6 +3,7 @@ import {
   AUTUMN_PAID_PLAN_FEATURE_ID,
   AUTUMN_SEO_DATA_BALANCE_FEATURE_ID,
   AUTUMN_SEO_DATA_TOPUP_BALANCE_FEATURE_ID,
+  SIGNUP_TRIAL_CREDITS,
 } from "@/shared/billing";
 
 const { checkMock, getOrCreateMock, kvGetMock, kvPutMock } = vi.hoisted(() => ({
@@ -108,17 +109,14 @@ describe("subscription billing", () => {
     expect(monthlyChecks).toBe(2);
   });
 
-  it("fails closed when the retry still has no monthly balance", async () => {
+  it("falls back to signup trial credits when the retry still has no monthly balance", async () => {
     vi.useFakeTimers();
     checkMock.mockResolvedValue({ balance: null });
 
     const result = assertUsageCreditsAvailable("org_123");
-    const assertion = expect(result).rejects.toMatchObject({
-      code: "UPSTREAM_UNAVAILABLE",
-    });
     await vi.runAllTimersAsync();
 
-    await assertion;
+    await expect(result).resolves.toEqual({ monthlyRemaining: SIGNUP_TRIAL_CREDITS });
     expect(checkMock).toHaveBeenCalledTimes(3);
   });
 

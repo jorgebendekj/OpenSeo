@@ -9,7 +9,7 @@ import {
   SerpApi,
 } from "dataforseo-client";
 import { AppError } from "@/server/lib/errors";
-import { getRequiredEnvValue } from "@/server/lib/runtime-env";
+import { getOptionalEnvValue, getRequiredEnvValue } from "@/server/lib/runtime-env";
 import type { ErrorCode } from "@/shared/error-codes";
 
 const API_BASE = "https://api.dataforseo.com";
@@ -65,12 +65,32 @@ function formatDataforseoRequestPath(url: RequestInfo): string {
  * (which return HTTP 200) are handled downstream by {@link assertOk}. An
  * optional classifier maps recognised HTTP failures to product errors.
  */
+async function getDataforseoAuthHeader(): Promise<string> {
+  const apiKey = await getOptionalEnvValue("DATAFORSEO_API_KEY");
+  if (apiKey && apiKey.trim() !== "") {
+    const trimmed = apiKey.trim();
+    if (trimmed.includes(":")) {
+      return btoa(trimmed);
+    }
+    return trimmed;
+  }
+  const login = await getOptionalEnvValue("DATAFORSEO_LOGIN");
+  const password = await getOptionalEnvValue("DATAFORSEO_PASSWORD");
+  if (login && password) {
+    return btoa(`${login.trim()}:${password.trim()}`);
+  }
+  throw new AppError(
+    "DATAFORSEO_AUTH_FAILED",
+    "Missing DATAFORSEO_API_KEY in environment variables",
+  );
+}
+
 function createAuthenticatedFetch(
   classify?: DataforseoErrorClassifier,
   maxServerErrorRetries = DATAFORSEO_MAX_RETRIES,
 ) {
   return async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
-    const apiKey = await getRequiredEnvValue("DATAFORSEO_API_KEY");
+    const apiKey = await getDataforseoAuthHeader();
     const headers = new Headers(init?.headers);
     headers.set("Authorization", `Basic ${apiKey}`);
     // Resolve the signal once so retries share the overall request timeout

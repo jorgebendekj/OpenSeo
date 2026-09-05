@@ -221,30 +221,16 @@ function getHostedSecret() {
 }
 
 function getSocialProviders() {
-  // Google social login is hosted-only. Self-hosted builds the auth instance
-  // solely for Search Console token ops, which use the genericOAuth provider
-  // (createBaseAuthConfig) with its own creds — so it must NOT require the
-  // social-login config here, otherwise getAuth() construction would be coupled
-  // to GSC creds rather than just BETTER_AUTH_SECRET.
-  if (!isHostedAuthMode(env.AUTH_MODE)) {
-    return {};
-  }
-
-  return {
-    google: getGoogleSocialProviderConfig(),
-  };
+  const google = getGoogleSocialProviderConfig();
+  return google ? { google } : {};
 }
 
 function getGoogleSocialProviderConfig() {
   const googleClientId = env.GOOGLE_CLIENT_ID?.trim();
   const googleClientSecret = env.GOOGLE_CLIENT_SECRET?.trim();
 
-  if (!googleClientId) {
-    throw new Error("GOOGLE_CLIENT_ID is required in hosted mode");
-  }
-
-  if (!googleClientSecret) {
-    throw new Error("GOOGLE_CLIENT_SECRET is required in hosted mode");
+  if (!googleClientId || !googleClientSecret) {
+    return undefined;
   }
 
   return {

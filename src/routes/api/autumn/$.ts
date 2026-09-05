@@ -4,14 +4,18 @@ import { env } from "cloudflare:workers";
 import { isHostedAuthMode } from "@/lib/auth-mode";
 import { resolveHostedContext } from "@/middleware/ensure-user/hosted";
 
+import { getRequiredEnvValue } from "@/server/lib/runtime-env";
+
 let handlerPromise: Promise<ReturnType<typeof autumnHandler>> | undefined;
 
 // Lazy: keeps autumn-js/fetch out of the eager isolate startup graph;
 // resolves instantly after the first request.
-function loadHandler() {
+async function loadHandler() {
+  const secretKey = await getRequiredEnvValue("AUTUMN_SECRET_KEY");
   return (handlerPromise ??= import("autumn-js/fetch").then(
     ({ autumnHandler }) =>
       autumnHandler({
+        secretKey,
         identify: async (request) => {
           const context = await resolveHostedContext(request.headers);
 
@@ -30,7 +34,8 @@ async function handleAutumnRequest(request: Request) {
     });
   }
 
-  return (await loadHandler())(request);
+  const handler = await loadHandler();
+  return handler(request);
 }
 
 export const Route = createFileRoute("/api/autumn/$")({

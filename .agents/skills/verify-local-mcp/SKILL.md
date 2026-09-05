@@ -1,6 +1,6 @@
 ---
 name: verify-local-mcp
-description: Verify the OpenSEO MCP server end-to-end on a local dev server — protocol-level correctness against real DataForSEO, then a headless-agent consumer probe that tests tool ergonomics (descriptions, schemas, output size, errors, async flows) without the maintainer manually driving an MCP client. Use after adding or changing MCP tools, or when asked to check that the MCP "works" or "is ergonomic".
+description: Verify the Findable MCP server end-to-end on a local dev server — protocol-level correctness against real DataForSEO, then a headless-agent consumer probe that tests tool ergonomics (descriptions, schemas, output size, errors, async flows) without the maintainer manually driving an MCP client. Use after adding or changing MCP tools, or when asked to check that the MCP "works" or "is ergonomic".
 metadata:
   internal: true
 ---
@@ -37,7 +37,7 @@ Spawn a headless Claude subprocess connected as a real MCP client. Write a confi
 ```json
 {
   "mcpServers": {
-    "openseo-local": { "type": "http", "url": "http://<url>/mcp" }
+    "findable-local": { "type": "http", "url": "http://<url>/mcp" }
   }
 }
 ```
@@ -50,7 +50,7 @@ Deliver two sections: 1. FINDINGS — the task result. 2. MCP FEEDBACK — criti
 were descriptions enough to pick tools without trial and error? confusing schemas, surprising output shapes or sizes,
 unclear errors, credit-cost surprises? Did async/taskId flows behave as described? List anything that made you hesitate or retry." \
   --mcp-config mcp-local.json --strict-mcp-config \
-  --allowedTools "mcp__openseo-local,mcp__openseo-local__*" \
+  --allowedTools "mcp__findable-local,mcp__findable-local__*" \
   --model sonnet --max-turns 30
 ```
 

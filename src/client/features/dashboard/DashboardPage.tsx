@@ -3,6 +3,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ChevronLeft, ChevronRight, Check } from "lucide-react";
+import { BRAND } from "@/shared/brand";
 import { captureClientEvent } from "@/client/lib/posthog";
 import {
   computeNextStep,
@@ -39,7 +40,7 @@ const HERO_COPY: Record<
   },
   mcp: {
     title: "Connect your AI agent",
-    body: "OpenSEO is built to be used from agents like Claude. Connect once, then ask it to use OpenSEO to help build your SEO strategy.",
+    body: `${BRAND.name} is built to be used from agents like Claude and Cursor. Connect once, then ask it to use ${BRAND.name} to help build your SEO and AI search visibility strategy.`,
     cta: "Show me how",
   },
   gsc: {

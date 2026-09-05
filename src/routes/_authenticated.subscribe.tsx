@@ -13,9 +13,10 @@ import { normalizeAuthRedirect } from "@/lib/auth-redirect";
 import {
   AUTUMN_MANAGED_ACCESS_FEATURE_ID,
   AUTUMN_PAID_PLAN_ID,
+  SUBSCRIPTION_PLANS,
 } from "@/shared/billing";
 
-const SUPPORT_EMAIL = "ben@openseo.so";
+const SUPPORT_EMAIL = "jbendek@ribentek.com";
 
 const PLAN_FEATURES = [
   "Keyword research, backlinks, rank tracking, and site audits",
@@ -183,16 +184,18 @@ function SubscribePage() {
     );
   }
 
-  async function handleSubscribe() {
+  const [selectedPlanId, setSelectedPlanId] = useState<string>("growth-plan");
+
+  async function handleSubscribe(planId: string) {
     setError(null);
     setIsAttaching(true);
 
     try {
-      captureClientEvent("billing:checkout_start");
+      captureClientEvent("billing:checkout_start", { planId });
       const successUrl = new URL(window.location.href);
       successUrl.searchParams.set("checkout", "success");
       await customerQuery.attach({
-        planId: AUTUMN_PAID_PLAN_ID,
+        planId,
         redirectMode: "always",
         successUrl: successUrl.toString(),
       });
@@ -210,73 +213,99 @@ function SubscribePage() {
   const firstName = session?.user?.name?.split(" ")[0] || "";
 
   return (
-    <div className="w-full max-w-sm space-y-6">
+    <div className="w-full max-w-4xl space-y-6 px-4 py-8">
       <SubscribePageAccountMenu email={session?.user?.email} />
 
       <div className="text-center space-y-3">
         <img
           src="/transparent-logo.png"
-          alt="OpenSEO"
-          className="mx-auto size-10 rounded-lg"
+          alt="Findable"
+          className="mx-auto size-12 rounded-xl"
         />
-        <h1 className="text-xl font-semibold">
+        <h1 className="text-2xl font-bold tracking-tight">
           {isUpgradeFlow
-            ? "Upgrade your plan"
+            ? "Choose your plan"
             : firstName
-              ? `Welcome to OpenSEO, ${firstName}!`
-              : "Welcome to OpenSEO!"}
+              ? `Welcome to Findable, ${firstName}!`
+              : "Welcome to Findable!"}
         </h1>
-        <p className="text-sm text-base-content/60">
-          SEO on your terms. All your SEO tools in one place at a fair price.
+        <p className="text-sm text-base-content/70 max-w-lg mx-auto">
+          Dominate Google, ChatGPT, and Perplexity on autopilot. Choose the plan that fits your growth goals.
         </p>
       </div>
 
-      <div className="rounded-lg border border-base-300 p-5 space-y-4">
-        <div className="flex items-baseline justify-between gap-4">
-          <span className="font-semibold">Base Plan</span>
-          <span className="text-lg font-semibold tabular-nums">$10/month</span>
+      {error ? (
+        <div className="p-3 bg-error/10 border border-error/30 text-error rounded-lg text-sm text-center max-w-md mx-auto">
+          {error}
         </div>
+      ) : null}
 
-        <ul className="space-y-2">
-          {PLAN_FEATURES.map((item) => (
-            <li
-              key={item}
-              className="flex gap-2.5 text-sm text-base-content/70"
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+        {SUBSCRIPTION_PLANS.map((plan) => {
+          const isSelected = selectedPlanId === plan.id;
+          return (
+            <div
+              key={plan.id}
+              onClick={() => setSelectedPlanId(plan.id)}
+              className={`relative flex flex-col rounded-2xl border p-6 transition-all cursor-pointer ${
+                plan.popular
+                  ? "border-primary bg-base-100 shadow-xl shadow-primary/5 ring-2 ring-primary/20 md:-translate-y-2"
+                  : isSelected
+                    ? "border-primary/60 bg-base-100 shadow-md"
+                    : "border-base-300 bg-base-100/60 hover:border-base-content/30"
+              }`}
             >
-              <span className="text-base-content/40 mt-[2px] shrink-0">
-                &mdash;
-              </span>
-              {item}
-            </li>
-          ))}
-          {/* Sub-bullet of the Usage Credits line above. */}
-          <li className="-mt-1 pl-6 text-xs">
-            <a
-              className="text-base-content/60 underline decoration-base-content/40 decoration-dotted underline-offset-4 transition-colors hover:text-base-content"
-              href="https://openseo.so/pricing"
-              target="_blank"
-              rel="noreferrer"
-              onClick={() =>
-                captureClientEvent("billing:pricing_estimator_click")
-              }
-            >
-              How far do usage credits go?{" "}
-              <span aria-hidden="true">&#8599;</span>
-            </a>
-          </li>
-        </ul>
+              {plan.popular ? (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-0.5 text-xs font-semibold text-primary-content tracking-wide uppercase">
+                  Most Popular
+                </span>
+              ) : null}
 
-        {error ? <p className="text-sm text-error">{error}</p> : null}
+              <div className="mb-4">
+                <h3 className="text-lg font-bold text-base-content">{plan.name}</h3>
+                <p className="text-xs text-base-content/60 min-h-8 mt-1">
+                  {plan.description}
+                </p>
+              </div>
 
-        <button
-          className="btn btn-soft w-full"
-          disabled={isAttaching}
-          onClick={() => void handleSubscribe()}
-        >
-          {isAttaching ? "Redirecting..." : "Subscribe"}
-        </button>
+              <div className="flex items-baseline gap-1 my-2">
+                <span className="text-3xl font-extrabold tracking-tight">${plan.usd}</span>
+                <span className="text-xs text-base-content/50 font-medium">/ month</span>
+              </div>
 
-        <p className="text-center text-xs text-base-content/50">
+              <ul className="space-y-2.5 my-6 flex-1">
+                {plan.features.map((feature) => (
+                  <li
+                    key={feature}
+                    className="flex items-start gap-2 text-xs text-base-content/80 leading-relaxed"
+                  >
+                    <span className="text-primary mt-0.5 shrink-0 font-bold">✓</span>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                className={`btn w-full ${
+                  plan.popular ? "btn-primary shadow-sm" : "btn-soft"
+                }`}
+                disabled={isAttaching}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  void handleSubscribe(plan.id);
+                }}
+              >
+                {isAttaching && selectedPlanId === plan.id
+                  ? "Redirecting..."
+                  : `Get ${plan.name}`}
+              </button>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="text-center space-y-2 pt-4">
+        <p className="text-xs text-base-content/50">
           <span
             className="tooltip before:max-w-60 before:whitespace-normal"
             data-tip={`Not for you yet? Email ${SUPPORT_EMAIL} within 30 days of your charge and we'll refund your subscription.`}
@@ -287,16 +316,13 @@ function SubscribePage() {
           </span>
           . Cancel anytime. Powered by Stripe.
         </p>
-      </div>
-
-      <div className="text-center space-y-2">
-        <p className="text-sm text-base-content/60">
+        <p className="text-xs text-base-content/60">
           Questions? Email {SUPPORT_EMAIL}.
         </p>
         {isUpgradeFlow ? (
           <button
             type="button"
-            className="inline-flex cursor-pointer items-center gap-1.5 text-sm font-medium text-base-content/70 hover:text-base-content transition-colors"
+            className="inline-flex cursor-pointer items-center gap-1.5 text-xs font-medium text-base-content/70 hover:text-base-content transition-colors mt-2"
             onClick={() => void navigate({ to: "/", replace: true })}
           >
             <ArrowRight className="size-3.5 rotate-180" />

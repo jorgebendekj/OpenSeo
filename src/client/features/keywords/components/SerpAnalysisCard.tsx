@@ -1,5 +1,8 @@
-import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { useState } from "react";
+import { ChevronLeft, ChevronRight, ExternalLink, Sparkles } from "lucide-react";
+import { useParams } from "@tanstack/react-router";
 import { ExportToSheetsButton } from "@/client/components/table/ExportToSheetsButton";
+import { GenerateArticleModal } from "@/client/features/articles/GenerateArticleModal";
 import type { SerpResultItem } from "@/types/keywords";
 
 export function SerpAnalysisCard({
@@ -21,6 +24,8 @@ export function SerpAnalysisCard({
   pageSize: number;
   onPageChange: (p: number) => void;
 }) {
+  const { projectId } = useParams({ strict: false }) as { projectId?: string };
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const totalPages = Math.ceil(items.length / pageSize);
   const pageItems = items.slice(page * pageSize, (page + 1) * pageSize);
 
@@ -41,21 +46,44 @@ export function SerpAnalysisCard({
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-3 gap-2">
         <div className="text-xs text-base-content/50">
           {items.length} organic results
         </div>
-        <ExportToSheetsButton
-          headers={["Rank", "Title", "URL", "Domain"]}
-          rows={items.map((item) => [
-            item.rank,
-            item.title ?? "",
-            item.url,
-            item.domain,
-          ])}
-          feature="serp_analysis"
-        />
+        <div className="flex items-center gap-2">
+          {projectId && keyword ? (
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="btn btn-xs btn-primary gap-1"
+            >
+              <Sparkles className="size-3" />
+              Write Article
+            </button>
+          ) : null}
+          <ExportToSheetsButton
+            headers={["Rank", "Title", "URL", "Domain"]}
+            rows={items.map((item) => [
+              item.rank,
+              item.title ?? "",
+              item.url,
+              item.domain,
+            ])}
+            feature="serp_analysis"
+          />
+        </div>
       </div>
+
+      {projectId && keyword ? (
+        <GenerateArticleModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          projectId={projectId}
+          initialKeyword={keyword}
+          serpContext={items}
+        />
+      ) : null}
+
       <SerpAnalysisTable items={pageItems} />
       <SerpAnalysisPagination
         page={page}

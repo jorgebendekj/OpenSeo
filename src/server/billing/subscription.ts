@@ -7,6 +7,7 @@ import {
   AUTUMN_SEO_DATA_CREDITS_PER_USD,
   AUTUMN_SEO_DATA_TOPUP_BALANCE_FEATURE_ID,
   SEO_DATA_COST_MARKUP,
+  SIGNUP_TRIAL_CREDITS,
   roundUsdForBilling,
 } from "@/shared/billing";
 import type { CreditFeature } from "@/shared/billing-credit-features";
@@ -67,32 +68,37 @@ export async function customerHasPaidPlan(
   customerId: string,
   opts: { retryDenied?: boolean } = {},
 ) {
-  const result = await autumn.check({
-    customerId,
-    featureId: AUTUMN_PAID_PLAN_FEATURE_ID,
-  });
-  if (result.allowed || !opts.retryDenied) return result.allowed;
+  try {
+    const result = await autumn.check({
+      customerId,
+      featureId: AUTUMN_PAID_PLAN_FEATURE_ID,
+    });
+    if (result.allowed || !opts.retryDenied) return result.allowed;
 
-  // Autumn sometimes returns degraded entitlement data in a successful
-  // response (see the balance retry in getUsageCreditsRemaining). Where a
-  // false negative does lasting damage — the scheduler would advance a paying
-  // org's schedule and flag "plan_required" — callers opt into one re-check.
-  // Interactive deny paths skip it to stay fast for genuinely free users.
-  await new Promise((resolve) => setTimeout(resolve, 300));
-  const retry = await autumn.check({
-    customerId,
-    featureId: AUTUMN_PAID_PLAN_FEATURE_ID,
-  });
-  return retry.allowed;
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    const retry = await autumn.check({
+      customerId,
+      featureId: AUTUMN_PAID_PLAN_FEATURE_ID,
+    });
+    return retry.allowed;
+  } catch (error) {
+    console.warn("billing.customerHasPaidPlan check failed:", error);
+    return false;
+  }
 }
 
 export async function customerHasManagedAccess(customerId: string) {
-  const result = await autumn.check({
-    customerId,
-    featureId: AUTUMN_MANAGED_ACCESS_FEATURE_ID,
-  });
+  try {
+    const result = await autumn.check({
+      customerId,
+      featureId: AUTUMN_MANAGED_ACCESS_FEATURE_ID,
+    });
 
-  return result.allowed;
+    return result.allowed;
+  } catch (error) {
+    console.warn("billing.customerHasManagedAccess check failed:", error);
+    return false;
+  }
 }
 
 // Remaining shared usage credits — the monthly `usage_credits` balance plus the
@@ -102,12 +108,20 @@ async function getUsageCreditsRemaining(customerId: string): Promise<{
   monthlyRemaining: number;
   topupRemaining: number;
 }> {
+  const monthlyCheckPromise = autumn
+    .check({ customerId, featureId: AUTUMN_SEO_DATA_BALANCE_FEATURE_ID })
+    .catch((error) => {
+      console.warn("billing.monthly-check failed:", error);
+      return { balance: null };
+    });
+
+  const topupCheckPromise = autumn
+    .check({ customerId, featureId: AUTUMN_SEO_DATA_TOPUP_BALANCE_FEATURE_ID })
+    .catch(() => ({ balance: { remaining: 0 } }));
+
   const [monthlyCheck, topupCheck] = await Promise.all([
-    autumn.check({ customerId, featureId: AUTUMN_SEO_DATA_BALANCE_FEATURE_ID }),
-    autumn.check({
-      customerId,
-      featureId: AUTUMN_SEO_DATA_TOPUP_BALANCE_FEATURE_ID,
-    }),
+    monthlyCheckPromise,
+    topupCheckPromise,
   ]);
 
   // Autumn sometimes returns a successful response with no monthly balance
@@ -116,28 +130,26 @@ async function getUsageCreditsRemaining(customerId: string): Promise<{
   let monthlyBalance = monthlyCheck.balance;
   if (!monthlyBalance) {
     await new Promise((resolve) => setTimeout(resolve, 300));
-    const retry = await autumn.check({
-      customerId,
-      featureId: AUTUMN_SEO_DATA_BALANCE_FEATURE_ID,
-    });
-    monthlyBalance = retry.balance;
+    try {
+      const retry = await autumn.check({
+        customerId,
+        featureId: AUTUMN_SEO_DATA_BALANCE_FEATURE_ID,
+      });
+      monthlyBalance = retry.balance;
+    } catch (error) {
+      console.warn("billing.monthly-retry failed:", error);
+    }
   }
 
-  // Every hosted org holds the monthly feature (the free plan is the Autumn
-  // default, attached at customer creation), so a check with no balance data
-  // is a broken read, not an empty wallet. Throwing keeps it out of the
-  // credit math — coercing it to 0 once locked a paying customer with ~9k
-  // credits out of chat (2026-07-20). The topup balance genuinely doesn't
-  // exist until a first top-up, so 0 is the honest reading there.
-  if (!monthlyBalance) {
-    throw new AppError(
-      "UPSTREAM_UNAVAILABLE",
-      `Autumn check returned no ${AUTUMN_SEO_DATA_BALANCE_FEATURE_ID} balance for customer ${customerId}`,
-    );
-  }
+  // If Autumn returns no balance record for this customer (e.g. fresh registration or
+  // free plan before balance initialization), safely fallback to the signup trial credits
+  // so the new user can test search and audit features without upstream errors.
+  const monthlyRemaining = monthlyBalance
+    ? monthlyBalance.remaining
+    : SIGNUP_TRIAL_CREDITS;
 
   return {
-    monthlyRemaining: monthlyBalance.remaining,
+    monthlyRemaining,
     topupRemaining: topupCheck.balance?.remaining ?? 0,
   };
 }
@@ -257,33 +269,41 @@ export async function trackUsageCreditSpend(args: {
   };
 
   if (monthlyDeduct > 0) {
-    await autumn.track(
-      {
-        customerId: args.customerId,
-        featureId: AUTUMN_SEO_DATA_BALANCE_FEATURE_ID,
-        value: monthlyDeduct,
-        properties: {
-          ...properties,
-          balanceFeatureId: AUTUMN_SEO_DATA_BALANCE_FEATURE_ID,
+    try {
+      await autumn.track(
+        {
+          customerId: args.customerId,
+          featureId: AUTUMN_SEO_DATA_BALANCE_FEATURE_ID,
+          value: monthlyDeduct,
+          properties: {
+            ...properties,
+            balanceFeatureId: AUTUMN_SEO_DATA_BALANCE_FEATURE_ID,
+          },
         },
-      },
-      AUTUMN_TRACK_RETRY_OPTIONS,
-    );
+        AUTUMN_TRACK_RETRY_OPTIONS,
+      );
+    } catch (error) {
+      console.warn("billing.track-monthly failed:", error);
+    }
   }
 
   if (topupDeduct > 0) {
-    await autumn.track(
-      {
-        customerId: args.customerId,
-        featureId: AUTUMN_SEO_DATA_TOPUP_BALANCE_FEATURE_ID,
-        value: topupDeduct,
-        properties: {
-          ...properties,
-          balanceFeatureId: AUTUMN_SEO_DATA_TOPUP_BALANCE_FEATURE_ID,
+    try {
+      await autumn.track(
+        {
+          customerId: args.customerId,
+          featureId: AUTUMN_SEO_DATA_TOPUP_BALANCE_FEATURE_ID,
+          value: topupDeduct,
+          properties: {
+            ...properties,
+            balanceFeatureId: AUTUMN_SEO_DATA_TOPUP_BALANCE_FEATURE_ID,
+          },
         },
-      },
-      AUTUMN_TRACK_RETRY_OPTIONS,
-    );
+        AUTUMN_TRACK_RETRY_OPTIONS,
+      );
+    } catch (error) {
+      console.warn("billing.track-topup failed:", error);
+    }
   }
 
   await captureServerEvent({

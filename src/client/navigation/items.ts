@@ -2,6 +2,7 @@ import {
   Bookmark,
   Bot,
   ClipboardCheck,
+  FileText,
   Globe,
   LayoutDashboard,
   Link2,
@@ -21,6 +22,11 @@ const projectNavItems = [
     // Without exact matching, the index path is a prefix of every project
     // route and the Dashboard item would render active everywhere.
     activeOptions: { exact: true, includeSearch: false },
+  },
+  {
+    to: "/p/$projectId/articles" as const,
+    label: "AI Articles",
+    icon: FileText,
   },
   {
     to: "/p/$projectId/keywords" as const,
@@ -104,6 +110,14 @@ export function getProjectNavGroups(projectId: string) {
       items: [byPath("/p/$projectId")],
     },
     {
+      label: "Content & Growth",
+      items: [
+        byPath("/p/$projectId/articles"),
+        byPath("/p/$projectId/search-performance"),
+        byPath("/p/$projectId/rank-tracking"),
+      ],
+    },
+    {
       label: "Research",
       items: [
         byPath("/p/$projectId/keywords"),
@@ -114,10 +128,8 @@ export function getProjectNavGroups(projectId: string) {
       ],
     },
     {
-      label: "My Site",
+      label: "Site Assets",
       items: [
-        byPath("/p/$projectId/search-performance"),
-        byPath("/p/$projectId/rank-tracking"),
         byPath("/p/$projectId/saved"),
         byPath("/p/$projectId/audit"),
       ],

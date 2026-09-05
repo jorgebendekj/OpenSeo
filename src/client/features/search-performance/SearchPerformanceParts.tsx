@@ -221,11 +221,16 @@ function TotalCard({
 export function DimensionTable({
   rows,
   keyLabel,
+  onGenerateArticle,
 }: {
   rows: SearchPerformanceTableRow[];
   keyLabel: string;
+  onGenerateArticle?: (query: string) => void;
 }) {
-  const columns = useMemo(() => buildDimensionColumns(keyLabel), [keyLabel]);
+  const columns = useMemo(
+    () => buildDimensionColumns(keyLabel, onGenerateArticle),
+    [keyLabel, onGenerateArticle],
+  );
   const table = useAppTable({
     data: rows,
     columns,
@@ -249,14 +254,19 @@ export function DimensionTable({
 export function StrikingDistanceTable({
   projectId,
   rows,
+  onGenerateArticle,
 }: {
   projectId: string;
   rows: Report["strikingDistance"];
+  onGenerateArticle?: (query: string) => void;
 }) {
   const queryClient = useQueryClient();
   const anchorRef = useSelectionAnchor();
   const [rowSelection, setRowSelection] = useState({});
-  const columns = useMemo(() => buildStrikingColumns(anchorRef), [anchorRef]);
+  const columns = useMemo(
+    () => buildStrikingColumns(anchorRef, onGenerateArticle),
+    [anchorRef, onGenerateArticle],
+  );
   const table = useAppTable({
     data: rows,
     columns,

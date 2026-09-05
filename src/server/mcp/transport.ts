@@ -19,7 +19,7 @@ import {
   type McpProps,
 } from "@/server/mcp/context";
 import { getPublicOrigin } from "@/server/mcp/public-origin";
-import { createOpenSeoMcpServer } from "@/server/mcp/server";
+import { createFindableMcpServer } from "@/server/mcp/server";
 
 // Mirrors the agents SDK's DEFAULT_CORS_OPTIONS so legacy responses carry the
 // same CORS surface as the modern handler's.
@@ -97,7 +97,7 @@ async function handleLegacyJsonRequest(request: Request, props: McpProps) {
   // before the request completes. JSON mode silently drops server-to-client
   // requests (sampling/elicitation) and would hang the buffered response —
   // no OpenSEO tool issues them.
-  const server = createOpenSeoMcpServer(props);
+  const server = createFindableMcpServer(props);
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
     enableJsonResponse: true,
@@ -124,7 +124,7 @@ function createRequestHandler(
   props: McpProps,
   allowedOriginHostnames?: string[],
 ) {
-  const modernHandler = createMcpHandler(() => createOpenSeoMcpServer(props), {
+  const modernHandler = createMcpHandler(() => createFindableMcpServer(props), {
     route: MCP_ROUTE,
     allowedOriginHostnames,
     legacy: "reject",

@@ -4,10 +4,12 @@ import {
   getStandardErrorMessage,
 } from "@/client/lib/error-messages";
 
+import { BRAND } from "@/shared/brand";
+
 describe("getStandardErrorMessage", () => {
   it("maps known error codes to standard copy", () => {
     expect(getStandardErrorMessage(new Error("PAYMENT_REQUIRED"))).toBe(
-      "An active hosted subscription is required before you can use OpenSEO.",
+      `An active account or credits are required before you can use ${BRAND.name}.`,
     );
   });
 

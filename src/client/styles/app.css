@@ -1,7 +1,9 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 @theme {
   --container-8xl: 88rem;
+  --font-display: "Archivo", system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", "Noto Sans SC", "Noto Sans JP", system-ui, -apple-system, sans-serif;
 }
 
 :root {
@@ -19,31 +21,31 @@
   exclude: properties;
 }
 
-/* Light theme */
+/* Light theme — Findable */
 @plugin "daisyui/theme" {
-  name: "openseo";
+  name: "findable";
   default: true;
   prefersdark: false;
   color-scheme: light;
   --color-base-100: oklch(100% 0 0);
-  --color-base-200: oklch(97% 0 0);
-  --color-base-300: oklch(92% 0 0);
-  --color-base-content: oklch(20% 0 0);
-  --color-primary: oklch(50% 0.12 262);
+  --color-base-200: oklch(95% 0.004 180);
+  --color-base-300: oklch(89% 0.009 180);
+  --color-base-content: oklch(21% 0.018 183);
+  --color-primary: oklch(43% 0.072 186);
   --color-primary-content: oklch(100% 0 0);
-  --color-secondary: oklch(55% 0.15 145);
+  --color-secondary: oklch(45% 0.020 183);
   --color-secondary-content: oklch(100% 0 0);
-  --color-accent: oklch(50% 0.12 262);
+  --color-accent: oklch(43% 0.072 186);
   --color-accent-content: oklch(100% 0 0);
-  --color-neutral: oklch(25% 0 0);
+  --color-neutral: oklch(21% 0.018 183);
   --color-neutral-content: oklch(100% 0 0);
-  --color-info: oklch(70% 0.15 230);
+  --color-info: oklch(52% 0.097 242);
   --color-info-content: oklch(100% 0 0);
-  --color-success: oklch(65% 0.18 145);
+  --color-success: oklch(56% 0.119 159);
   --color-success-content: oklch(100% 0 0);
-  --color-warning: oklch(80% 0.15 80);
+  --color-warning: oklch(63% 0.125 70);
   --color-warning-content: oklch(100% 0 0);
-  --color-error: oklch(65% 0.2 25);
+  --color-error: oklch(50% 0.178 29);
   --color-error-content: oklch(100% 0 0);
   --radius-selector: 0.5rem;
   --radius-field: 0.5rem;
@@ -55,30 +57,30 @@
   --noise: 0;
 }
 
-/* Dark theme - auto-activates via prefers-color-scheme */
+/* Dark theme — Findable Dark (auto-activates via prefers-color-scheme) */
 @plugin "daisyui/theme" {
-  name: "openseo-dark";
+  name: "findable-dark";
   prefersdark: true;
   color-scheme: dark;
-  --color-base-100: oklch(18% 0 0);
-  --color-base-200: oklch(12% 0 0);
-  --color-base-300: oklch(27% 0 0);
-  --color-base-content: oklch(92% 0 0);
-  --color-primary: oklch(66% 0.12 262);
-  --color-primary-content: oklch(100% 0 0);
-  --color-secondary: oklch(60% 0.15 145);
+  --color-base-100: oklch(22% 0.014 180);
+  --color-base-200: oklch(18% 0.011 186);
+  --color-base-300: oklch(30% 0.020 180);
+  --color-base-content: oklch(93% 0.007 174);
+  --color-primary: oklch(70% 0.104 185);
+  --color-primary-content: oklch(18% 0.011 186);
+  --color-secondary: oklch(65% 0.020 183);
   --color-secondary-content: oklch(100% 0 0);
-  --color-accent: oklch(66% 0.12 262);
-  --color-accent-content: oklch(100% 0 0);
-  --color-neutral: oklch(85% 0 0);
-  --color-neutral-content: oklch(20% 0 0);
-  --color-info: oklch(70% 0.15 230);
+  --color-accent: oklch(70% 0.104 185);
+  --color-accent-content: oklch(18% 0.011 186);
+  --color-neutral: oklch(85% 0.007 174);
+  --color-neutral-content: oklch(21% 0.018 183);
+  --color-info: oklch(70% 0.097 242);
   --color-info-content: oklch(100% 0 0);
-  --color-success: oklch(65% 0.18 145);
+  --color-success: oklch(70% 0.119 159);
   --color-success-content: oklch(100% 0 0);
-  --color-warning: oklch(80% 0.15 80);
+  --color-warning: oklch(75% 0.125 70);
   --color-warning-content: oklch(100% 0 0);
-  --color-error: oklch(65% 0.2 25);
+  --color-error: oklch(65% 0.178 29);
   --color-error-content: oklch(100% 0 0);
   --radius-selector: 0.5rem;
   --radius-field: 0.5rem;
@@ -92,60 +94,76 @@
 
 html,
 body {
-  @apply m-0 bg-base-200;
+  @apply m-0 bg-base-200 font-sans;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
   overflow: hidden;
 }
 
-/* Prevent Safari mobile from zooming on input focus (requires 16px minimum) */
-input,
-textarea,
-select {
-  @apply text-base;
+.font-display {
+  font-family: var(--font-display);
 }
 
-/* Global input focus styling - use primary color instead of default ring */
-.input:focus,
-.input:focus-visible,
-.textarea:focus,
-.textarea:focus-visible {
-  outline: none;
-  border-color: var(--color-primary);
-  background-color: color-mix(in oklab, var(--color-primary) 10%, transparent);
+.tabular-nums,
+table td,
+table th,
+.numeric-cell {
+  font-feature-settings: "tnum" 1;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Safe area utilities for mobile devices */
-@layer utilities {
-  .pb-safe {
-    padding-bottom: calc(env(safe-area-inset-bottom, 0.5rem) + 0.5rem);
-  }
-  .pt-safe {
-    padding-top: max(env(safe-area-inset-top, 0), 12px);
-  }
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-/* Override DaisyUI dock's fixed positioning to use flex layout instead */
-/* This allows the TabBar to work correctly with Safari's browser toolbar */
-.dock {
-  position: relative;
-  bottom: auto;
-  left: auto;
-  right: auto;
-  border-top: none;
-  height: 4rem;
-  padding-bottom: 0;
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-/* Touch device optimizations */
-@media (pointer: coarse) {
-  html {
-    touch-action: none;
-  }
-  body {
-    touch-action: pan-x pan-y;
-  }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--color-base-content) 18%, transparent);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in oklab, var(--color-base-content) 32%, transparent);
+}
+
+/* Transitions */
+.transition-colors {
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Utility for card hover effects */
+.card-hover {
+  @apply transition-all duration-200 hover:shadow-md;
+}
+
+/* Status indicator dot */
+.status-dot {
+  @apply inline-block h-2 w-2 rounded-full;
+}
+
+.status-dot-active {
+  @apply bg-success;
+}
+
+.status-dot-warning {
+  @apply bg-warning;
+}
+
+.status-dot-error {
+  @apply bg-error;
+}
+
+.status-dot-inactive {
+  @apply bg-base-content/30;
 }
 
 /* Dark mode: neutral interactive surfaces should lift above the panel, not
@@ -153,7 +171,7 @@ select {
    base-200, which is darker than the base-100 content panel in dark mode,
    so they read as sunken/disabled. Colored variants (primary, error, ...)
    set their own --btn-color and are excluded. */
-html[data-theme="openseo-dark"]
+html[data-theme="findable-dark"]
   .btn:not(
     .btn-primary,
     .btn-error,
@@ -162,13 +180,13 @@ html[data-theme="openseo-dark"]
     .btn-outline,
     .btn-soft
   ) {
-  --btn-color: oklch(25% 0 0);
+  --btn-color: oklch(28% 0.018 180);
 }
 
 /* Light mode: the base-200 default button is nearly invisible on the
    base-100 content panel; use a white surface with a visible border,
    matching inputs/selects. */
-html[data-theme="openseo"]
+html[data-theme="findable"]
   .btn:not(
     .btn-primary,
     .btn-error,
@@ -182,7 +200,7 @@ html[data-theme="openseo"]
 }
 
 /* Underline tabs: DaisyUI's tabs-border underlines the active tab with
-   currentColor; use the primary accent instead (PostHog-style). */
+   currentColor; use the primary accent instead. */
 .tabs-border > .tab.tab-active::before {
   --tab-border-color: var(--color-primary);
 }
@@ -208,12 +226,11 @@ html[data-theme="openseo"]
   @apply border-error/70 bg-error/40 text-base-content/90;
 }
 
-/* Tag chip colors — muted background + readable text in both themes.
-   Text uses darker shades on light theme for contrast, lighter on dark. */
+/* Tag chip colors — muted background + readable text in both themes. */
 .tag-chip-slate {
-  background-color: color-mix(in oklab, #64748b 14%, transparent);
-  color: #334155;
-  --tw-ring-color: color-mix(in oklab, #64748b 30%, transparent);
+  background-color: color-mix(in oklab, #4a5a57 14%, transparent);
+  color: #0e1a18;
+  --tw-ring-color: color-mix(in oklab, #4a5a57 30%, transparent);
 }
 .tag-chip-rose {
   background-color: color-mix(in oklab, #f43f5e 14%, transparent);
@@ -231,9 +248,9 @@ html[data-theme="openseo"]
   --tw-ring-color: color-mix(in oklab, #84cc16 32%, transparent);
 }
 .tag-chip-emerald {
-  background-color: color-mix(in oklab, #10b981 14%, transparent);
-  color: #065f46;
-  --tw-ring-color: color-mix(in oklab, #10b981 30%, transparent);
+  background-color: color-mix(in oklab, #0c5c55 14%, transparent);
+  color: #0e1a18;
+  --tw-ring-color: color-mix(in oklab, #0c5c55 30%, transparent);
 }
 .tag-chip-sky {
   background-color: color-mix(in oklab, #0ea5e9 14%, transparent);
@@ -251,32 +268,32 @@ html[data-theme="openseo"]
   --tw-ring-color: color-mix(in oklab, #d946ef 30%, transparent);
 }
 
-html[data-theme="openseo-dark"] .tag-chip-slate {
-  color: #cbd5e1;
+html[data-theme="findable-dark"] .tag-chip-slate {
+  color: #edf1f0;
 }
-html[data-theme="openseo-dark"] .tag-chip-rose {
+html[data-theme="findable-dark"] .tag-chip-rose {
   color: #fda4af;
 }
-html[data-theme="openseo-dark"] .tag-chip-amber {
+html[data-theme="findable-dark"] .tag-chip-amber {
   color: #fcd34d;
 }
-html[data-theme="openseo-dark"] .tag-chip-lime {
+html[data-theme="findable-dark"] .tag-chip-lime {
   color: #d9f99d;
 }
-html[data-theme="openseo-dark"] .tag-chip-emerald {
+html[data-theme="findable-dark"] .tag-chip-emerald {
   color: #6ee7b7;
 }
-html[data-theme="openseo-dark"] .tag-chip-sky {
+html[data-theme="findable-dark"] .tag-chip-sky {
   color: #7dd3fc;
 }
-html[data-theme="openseo-dark"] .tag-chip-violet {
+html[data-theme="findable-dark"] .tag-chip-violet {
   color: #c4b5fd;
 }
-html[data-theme="openseo-dark"] .tag-chip-fuchsia {
+html[data-theme="findable-dark"] .tag-chip-fuchsia {
   color: #f5d0fe;
 }
 
-/* Keyword difficulty score badges — muted/transparent style to match tag chips */
+/* Keyword difficulty score badges */
 .score-badge {
   @apply ring-1 ring-inset;
 }
@@ -288,9 +305,9 @@ html[data-theme="openseo-dark"] .tag-chip-fuchsia {
 }
 
 .score-tier-1 {
-  background-color: color-mix(in oklab, #10b981 15%, transparent);
-  color: #065f46;
-  --tw-ring-color: color-mix(in oklab, #10b981 30%, transparent);
+  background-color: color-mix(in oklab, #0c5c55 15%, transparent);
+  color: #0e1a18;
+  --tw-ring-color: color-mix(in oklab, #0c5c55 30%, transparent);
 }
 
 .score-tier-2 {
@@ -323,29 +340,29 @@ html[data-theme="openseo-dark"] .tag-chip-fuchsia {
   --tw-ring-color: color-mix(in oklab, #b91c1c 32%, transparent);
 }
 
-html[data-theme="openseo-dark"] .score-tier-na {
+html[data-theme="findable-dark"] .score-tier-na {
   color: #cbd5e1;
 }
-html[data-theme="openseo-dark"] .score-tier-1 {
+html[data-theme="findable-dark"] .score-tier-1 {
   color: #6ee7b7;
 }
-html[data-theme="openseo-dark"] .score-tier-2 {
+html[data-theme="findable-dark"] .score-tier-2 {
   color: #bef264;
 }
-html[data-theme="openseo-dark"] .score-tier-3 {
+html[data-theme="findable-dark"] .score-tier-3 {
   color: #fde047;
 }
-html[data-theme="openseo-dark"] .score-tier-4 {
+html[data-theme="findable-dark"] .score-tier-4 {
   color: #fdba74;
 }
-html[data-theme="openseo-dark"] .score-tier-5 {
+html[data-theme="findable-dark"] .score-tier-5 {
   color: #fca5a5;
 }
-html[data-theme="openseo-dark"] .score-tier-6 {
+html[data-theme="findable-dark"] .score-tier-6 {
   color: #fda4af;
 }
 
-html[data-theme="openseo-dark"] {
+html[data-theme="findable-dark"] {
   --trend-grid-color: oklch(78% 0.01 255 / 0.22);
   --trend-axis-color: oklch(84% 0.01 255 / 0.62);
   --trend-fill-start-opacity: 0.24;
@@ -355,18 +372,18 @@ html[data-theme="openseo-dark"] {
   --trend-tooltip-shadow: oklch(0% 0 0 / 0.35);
 }
 
-html[data-theme="openseo-dark"] .alert-warning {
+html[data-theme="findable-dark"] .alert-warning {
   @apply border-warning/60 bg-warning/20;
 }
 
-html[data-theme="openseo-dark"] .alert-info {
+html[data-theme="findable-dark"] .alert-info {
   @apply border-info/60 bg-info/20;
 }
 
-html[data-theme="openseo-dark"] .alert-success {
+html[data-theme="findable-dark"] .alert-success {
   @apply border-success/60 bg-success/20;
 }
 
-html[data-theme="openseo-dark"] .alert-error {
+html[data-theme="findable-dark"] .alert-error {
   @apply border-error/60 bg-error/20;
 }

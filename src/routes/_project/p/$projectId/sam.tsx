@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { SamChat } from "@/client/features/sam/SamChat";
+import { AdaChat } from "@/client/features/ada/AdaChat";
 
 const samSearchSchema = z.object({
   // Active session id. Omitted until a session is selected/created.
@@ -15,5 +15,5 @@ export const Route = createFileRoute("/_project/p/$projectId/sam")({
 function SamRoute() {
   const { projectId } = Route.useParams();
   const { s } = Route.useSearch();
-  return <SamChat projectId={projectId} activeSessionId={s} />;
+  return <AdaChat projectId={projectId} activeSessionId={s} />;
 }

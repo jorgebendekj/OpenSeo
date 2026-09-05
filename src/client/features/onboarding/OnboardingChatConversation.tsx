@@ -61,10 +61,12 @@ const TOOL_LABELS: Record<string, { running: string; done: string }> = {
 const resolveToolLabel: ResolveToolLabel = (partType) =>
   TOOL_LABELS[partType] ?? null;
 
+import { BRAND } from "@/shared/brand";
+
 const SUGGESTED_QUESTIONS = [
-  "How will OpenSEO help me get more traffic?",
-  "Compare OpenSEO and Claude",
-  "What do I get after I upgrade?",
+  `How will ${BRAND.name} help me get more visibility in search and AI?`,
+  `Compare ${BRAND.name} and Claude`,
+  "How does pay-as-you-go credit billing work?",
   "How does the Google Search Console integration work?",
   "Right fit for consultants and agencies?",
 ];

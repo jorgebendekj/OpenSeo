@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { SIGNIN_URL } from "@/lib/app-urls";
 
 const navLinks = [
   { label: "Features", to: "/features" },
@@ -17,7 +18,7 @@ export function BlogLayout({ children }: { children: ReactNode }) {
             to="/"
             className="shrink-0 text-base font-semibold text-neutral-950 transition-opacity hover:opacity-80"
           >
-            OpenSEO
+            Findable
           </Link>
 
           <nav
@@ -39,12 +40,10 @@ export function BlogLayout({ children }: { children: ReactNode }) {
               </Link>
             ))}
             <a
-              href="https://github.com/every-app/open-seo"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={SIGNIN_URL}
               className="hidden shrink-0 transition-colors hover:text-neutral-950 sm:inline"
             >
-              GitHub
+              Sign in
             </a>
           </nav>
         </div>

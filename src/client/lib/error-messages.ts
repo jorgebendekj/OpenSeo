@@ -1,14 +1,16 @@
 import { FREE_MAX_AUDIT_PAGES } from "@/shared/audit-limits";
 import { isErrorCode, type ErrorCode } from "@/shared/error-codes";
 
+import { BRAND } from "@/shared/brand";
+
 const STANDARD_MESSAGES: Record<ErrorCode, string> = {
   UNAUTHENTICATED: "Please sign in and try again.",
   AUTH_CONFIG_MISSING:
-    "OpenSEO auth is not configured. Follow the README setup steps for Cloudflare Access.",
+    `${BRAND.name} auth is not configured. Follow setup steps in documentation.`,
   PAYMENT_REQUIRED:
-    "An active hosted subscription is required before you can use OpenSEO.",
+    `An active account or credits are required before you can use ${BRAND.name}.`,
   INSUFFICIENT_CREDITS:
-    "You've run out of credits. Add more credits or upgrade your plan to continue.",
+    "You've run out of credits. Add more credits to continue.",
   FORBIDDEN: "You do not have access to this resource.",
   NOT_FOUND: "The requested resource was not found.",
   AUDIT_CAPACITY_REACHED:

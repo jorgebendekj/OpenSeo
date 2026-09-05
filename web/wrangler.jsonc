@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "open-seo-landing",
+  "name": "findable-landing",
   "compatibility_date": "2026-02-19",
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",
@@ -8,7 +8,7 @@
     "directory": "./dist/client",
     "html_handling": "drop-trailing-slash",
   },
-  "workers_dev": true,
+  "workers_dev": false,
   "preview_urls": true,
   "observability": {
     "enabled": true,
@@ -19,18 +19,18 @@
   },
   "routes": [
     {
-      "pattern": "openseo.so",
+      "pattern": "findableweb.io",
       "custom_domain": true,
     },
     {
-      "pattern": "www.openseo.so",
+      "pattern": "www.findableweb.io",
       "custom_domain": true,
     },
   ],
   "kv_namespaces": [
     {
       "binding": "BACKLINK_CHECK_KV",
-      "id": "b3a051a75a7b478e93b46cdaf6da3572",
+      "id": "296112328ecf4de1922afa7dc7be3193",
     },
   ],
   "ratelimits": [
@@ -44,14 +44,14 @@
     // Bindings are not inherited by named envs; keep preview's copies in sync.
     // Shared KV id is deliberate: one global daily budget across both workers.
     "preview": {
-      "name": "open-seo-landing-preview",
+      "name": "findable-landing-preview",
       "workers_dev": true,
       "preview_urls": true,
       "routes": [],
       "kv_namespaces": [
         {
           "binding": "BACKLINK_CHECK_KV",
-          "id": "b3a051a75a7b478e93b46cdaf6da3572",
+          "id": "296112328ecf4de1922afa7dc7be3193",
         },
       ],
       "ratelimits": [

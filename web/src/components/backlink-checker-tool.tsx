@@ -1,3 +1,4 @@
+import { SIGNIN_URL, SIGNUP_URL } from "@/lib/app-urls";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 
 // Public site key. Cloudflare's always-passing test key is the dev-only
@@ -381,7 +382,7 @@ function CheckResults({ result }: { result: CheckResult }) {
         </p>
         <div className="mt-3">
           <a
-            href="https://app.openseo.so/sign-up"
+            href={SIGNUP_URL}
             className="inline-flex h-10 items-center justify-center rounded-lg bg-neutral-950 px-4 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
           >
             Explore the full profile — free

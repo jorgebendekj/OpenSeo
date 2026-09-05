@@ -1,9 +1,11 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   createColumnHelper,
   type ColumnDef,
   type RowSelectionState,
 } from "@tanstack/react-table";
+import { Sparkles } from "lucide-react";
+import { useParams } from "@tanstack/react-router";
 import {
   AppDataTable,
   makeSelectionColumn,
@@ -18,6 +20,7 @@ import {
 } from "@/client/features/keywords/components";
 import { DifficultyBadge } from "@/client/features/domain/components/DifficultyBadge";
 import { formatNumber } from "@/client/features/keywords/utils";
+import { GenerateArticleModal } from "@/client/features/articles/GenerateArticleModal";
 import type { KeywordResearchRow } from "@/types/keywords";
 import { EmptyFilterResults } from "./keywordResearchFilters";
 
@@ -48,6 +51,10 @@ export function KeywordResearchDesktopTable({
   resetFilters,
   handleRowClick,
 }: Props) {
+  const { projectId } = useParams({ strict: false }) as { projectId?: string };
+  const [modalKeyword, setModalKeyword] = useState<string | null>(null);
+  const [modalIntent, setModalIntent] = useState<string | undefined>(undefined);
+
   const selectAnchorRef = useSelectionAnchor();
   const rowSelection = useMemo<RowSelectionState>(
     () =>
@@ -105,7 +112,7 @@ export function KeywordResearchDesktopTable({
         header: () => (
           <SortHeader
             label="CPC"
-            helpText="Cost per click in USD."
+            helpText="Average cost per click in USD for Google Search Ads."
             field="cpc"
             current={sortField}
             dir={sortDir}
@@ -115,7 +122,7 @@ export function KeywordResearchDesktopTable({
         ),
         cell: ({ getValue }) => {
           const value = getValue();
-          return value == null ? "-" : value.toFixed(2);
+          return value == null ? "-" : `$${value.toFixed(2)}`;
         },
         meta: {
           headerClassName: "text-right",
@@ -168,6 +175,30 @@ export function KeywordResearchDesktopTable({
           cellClassName: "whitespace-nowrap text-center",
         },
       }),
+      keywordColumnHelper.display({
+        id: "actions",
+        header: () => <span className="sr-only">Actions</span>,
+        cell: ({ row }) => (
+          <div className="flex justify-end" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              onClick={() => {
+                setModalKeyword(row.original.keyword);
+                setModalIntent(row.original.intent ?? undefined);
+              }}
+              className="btn btn-ghost btn-xs text-primary gap-1 hover:bg-primary/10"
+              title="Generate AI Article"
+            >
+              <Sparkles className="size-3" />
+              <span className="hidden lg:inline">Write</span>
+            </button>
+          </div>
+        ),
+        meta: {
+          headerClassName: "text-right w-16",
+          cellClassName: "text-right w-16",
+        },
+      }),
     ],
     [selectAnchorRef, sortDir, sortField, toggleSort],
   );
@@ -212,6 +243,16 @@ export function KeywordResearchDesktopTable({
           })}
         />
       )}
+
+      {projectId && modalKeyword ? (
+        <GenerateArticleModal
+          isOpen={Boolean(modalKeyword)}
+          onClose={() => setModalKeyword(null)}
+          projectId={projectId}
+          initialKeyword={modalKeyword}
+          searchIntent={modalIntent}
+        />
+      ) : null}
     </div>
   );
 }

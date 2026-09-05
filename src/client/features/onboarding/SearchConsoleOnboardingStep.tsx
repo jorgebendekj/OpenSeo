@@ -2,6 +2,7 @@ import * as React from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Check } from "lucide-react";
 import { toast } from "sonner";
+import { BRAND } from "@/shared/brand";
 import { GoogleGlyph } from "@/client/features/gsc/GoogleGlyph";
 import { SelfHostedSetupWarning } from "@/client/features/gsc/SelfHostedSetupWarning";
 import {
@@ -45,8 +46,7 @@ export function SearchConsoleOnboardingStep() {
         {project ? <GscConnect projectId={project.id} /> : <Checking />}
 
         <p className="hidden sm:block text-xs leading-relaxed text-base-content/55">
-          For now, Search Console data flows through the OpenSEO MCP. We're
-          building it into the OpenSEO app soon too.
+          Search Console data connects securely to {BRAND.name} and the {BRAND.mcpServerName} with read-only access.
         </p>
       </div>
 

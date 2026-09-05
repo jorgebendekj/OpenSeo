@@ -30,25 +30,29 @@ vi.mock("@/lib/auth", () => ({
   getHostedBaseUrl: () => "https://open-seo.test",
 }));
 
-vi.mock("@/server/mcp/server", () => ({
-  createOpenSeoMcpServer: (props?: unknown) => {
+vi.mock("@/server/mcp/server", () => {
+  const createServer = (props?: unknown) => {
     selfHostedAuthMocks.createOpenSeoMcpServer(props);
     return new McpServer({
-      name: "OpenSEO MCP",
-      title: "OpenSEO",
+      name: "Findable MCP",
+      title: "Findable",
       version: "0.0.11",
       description: "SEO research tools for AI agents",
-      websiteUrl: "https://openseo.so",
+      websiteUrl: "https://findable.io",
       icons: [
         {
-          src: "https://openseo.so/android-chrome-512x512.png",
+          src: "https://findable.io/android-chrome-512x512.png",
           mimeType: "image/png",
           sizes: ["512x512"],
         },
       ],
     });
-  },
-}));
+  };
+  return {
+    createFindableMcpServer: createServer,
+    createOpenSeoMcpServer: createServer,
+  };
+});
 
 vi.mock("agents/mcp/server", () => ({
   createMcpHandler: (

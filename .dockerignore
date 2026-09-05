@@ -12,3 +12,6 @@ Dockerfile
 .env.*
 !.env.example
 .alchemy/
+
+MERGING.md
+

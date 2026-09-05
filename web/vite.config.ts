@@ -8,7 +8,11 @@ import mdx from "fumadocs-mdx/vite";
 
 export default defineConfig({
   server: {
-    port: 4322,
+    host: "0.0.0.0",
+    port: 3000,
+  },
+  optimizeDeps: {
+    exclude: ["unenv", "@cloudflare/unenv-preset"],
   },
   ssr: {
     resolve: {
@@ -22,6 +26,7 @@ export default defineConfig({
       projects: ["./tsconfig.json"],
     }),
     cloudflare({
+      inspectorPort: false,
       viteEnvironment: { name: "ssr" },
     }),
     tanstackStart({

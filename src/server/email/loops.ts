@@ -77,6 +77,8 @@ async function sendLoopsTransactionalEmail({
   );
 }
 
+import { BRAND } from "@/shared/brand";
+
 export async function upsertHostedSignupContact({
   userId,
   email,
@@ -100,7 +102,7 @@ export async function upsertHostedSignupContact({
     payload: {
       email,
       userId,
-      source: "openseo-signup",
+      source: `${BRAND.nameLower}-signup`,
       userGroup: "app-user",
       ...getContactNameParts(name),
     },
@@ -121,7 +123,7 @@ export async function sendHostedVerificationEmail({
     email,
     transactionalId: config.verificationTemplateId,
     dataVariables: {
-      appName: "OpenSEO",
+      appName: BRAND.name,
       confirmationUrl,
     },
   });
@@ -140,7 +142,7 @@ export async function sendHostedPasswordResetEmail({
     email,
     transactionalId: config.passwordResetTemplateId,
     dataVariables: {
-      appName: "OpenSEO",
+      appName: BRAND.name,
       resetUrl,
     },
   });

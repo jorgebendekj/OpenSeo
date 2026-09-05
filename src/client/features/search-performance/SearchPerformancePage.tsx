@@ -12,6 +12,7 @@ import { TableExportMenu } from "@/client/components/table/TableBulkActionBar";
 import { TablePagination } from "@/client/components/table/TablePagination";
 import { SearchConsoleConnectionCard } from "@/client/features/gsc/SearchConsoleConnectionCard";
 import { SearchPerformanceLoadingState } from "@/client/features/search-performance/SearchPerformanceLoadingState";
+import { GenerateArticleModal } from "@/client/features/articles/GenerateArticleModal";
 import {
   DimensionTable,
   exportDimensionRows,
@@ -130,6 +131,7 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
   const [pageSize, setPageSize] = useState<number>(
     SEARCH_PERFORMANCE_DEFAULT_PAGE_SIZE,
   );
+  const [modalKeyword, setModalKeyword] = useState<string | null>(null);
 
   // Any change to the query set (tab, filters, page size) restarts at page 1.
   useEffect(() => {
@@ -316,6 +318,7 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
                 <StrikingDistanceTable
                   projectId={projectId}
                   rows={report.strikingDistance}
+                  onGenerateArticle={(q) => setModalKeyword(q)}
                 />
               ) : tableQuery.isPending ? (
                 <div className="flex items-center gap-2 p-8 text-sm text-base-content/60">
@@ -335,6 +338,7 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
                     <DimensionTable
                       rows={tableRows}
                       keyLabel={tab === "queries" ? "Query" : "Page"}
+                      onGenerateArticle={(q) => setModalKeyword(q)}
                     />
                   </div>
                   <TablePagination
@@ -350,6 +354,15 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
                 </>
               )}
             </div>
+
+            {projectId && modalKeyword ? (
+              <GenerateArticleModal
+                isOpen={Boolean(modalKeyword)}
+                onClose={() => setModalKeyword(null)}
+                projectId={projectId}
+                initialKeyword={modalKeyword}
+              />
+            ) : null}
           </>
         )}
       </div>

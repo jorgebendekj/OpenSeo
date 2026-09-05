@@ -1,4 +1,4 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { useCustomer } from "autumn-js/react";
 import { useState } from "react";
 import { useSession } from "@/lib/auth-client";
@@ -198,18 +198,12 @@ function BillingPage() {
                   </li>
                 ))}
               </ul>
-              <button
-                className="btn btn-soft btn-sm w-full"
-                disabled={isPending}
-                onClick={() =>
-                  void runAction(
-                    startUpgradeCheckout,
-                    "We couldn't start the checkout. Please try again.",
-                  )
-                }
+              <Link
+                to="/subscribe"
+                className="btn btn-soft btn-sm w-full text-center"
               >
                 Upgrade Plan
-              </button>
+              </Link>
             </div>
           ) : (
             <button

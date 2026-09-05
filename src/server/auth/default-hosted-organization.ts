@@ -17,8 +17,10 @@ type HostedOrganizationCreator = (
   input: HostedOrganizationCreateInput,
 ) => Promise<{ id: string }>;
 
+import { BRAND } from "@/shared/brand";
+
 function getDefaultHostedOrganizationName(user: HostedUser) {
-  const name = user.name?.trim() || user.email.split("@")[0] || "OpenSEO";
+  const name = user.name?.trim() || user.email.split("@")[0] || BRAND.name;
   return `${name}'s workspace`;
 }
 

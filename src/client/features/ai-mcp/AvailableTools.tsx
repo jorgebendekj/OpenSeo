@@ -1,3 +1,5 @@
+import { BRAND } from "@/shared/brand";
+
 type McpTool = {
   name: string;
   title: string;
@@ -79,7 +81,7 @@ const toolCategories: ToolCategory[] = [
       {
         name: "save_keywords",
         title: "Save keywords",
-        description: "Save keywords back to OpenSEO.",
+        description: `Save keywords back to ${BRAND.name}.`,
       },
     ],
   },

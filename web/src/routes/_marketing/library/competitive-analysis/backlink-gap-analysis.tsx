@@ -17,7 +17,7 @@ export const Route = createFileRoute(
       title: "Competitor Backlink Analysis: Read the Profile First",
       description: frontmatter.description,
       path: PATH,
-      titleSuffix: "OpenSEO Library",
+      titleSuffix: "Findable Library",
       ogType: "article",
     }),
   component: () => (

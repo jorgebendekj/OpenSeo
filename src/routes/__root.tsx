@@ -28,11 +28,13 @@ import { Toaster } from "sonner";
 import { queryClient } from "@/client/tanstack-db";
 import { getActiveOrganizationId } from "@/lib/auth-session";
 
+import { BRAND } from "@/shared/brand";
+
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       {
-        title: "OpenSEO",
+        title: BRAND.name,
       },
       {
         charSet: "utf-8",
@@ -60,6 +62,7 @@ export const Route = createRootRoute({
       },
     ],
     links: [
+      { rel: "stylesheet", href: "/fonts/fonts.css" },
       { rel: "stylesheet", href: appCss },
       {
         rel: "apple-touch-icon",

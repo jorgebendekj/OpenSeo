@@ -1,9 +1,10 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
+import { SIGNIN_URL } from "@/lib/app-urls";
 
 export function baseOptions(): BaseLayoutProps {
   return {
     nav: {
-      title: <span className="font-semibold">OpenSEO</span>,
+      title: <span className="font-semibold">Findable</span>,
     },
     searchToggle: {
       enabled: false,
@@ -20,19 +21,23 @@ export function baseOptions(): BaseLayoutProps {
           },
           {
             text: "MCP",
-            description: "Connect OpenSEO to AI clients.",
+            description: "Connect Findable to AI clients.",
             url: "/docs/mcp",
           },
           {
             text: "Skills",
-            description: "Focused OpenSEO workflows.",
+            description: "Focused Findable workflows.",
             url: "/docs/skills",
           },
         ],
       },
       {
-        text: "GitHub",
-        url: "https://github.com/every-app/open-seo",
+        text: "Pricing",
+        url: "/pricing",
+      },
+      {
+        text: "Sign In",
+        url: SIGNIN_URL,
         external: true,
       },
     ],

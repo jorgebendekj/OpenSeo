@@ -16,7 +16,8 @@ export type ToolContext = {
   auth: ToolAuthContext;
 };
 
-export const MCP_AUTH_CONTEXT_PROP = "openSeoAuth";
+export const MCP_AUTH_CONTEXT_PROP = "findableAuth";
+export const LEGACY_MCP_AUTH_CONTEXT_PROP = "openSeoAuth";
 export const MCP_ROUTE = "/mcp";
 
 const applicationAuthContextSchema = z.object({
@@ -24,21 +25,20 @@ const applicationAuthContextSchema = z.object({
   userEmail: z.string().min(1),
   organizationId: z.string().min(1),
   baseUrl: z.string().url(),
-  // Compatibility fallback until workers-oauth-provider supplies the verified
-  // context marker consumed by Agents SDK 0.20.x (the
-  // cloudflare.workers-oauth-provider.verified-context.v1 symbol, which mints
-  // context.http.authInfo — watch the provider changelog). Once it ships,
-  // delete these two fields and the fallback in createMcpToolContext, and read
-  // clientId/scopes in transport.ts from authInfo instead of props.
   clientId: z.string().min(1).nullable().optional(),
   scopes: z.array(z.string()).optional(),
 });
 
 type ApplicationAuthContext = z.infer<typeof applicationAuthContextSchema>;
 
-export const workersOAuthMcpPropsSchema = z.object({
-  [MCP_AUTH_CONTEXT_PROP]: applicationAuthContextSchema,
-});
+export const workersOAuthMcpPropsSchema = z.union([
+  z.object({
+    [MCP_AUTH_CONTEXT_PROP]: applicationAuthContextSchema,
+  }),
+  z.object({
+    [LEGACY_MCP_AUTH_CONTEXT_PROP]: applicationAuthContextSchema,
+  }),
+]);
 
 // The hosted /mcp route only ever sees provider-minted tokens, whose props
 // always carry the OAuth client identity — require it so scope enforcement
@@ -69,9 +69,10 @@ export function createMcpToolContext(
     throw new Error(`MCP auth context missing: ${result.error.message}`);
   }
 
-  // Scope enforcement happens once, at the hosted transport boundary
-  // (handleAuthenticatedOpenSeoMcpRequest); this only assembles identity.
-  const applicationAuth = result.data[MCP_AUTH_CONTEXT_PROP];
+  const applicationAuth =
+    MCP_AUTH_CONTEXT_PROP in result.data
+      ? result.data[MCP_AUTH_CONTEXT_PROP]
+      : (result.data as Record<string, ApplicationAuthContext>)[LEGACY_MCP_AUTH_CONTEXT_PROP];
   const authInfo = context.http?.authInfo;
   const clientId = authInfo?.clientId ?? applicationAuth.clientId ?? null;
   const scopes = authInfo?.scopes ?? applicationAuth.scopes ?? [];

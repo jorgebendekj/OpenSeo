@@ -1,5 +1,5 @@
 import { getAuth, getHostedBaseUrl } from "@/lib/auth";
-import { API_KEY_PREFIX } from "@/lib/auth-api-key";
+import { API_KEY_PREFIX, LEGACY_API_KEY_PREFIX } from "@/lib/auth-api-key";
 import { MCP_OAUTH_SCOPES } from "@/lib/oauth-resource";
 import { getOrCreateDefaultHostedOrganization } from "@/server/auth/default-hosted-organization";
 import { AuthRepository } from "@/server/auth/repositories/AuthRepository";
@@ -7,17 +7,19 @@ import { recordMcpAuthorized } from "@/server/features/activation/mcpActivation"
 import { createWorkersOAuthMcpProps, MCP_ROUTE } from "@/server/mcp/context";
 import { handleAuthenticatedOpenSeoMcpRequest } from "@/server/mcp/transport";
 
+function isFindableApiKey(val: string | null | undefined): boolean {
+  if (!val) return false;
+  return val.startsWith(API_KEY_PREFIX) || val.startsWith(LEGACY_API_KEY_PREFIX);
+}
+
 function getApiKey(request: Request) {
-  // Both branches require the oseo_ prefix: anything else (a Cloudflare OAuth
-  // access token, a stray foreign x-api-key header) falls through to the
-  // OAuth provider instead of being consumed here.
   const headerKey = request.headers.get("x-api-key");
-  if (headerKey?.startsWith(API_KEY_PREFIX)) return headerKey;
+  if (isFindableApiKey(headerKey)) return headerKey;
 
   const bearerToken = request.headers
     .get("Authorization")
     ?.replace(/^Bearer /i, "");
-  if (bearerToken?.startsWith(API_KEY_PREFIX)) return bearerToken;
+  if (isFindableApiKey(bearerToken)) return bearerToken ?? null;
 
   return null;
 }

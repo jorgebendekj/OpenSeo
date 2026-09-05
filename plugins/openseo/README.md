@@ -1,8 +1,8 @@
-# OpenSEO for Cursor
+# Findable for Cursor
 
 SEO made simple.
 
-OpenSEO gives your agent real SEO data and guided workflows, so its advice is grounded in your website instead of generic recommendations.
+Findable gives your agent real SEO data and guided workflows, so its advice is grounded in your website instead of generic recommendations.
 
 ## What you can do
 
@@ -13,13 +13,13 @@ OpenSEO gives your agent real SEO data and guided workflows, so its advice is gr
 - Track organic and Google Maps rankings
 - Work with Google Search Console and Analytics data
 
-The plugin includes nine skills that guide Cursor through complete SEO workflows, plus the hosted OpenSEO MCP server for live data and project management.
+The plugin includes nine skills that guide Cursor through complete SEO workflows, plus the hosted Findable MCP server for live data and project management.
 
 ## Connect
 
-Install the OpenSEO plugin from the Cursor Marketplace. The first time Cursor uses an OpenSEO tool, follow the OAuth prompt to sign in and approve the connection.
+Install the Findable plugin from the Cursor Marketplace. The first time Cursor uses an Findable tool, follow the OAuth prompt to sign in and approve the connection.
 
-You need an OpenSEO account. The plugin package is free and open source. Hosted OpenSEO plans and usage credits are described at [openseo.so/pricing](https://openseo.so/pricing), and OpenSEO can also be [self-hosted](https://github.com/every-app/open-seo#self-hosting).
+You need an Findable account. The plugin package is free and open source. Hosted Findable plans and usage credits are described at [findable.io/pricing](https://findable.io/pricing), and Findable can also be [self-hosted](https://github.com/every-app/open-seo#self-hosting).
 
 ## Try it
 
@@ -43,8 +43,8 @@ You need an OpenSEO account. The plugin package is free and open source. Hosted 
 
 ## Links
 
-- [OpenSEO](https://openseo.so)
-- [MCP documentation](https://openseo.so/docs/mcp)
-- [Privacy policy](https://openseo.so/privacy)
-- [Terms](https://openseo.so/terms-and-conditions)
-- [Support](https://openseo.so/support)
+- [Findable](https://findable.io)
+- [MCP documentation](https://findable.io/docs/mcp)
+- [Privacy policy](https://findable.io/privacy)
+- [Terms](https://findable.io/terms-and-conditions)
+- [Support](https://findable.io/support)

@@ -16,7 +16,8 @@ import {
   getProjectNavGroups,
 } from "@/client/navigation/items";
 import { ProjectSwitcher } from "@/client/features/projects/ProjectSwitcher";
-import { SamSidebarPanel } from "@/client/features/sam/SamSidebarPanel";
+import { AdaSidebarPanel } from "@/client/features/ada/AdaSidebarPanel";
+import { FindableLogo } from "@/client/components/FindableLogo";
 import { ThemePreferenceMenuItems } from "@/client/components/ThemePreferenceMenuItems";
 import { closeDropdown } from "@/client/lib/dropdown";
 import { signOutAndRedirect, useSession } from "@/lib/auth-client";
@@ -124,9 +125,9 @@ export function Sidebar({ projectId, onNavigate, onClose }: SidebarProps) {
         <Link
           to="/"
           onClick={onNavigate}
-          className="text-base font-semibold text-base-content"
+          className="text-base font-semibold text-base-content hover:opacity-90"
         >
-          OpenSEO
+          <FindableLogo markSize={20} />
         </Link>
         {onClose ? (
           <button
@@ -169,7 +170,7 @@ export function Sidebar({ projectId, onNavigate, onClose }: SidebarProps) {
       ) : null}
 
       {view === "chat" && projectId ? (
-        <SamSidebarPanel projectId={projectId} onNavigate={onNavigate} />
+        <AdaSidebarPanel projectId={projectId} onNavigate={onNavigate} />
       ) : (
         <nav className="min-h-0 flex-1 overflow-y-auto px-2 py-2">
           {navGroups.map((group) => (

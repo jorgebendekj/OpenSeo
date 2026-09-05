@@ -1,15 +1,15 @@
 ---
-title: "Set up OpenSEO Agent Skills"
-description: "Add OpenSEO skill files to your AI agent after connecting OpenSEO MCP."
+title: "Set up Findable Agent Skills"
+description: "Add Findable skill files to your AI agent after connecting Findable MCP."
 ---
 
-OpenSEO Agent Skills are separate files from OpenSEO MCP.
+Findable Agent Skills are separate files from Findable MCP.
 
-On Claude Code, skip the steps below and use the [OpenSEO plugin](/docs/claude-code-plugin) instead — it installs MCP and every skill in one step. On Codex CLI, use the [OpenSEO plugin](/docs/codex-plugin) the same way.
+On Claude Code, skip the steps below and use the [Findable plugin](/docs/claude-code-plugin) instead — it installs MCP and every skill in one step. On Codex CLI, use the [Findable plugin](/docs/codex-plugin) the same way.
 
-First, [set up OpenSEO MCP](/docs/mcp). MCP gives your agent access to OpenSEO data.
+First, [set up Findable MCP](/docs/mcp). MCP gives your agent access to Findable data.
 
-Then add the OpenSEO `SKILL.md` files you want your agent to use. Each skill gives your agent one SEO workflow.
+Then add the Findable `SKILL.md` files you want your agent to use. Each skill gives your agent one SEO workflow.
 
 ## Choose an installation option
 
@@ -23,9 +23,9 @@ Use this if you want the installer to show the available skills and agents.
 npx skills add every-app/open-seo
 ```
 
-### Option 2: Install all OpenSEO skills
+### Option 2: Install all Findable skills
 
-Use this if you want every OpenSEO skill.
+Use this if you want every Findable skill.
 
 ```bash
 npx skills add every-app/open-seo --skill '*'
@@ -65,7 +65,7 @@ cp -R open-seo/.agents/skills/* ~/.claude/skills/
 
 You can also review the source skills on GitHub:
 
-- [OpenSEO Agent Skills on GitHub](https://github.com/every-app/open-seo/tree/main/.agents/skills)
+- [Findable Agent Skills on GitHub](https://github.com/every-app/open-seo/tree/main/.agents/skills)
 
 Each skill page also links to its source `SKILL.md`.
 

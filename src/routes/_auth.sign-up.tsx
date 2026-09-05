@@ -53,7 +53,7 @@ function SignUpPage() {
   const navigate = useNavigate();
   const { redirectTo, isHostedMode } = useAuthPageState(search.redirect);
   const postSignupRedirect = redirectTo === "/" ? "/onboarding" : redirectTo;
-  const [showEmailForm, setShowEmailForm] = useState(false);
+  const [showEmailForm, setShowEmailForm] = useState(true);
   const google = useGoogleSignUp({ redirectTo, postSignupRedirect });
 
   // Turnstile is active only in hosted mode with a configured site key.
@@ -152,218 +152,179 @@ function SignUpPage() {
     <AuthPageCard
       title="Create your account"
       footer={
-        isHostedMode ? (
-          showEmailForm ? (
-            <button
-              type="button"
-              className="text-sm text-base-content underline underline-offset-2 hover:text-base-content/80 transition-colors"
-              onClick={() => {
-                setShowEmailForm(false);
-                google.clearError();
-              }}
+        <div className="space-y-3">
+          <p className="text-xs text-base-content/50">
+            By signing up, you agree to our{" "}
+            <a
+              href="/terms-and-conditions"
+              target="_blank"
+              rel="noreferrer"
+              className="text-base-content underline underline-offset-2 hover:text-base-content/80 transition-colors"
             >
-              Back to signup
-            </button>
-          ) : (
-            <div className="space-y-4">
-              <p className="text-sm leading-relaxed text-base-content/60">
-                By signing up, you agree to our{" "}
-                <a
-                  href="https://openseo.so/terms-and-conditions"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-base-content underline underline-offset-2 hover:text-base-content/80 transition-colors"
-                >
-                  Terms
-                </a>{" "}
-                and{" "}
-                <a
-                  href="https://openseo.so/privacy"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-base-content underline underline-offset-2 hover:text-base-content/80 transition-colors"
-                >
-                  Privacy Policy
-                </a>
-                .
-              </p>
+              Terms of Service
+            </a>{" "}
+            and{" "}
+            <a
+              href="/privacy"
+              target="_blank"
+              rel="noreferrer"
+              className="text-base-content underline underline-offset-2 hover:text-base-content/80 transition-colors"
+            >
+              Privacy Policy
+            </a>
+            .
+          </p>
 
-              <p className="text-sm text-base-content/50">
-                Already have an account?{" "}
-                <Link
-                  to="/sign-in"
-                  search={getSignInSearch(redirectTo)}
-                  className="text-base-content underline underline-offset-2 hover:text-base-content/80 transition-colors"
-                >
-                  Sign in
-                </Link>
-              </p>
-            </div>
-          )
-        ) : null
+          <p className="text-sm text-base-content/60">
+            Already have an account?{" "}
+            <Link
+              to="/sign-in"
+              search={getSignInSearch(redirectTo)}
+              className="text-primary font-medium underline underline-offset-2 hover:opacity-80 transition-opacity"
+            >
+              Sign in
+            </Link>
+          </p>
+        </div>
       }
     >
-      {!showEmailForm ? (
-        <>
-          <AuthMethodChooser
-            googleLabel="Continue with Google"
-            disabled={!isHostedMode}
-            isBusy={google.isStarting}
-            onContinueWithGoogle={() => {
-              void google.start();
-            }}
-            onContinueWithEmail={() => {
-              setShowEmailForm(true);
-              google.clearError();
-            }}
-          />
-          {google.error ? (
-            <p className="text-sm text-error">{google.error}</p>
-          ) : null}
-        </>
-      ) : (
-        <form
-          className="space-y-4"
-          onSubmit={(event) => {
-            event.preventDefault();
-            void form.handleSubmit();
+      <form
+        className="space-y-4"
+        onSubmit={(event) => {
+          event.preventDefault();
+          void form.handleSubmit();
+        }}
+      >
+        <form.Field name="name">
+          {(field) => {
+            const error = getFieldError(field.state.meta.errors);
+
+            return (
+              <div>
+                <input
+                  type="text"
+                  className="input input-bordered w-full"
+                  placeholder="Your Name..."
+                  value={field.state.value}
+                  onChange={(event) => field.handleChange(event.target.value)}
+                  autoComplete="name"
+                />
+                {error ? (
+                  <p className="mt-1 text-sm text-error">{error}</p>
+                ) : null}
+              </div>
+            );
           }}
+        </form.Field>
+
+        <form.Field name="email">
+          {(field) => {
+            const error = getFieldError(field.state.meta.errors);
+
+            return (
+              <div>
+                <input
+                  type="email"
+                  className="input input-bordered w-full"
+                  placeholder="Email address..."
+                  value={field.state.value}
+                  onChange={(event) => field.handleChange(event.target.value)}
+                  autoComplete="email"
+                  required
+                />
+                {error ? (
+                  <p className="mt-1 text-sm text-error">{error}</p>
+                ) : null}
+              </div>
+            );
+          }}
+        </form.Field>
+
+        <form.Field name="password">
+          {(field) => {
+            const error = getFieldError(field.state.meta.errors);
+
+            return (
+              <div>
+                <input
+                  type="password"
+                  className="input input-bordered w-full"
+                  placeholder="Password (min 8 characters)..."
+                  value={field.state.value}
+                  onChange={(event) => field.handleChange(event.target.value)}
+                  autoComplete="new-password"
+                  required
+                  minLength={HOSTED_PASSWORD_MIN_LENGTH}
+                  maxLength={HOSTED_PASSWORD_MAX_LENGTH}
+                />
+                {error ? (
+                  <p className="mt-1 text-sm text-error">{error}</p>
+                ) : null}
+              </div>
+            );
+          }}
+        </form.Field>
+
+        <form.Field name="confirmPassword">
+          {(field) => {
+            const error = getFieldError(field.state.meta.errors);
+
+            return (
+              <div>
+                <input
+                  type="password"
+                  className="input input-bordered w-full"
+                  placeholder="Confirm password..."
+                  value={field.state.value}
+                  onChange={(event) => field.handleChange(event.target.value)}
+                  autoComplete="new-password"
+                  required
+                  minLength={HOSTED_PASSWORD_MIN_LENGTH}
+                  maxLength={HOSTED_PASSWORD_MAX_LENGTH}
+                />
+                {error ? (
+                  <p className="mt-1 text-sm text-error">{error}</p>
+                ) : null}
+              </div>
+            );
+          }}
+        </form.Field>
+
+        {isTurnstileEnabled ? (
+          <TurnstileWidget
+            onToken={captcha.onToken}
+            resetNonce={captcha.resetNonce}
+          />
+        ) : null}
+
+        <form.Subscribe
+          selector={(state) => ({
+            submitError: state.errorMap.onSubmit,
+            isSubmitting: state.isSubmitting,
+          })}
         >
-          <form.Field name="name">
-            {(field) => {
-              const error = getFieldError(field.state.meta.errors);
-
-              return (
-                <div>
-                  <input
-                    type="text"
-                    className="input input-bordered w-full"
-                    placeholder="Name (optional)..."
-                    value={field.state.value}
-                    onChange={(event) => field.handleChange(event.target.value)}
-                    autoComplete="name"
-                    disabled={!isHostedMode}
-                  />
-                  {error ? (
-                    <p className="mt-1 text-sm text-error">{error}</p>
-                  ) : null}
-                </div>
-              );
-            }}
-          </form.Field>
-
-          <form.Field name="email">
-            {(field) => {
-              const error = getFieldError(field.state.meta.errors);
-
-              return (
-                <div>
-                  <input
-                    type="email"
-                    className="input input-bordered w-full"
-                    placeholder="Email address..."
-                    value={field.state.value}
-                    onChange={(event) => field.handleChange(event.target.value)}
-                    autoComplete="email"
-                    disabled={!isHostedMode}
-                    required
-                  />
-                  {error ? (
-                    <p className="mt-1 text-sm text-error">{error}</p>
-                  ) : null}
-                </div>
-              );
-            }}
-          </form.Field>
-
-          <form.Field name="password">
-            {(field) => {
-              const error = getFieldError(field.state.meta.errors);
-
-              return (
-                <div>
-                  <input
-                    type="password"
-                    className="input input-bordered w-full"
-                    placeholder="Password..."
-                    value={field.state.value}
-                    onChange={(event) => field.handleChange(event.target.value)}
-                    autoComplete="new-password"
-                    disabled={!isHostedMode}
-                    required
-                    minLength={HOSTED_PASSWORD_MIN_LENGTH}
-                    maxLength={HOSTED_PASSWORD_MAX_LENGTH}
-                  />
-                  {error ? (
-                    <p className="mt-1 text-sm text-error">{error}</p>
-                  ) : null}
-                </div>
-              );
-            }}
-          </form.Field>
-
-          <form.Field name="confirmPassword">
-            {(field) => {
-              const error = getFieldError(field.state.meta.errors);
-
-              return (
-                <div>
-                  <input
-                    type="password"
-                    className="input input-bordered w-full"
-                    placeholder="Confirm password..."
-                    value={field.state.value}
-                    onChange={(event) => field.handleChange(event.target.value)}
-                    autoComplete="new-password"
-                    disabled={!isHostedMode}
-                    required
-                    minLength={HOSTED_PASSWORD_MIN_LENGTH}
-                    maxLength={HOSTED_PASSWORD_MAX_LENGTH}
-                  />
-                  {error ? (
-                    <p className="mt-1 text-sm text-error">{error}</p>
-                  ) : null}
-                </div>
-              );
-            }}
-          </form.Field>
-
-          {isTurnstileEnabled ? (
-            <TurnstileWidget
-              onToken={captcha.onToken}
-              resetNonce={captcha.resetNonce}
-            />
-          ) : null}
-
-          <form.Subscribe
-            selector={(state) => ({
-              submitError: state.errorMap.onSubmit,
-              isSubmitting: state.isSubmitting,
-            })}
-          >
-            {({ submitError, isSubmitting }) => {
-              const errorMessage = getFormError(submitError);
-              return (
-                <>
-                  {errorMessage ? (
-                    <p className="text-sm text-error">{errorMessage}</p>
-                  ) : null}
-                  <button
-                    className="btn btn-soft w-full"
-                    disabled={
-                      !isHostedMode ||
-                      isSubmitting ||
-                      (isTurnstileEnabled && !captcha.hasToken)
-                    }
-                  >
-                    {isSubmitting ? "Creating account..." : "Create account"}
-                  </button>
-                </>
-              );
-            }}
-          </form.Subscribe>
-        </form>
-      )}
+          {({ submitError, isSubmitting }) => {
+            const errorMessage = getFormError(submitError);
+            return (
+              <>
+                {errorMessage ? (
+                  <p className="text-sm text-error">{errorMessage}</p>
+                ) : null}
+                <button
+                  type="submit"
+                  className="btn btn-primary w-full"
+                  disabled={
+                    isSubmitting ||
+                    (isTurnstileEnabled && !captcha.hasToken)
+                  }
+                >
+                  {isSubmitting ? "Creating account..." : "Create account"}
+                </button>
+              </>
+            );
+          }}
+        </form.Subscribe>
+      </form>
     </AuthPageCard>
   );
 }

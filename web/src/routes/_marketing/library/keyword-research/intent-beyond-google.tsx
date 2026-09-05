@@ -50,7 +50,7 @@ export const Route = createFileRoute(
       title: "Keyword Research Beyond Google: Pinterest, LinkedIn and AI",
       description: frontmatter.description,
       path: PATH,
-      titleSuffix: "OpenSEO Library",
+      titleSuffix: "Findable Library",
       ogType: "article",
     }),
   component: () => (

@@ -1,13 +1,13 @@
 {
-  "name": "openseo",
-  "displayName": "OpenSEO",
+  "name": "findable",
+  "displayName": "Findable",
   "version": "1.0.0",
   "description": "Without good data, your agent gives generic advice. Keyword research, competitor research, backlinks, and site audits. All for $10/month.",
   "author": {
-    "name": "OpenSEO",
-    "url": "https://openseo.so"
+    "name": "Findable",
+    "url": "https://findable.io"
   },
-  "homepage": "https://openseo.so",
+  "homepage": "https://findable.io",
   "repository": "https://github.com/every-app/open-seo",
   "license": "MIT",
   "keywords": [
@@ -21,9 +21,9 @@
     "local-seo"
   ],
   "mcpServers": {
-    "openseo": {
+    "findable": {
       "type": "http",
-      "url": "https://app.openseo.so/mcp"
+      "url": "https://app.findable.io/mcp"
     }
   }
 }

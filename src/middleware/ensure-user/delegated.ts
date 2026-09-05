@@ -7,8 +7,8 @@ import {
 import { eq } from "drizzle-orm";
 import type { EnsuredUserContext } from "./types";
 
-const LOCAL_ADMIN_USER_ID = "local-admin";
-const LOCAL_ADMIN_EMAIL = "admin@localhost";
+const LOCAL_ADMIN_USER_ID = "admin-jbendek";
+const LOCAL_ADMIN_EMAIL = "jbendek@ribentek.com";
 
 // Externally-authenticated users (Cloudflare Access, local_noauth) are stored
 // in better-auth's `user` table just like hosted users — only the way we
@@ -16,7 +16,7 @@ const LOCAL_ADMIN_EMAIL = "admin@localhost";
 // single user table means the OAuth `account` grant and every app table that
 // references `user.id` resolve the same way in all auth modes.
 function deriveUserName(email: string) {
-  return email.split("@")[0] || "OpenSEO";
+  return email.split("@")[0] || "Findable Admin";
 }
 
 async function ensureUserRecord(userId: string, userEmail: string) {

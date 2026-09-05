@@ -6,6 +6,7 @@ import { ApiKeySettings } from "@/client/features/settings/ApiKeySettings";
 import { type ThemePreference, useThemePreference } from "@/client/lib/theme";
 import { authClient, useSession } from "@/lib/auth-client";
 import { isHostedClientAuthMode } from "@/lib/auth-mode";
+import { BRAND } from "@/shared/brand";
 import { version } from "../../../package.json";
 
 export const Route = createFileRoute("/_app/settings")({
@@ -100,7 +101,7 @@ function SettingsPage() {
               </h2>
               <div className="flex items-start justify-between gap-6">
                 <div>
-                  <p className="text-sm">Help improve OpenSEO</p>
+                  <p className="text-sm">Help improve {BRAND.name}</p>
                   <p className="mt-1 text-sm text-base-content/60">
                     Share analytics and usage data.
                   </p>

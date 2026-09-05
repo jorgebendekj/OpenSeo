@@ -420,8 +420,9 @@ function createProvider(appFetch: AppFetch, resource: string) {
         });
       }
 
+      const parsed = workersOAuthMcpPropsSchema.parse(props);
       const authContext =
-        workersOAuthMcpPropsSchema.parse(props)[MCP_AUTH_CONTEXT_PROP];
+        "findableAuth" in parsed ? parsed.findableAuth : parsed.openSeoAuth;
       return {
         accessTokenProps: createWorkersOAuthMcpProps({
           ...authContext,

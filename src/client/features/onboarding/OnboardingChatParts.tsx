@@ -1,4 +1,4 @@
-import {
+﻿import {
   useLayoutEffect,
   useRef,
   useState,
@@ -7,8 +7,7 @@ import {
 } from "react";
 import { ArrowUp, Check, Globe, Loader2, Sparkles } from "lucide-react";
 import { FREE_ONBOARDING_QUESTION_LIMIT } from "@/shared/onboardingChat";
-
-const DISCORD_URL = "https://discord.gg/c9uGs3cFXr";
+import { BRAND } from "@/shared/brand";
 
 export function SuggestedQuestions({
   questions,
@@ -26,17 +25,16 @@ export function SuggestedQuestions({
           <button
             key={question}
             type="button"
-            className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary transition-colors hover:bg-primary/15"
+            className="btn btn-primary btn-sm font-normal text-xs"
             onClick={() => onSelect(question)}
           >
-            <Sparkles className="size-3.5" />
             {question}
           </button>
         ) : (
           <button
             key={question}
             type="button"
-            className="rounded-full border border-base-300 bg-base-100 px-3 py-1.5 text-xs font-medium text-base-content/70 transition-colors hover:border-primary/50 hover:text-base-content"
+            className="btn btn-ghost btn-sm border border-base-300 font-normal text-xs"
             onClick={() => onSelect(question)}
           >
             {question}
@@ -49,13 +47,13 @@ export function SuggestedQuestions({
 
 export function WelcomeMessage({
   domain,
-  checkoutError,
   isStartingCheckout,
+  checkoutError,
   onUpgrade,
 }: {
   domain: string;
-  checkoutError: string | null;
   isStartingCheckout: boolean;
+  checkoutError?: string | null;
   onUpgrade: () => void;
 }) {
   return (
@@ -65,26 +63,17 @@ export function WelcomeMessage({
       </div>
       <div className="min-w-0 flex-1 space-y-3 pt-0.5 text-sm">
         <div className="space-y-3 text-base-content/80">
-          <p>Hey, I’m Sam — welcome to OpenSEO.</p>
+          <p>Hey, I’m {BRAND.agentName} — welcome to {BRAND.name}.</p>
           <p>
-            To get full access to OpenSEO, you need to upgrade to the paid plan.
-            But, I’m here if you have any questions.
+            Find out whether AI and search engines recommend your business.
+            I’m here to help you analyze your domain and explore your SEO opportunities.
           </p>
           <p>
-            You can also{" "}
-            <a
-              href={DISCORD_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="link link-primary"
-            >
-              join the Discord
+            You can also email{" "}
+            <a href={`mailto:${BRAND.supportEmail}`} className="link link-primary">
+              {BRAND.supportEmail}
             </a>{" "}
-            or email{" "}
-            <a href="mailto:ben@openseo.so" className="link link-primary">
-              ben@openseo.so
-            </a>{" "}
-            if you have any questions I can’t help you with.
+            if you have any questions.
           </p>
           <p>
             Want me to analyze{" "}
@@ -95,9 +84,9 @@ export function WelcomeMessage({
         </div>
 
         <div className="rounded-box border border-base-300 bg-base-200/50 p-3 text-xs lg:hidden">
-          <p className="font-medium">Want Sam to keep going?</p>
+          <p className="font-medium">Want {BRAND.agentName} to keep going?</p>
           <p className="mt-0.5 text-base-content/70">
-            Upgrade to run keyword research, rank tracking, and site audits on{" "}
+            Get full access to keyword research, AI citation tracking, rank tracking, and site audits on{" "}
             {domain}.
           </p>
           <button
@@ -106,7 +95,7 @@ export function WelcomeMessage({
             disabled={isStartingCheckout}
             onClick={onUpgrade}
           >
-            {isStartingCheckout ? "Redirecting..." : "Upgrade"}
+            {isStartingCheckout ? "Redirecting..." : "Get Started"}
           </button>
           {checkoutError ? (
             <p className="mt-2 text-error">{checkoutError}</p>
@@ -117,8 +106,6 @@ export function WelcomeMessage({
   );
 }
 
-// Left-rail upgrade CTA. Hidden below `lg` (the inline callout + remaining
-// hint cover narrow viewports).
 export function UpgradeSidebar({
   domain,
   questionsUsed,
@@ -132,9 +119,10 @@ export function UpgradeSidebar({
 }) {
   const features = [
     "Keyword research, backlinks, rank tracking & site audits",
-    "Google Search Console — read-only, no credits, no Google Cloud setup",
+    "AI visibility & citation tracking across leading LLMs",
+    "Google Search Console — read-only, free, zero setup hassle",
     "Connect Claude, Cursor, Codex & other MCP clients",
-    "Top-up credits roll over and never expire",
+    "Pay-as-you-go credits roll over and never expire",
   ];
   const used = Math.min(questionsUsed, FREE_ONBOARDING_QUESTION_LIMIT);
   const progress = (used / FREE_ONBOARDING_QUESTION_LIMIT) * 100;
@@ -146,7 +134,7 @@ export function UpgradeSidebar({
           <Globe className="size-4" />
         </span>
         <div className="min-w-0">
-          <p className="font-medium text-base-content/80">Previewing OpenSEO</p>
+          <p className="font-medium text-base-content/80">Previewing {BRAND.name}</p>
           <p className="truncate" title={domain}>
             {domain}
           </p>
@@ -156,12 +144,10 @@ export function UpgradeSidebar({
       <div className="flex flex-1 flex-col gap-5 px-6 py-6">
         <div>
           <div className="flex items-baseline gap-1.5">
-            <span className="text-3xl font-semibold tracking-tight">$10</span>
-            <span className="text-sm text-base-content/55">/month</span>
+            <span className="text-2xl font-semibold tracking-tight">Pay As You Go</span>
           </div>
           <p className="mt-1.5 text-xs leading-relaxed text-base-content/55">
-            Includes $10 of usage credits every month, plus a 30-day money-back
-            guarantee.
+            500 complimentary credits on signup. Pay only for what you use, never for seats.
           </p>
         </div>
 
@@ -184,20 +170,8 @@ export function UpgradeSidebar({
             disabled={isStartingCheckout}
             onClick={onUpgrade}
           >
-            {isStartingCheckout ? "Redirecting..." : "Upgrade to continue"}
+            {isStartingCheckout ? "Redirecting..." : "Get Started"}
           </button>
-          <p className="text-center text-xs leading-relaxed text-base-content/55">
-            Want advice from other OpenSEO users?{" "}
-            <a
-              href={DISCORD_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="link link-primary"
-            >
-              Join the Discord
-            </a>
-            .
-          </p>
         </div>
       </div>
 
@@ -216,7 +190,6 @@ export function UpgradeSidebar({
   );
 }
 
-// Replaces the composer once a free user exhausts their question allowance.
 export function ChatGate({
   isStartingCheckout,
   onUpgrade,
@@ -228,10 +201,10 @@ export function ChatGate({
     <div className="flex-shrink-0 border-t border-base-300 px-5 py-4">
       <div className="mx-auto w-full max-w-2xl rounded-box border border-primary/30 bg-primary/5 p-4 text-center">
         <p className="text-sm font-medium">
-          That’s all {FREE_ONBOARDING_QUESTION_LIMIT} free questions
+          That’s all {FREE_ONBOARDING_QUESTION_LIMIT} free preview questions
         </p>
         <p className="mx-auto mt-1 max-w-md text-xs text-base-content/70">
-          Upgrade to keep working with Sam and unlock the full OpenSEO app.
+          Get started to keep working with {BRAND.agentName} and unlock the full {BRAND.name} platform.
         </p>
         <button
           type="button"
@@ -239,11 +212,8 @@ export function ChatGate({
           disabled={isStartingCheckout}
           onClick={onUpgrade}
         >
-          {isStartingCheckout ? "Redirecting..." : "Upgrade to continue"}
+          {isStartingCheckout ? "Redirecting..." : "Continue"}
         </button>
-        <p className="mt-2 text-xs text-base-content/45">
-          30-day money-back guarantee
-        </p>
       </div>
     </div>
   );
@@ -252,7 +222,7 @@ export function ChatGate({
 export function ChatComposer({
   busy,
   onSend,
-  placeholder = "Ask Sam about your strategy or OpenSEO…",
+  placeholder,
 }: {
   busy: boolean;
   onSend: (text: string) => void;
@@ -260,9 +230,8 @@ export function ChatComposer({
 }) {
   const [value, setValue] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const effectivePlaceholder = placeholder ?? `Ask ${BRAND.agentName} about your strategy or ${BRAND.name}…`;
 
-  // Auto-grow the textarea up to a few lines, then scroll. Resetting height to
-  // `auto` first lets it shrink as well as grow.
   useLayoutEffect(() => {
     const ta = textareaRef.current;
     if (!ta) return;
@@ -270,51 +239,50 @@ export function ChatComposer({
     ta.style.height = `${Math.min(ta.scrollHeight, 160)}px`;
   }, [value]);
 
-  function submit() {
+  const handleSubmit = (event?: FormEvent) => {
+    event?.preventDefault();
     const text = value.trim();
     if (!text || busy) return;
     onSend(text);
     setValue("");
-  }
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+    }
+  };
 
-  function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-    submit();
-  }
-
-  function handleKey(event: KeyboardEvent<HTMLTextAreaElement>) {
+  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
-      submit();
+      handleSubmit();
     }
-  }
+  };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex items-end gap-2 rounded-box border border-base-300 bg-base-100 px-3 py-2 focus-within:border-primary"
-    >
-      <textarea
-        ref={textareaRef}
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-        onKeyDown={handleKey}
-        rows={1}
-        placeholder={placeholder}
-        className="max-h-40 flex-1 resize-none border-0 bg-transparent px-1 py-1 text-sm leading-relaxed outline-none placeholder:text-base-content/50 focus:outline-none"
-      />
-      <button
-        type="submit"
-        aria-label="Send message"
-        disabled={busy || !value.trim()}
-        className="btn btn-primary btn-circle btn-sm"
-      >
-        {busy ? (
-          <Loader2 className="size-4 animate-spin" />
-        ) : (
-          <ArrowUp className="size-4" />
-        )}
-      </button>
+    <form onSubmit={handleSubmit} className="relative flex items-end gap-2">
+      <div className="relative flex-1">
+        <textarea
+          ref={textareaRef}
+          rows={1}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder={effectivePlaceholder}
+          disabled={busy}
+          className="w-full resize-none rounded-xl border border-base-300 bg-base-100 px-3.5 py-2.5 pr-11 text-sm leading-relaxed text-base-content placeholder:text-base-content/40 focus:border-primary focus:outline-none disabled:opacity-50"
+        />
+        <button
+          type="submit"
+          disabled={busy || !value.trim()}
+          className="btn btn-primary btn-sm btn-circle absolute bottom-2 right-2 size-7 disabled:opacity-30"
+          aria-label="Send"
+        >
+          {busy ? (
+            <Loader2 className="size-3.5 animate-spin" />
+          ) : (
+            <ArrowUp className="size-3.5" />
+          )}
+        </button>
+      </div>
     </form>
   );
 }

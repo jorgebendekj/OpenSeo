@@ -1,4 +1,33 @@
-# https://www.robotstxt.org/robotstxt.html
+# Permissive robots.txt for Findable (https://findable.io)
 User-agent: *
-Disallow:
-Sitemap: https://openseo.so/sitemap.xml
+Allow: /
+
+# Explicit AI and LLM Crawler permissions
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Cohere-ai
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+Sitemap: https://findable.io/sitemap.xml

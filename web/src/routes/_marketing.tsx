@@ -7,7 +7,10 @@ import {
 import { useEffect, useState } from "react";
 import { NewsletterSignup } from "@/components/newsletter-signup";
 import { SiteFooter } from "@/components/site-footer";
+import { FindableMark } from "@/components/findable-mark";
 import { featureGroups } from "@/lib/feature-pages";
+import { SIGNIN_URL, SIGNUP_URL } from "@/lib/app-urls";
+import { LanguageSelector, useI18n } from "@/lib/i18n";
 
 const GITHUB_REPO = "every-app/open-seo";
 // Used if GitHub is unreachable at build time so the header never renders empty.
@@ -25,7 +28,7 @@ async function fetchGithubStarCount(): Promise<string> {
       headers: {
         Accept: "application/vnd.github+json",
         // GitHub rejects requests without a User-Agent.
-        "User-Agent": "openseo-landing",
+        "User-Agent": "findable-landing",
       },
     });
     if (!res.ok) return FALLBACK_STAR_COUNT;
@@ -46,7 +49,7 @@ function loadGithubStarCount(): Promise<string> {
   return starCountPromise;
 }
 
-function getMobileNavItems(githubStarCount: string) {
+function getMobileNavItems() {
   return [
     {
       label: "Product",
@@ -63,15 +66,6 @@ function getMobileNavItems(githubStarCount: string) {
         { label: "Strategy Library", href: "/library" },
         { label: "Blog", href: "/blogs" },
         { label: "Docs", href: "/docs" },
-      ],
-    },
-    {
-      label: "Community",
-      links: [
-        {
-          label: `GitHub ${githubStarCount}`,
-          href: "https://github.com/every-app/open-seo",
-        },
       ],
     },
   ];
@@ -132,11 +126,12 @@ export const Route = createFileRoute("/_marketing")({
 });
 
 function MarketingLayout() {
+  const { t } = useI18n();
   const { githubStarCount } = Route.useLoaderData();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { pathname } = useLocation();
 
-  const mobileNavItems = getMobileNavItems(githubStarCount);
+  const mobileNavItems = getMobileNavItems();
   // The home route owns the full viewport width (and its own footer/CTA band);
   // every other marketing page gets the shared marketing canvas and footer.
   const isHome = pathname === "/";
@@ -160,97 +155,32 @@ function MarketingLayout() {
     <main className="fd-light min-h-screen bg-[var(--color-surface)] text-[var(--color-brand)]">
       <div className="relative z-50 mx-auto w-full max-w-6xl px-4 pt-6 sm:px-6 md:pt-8">
         <div className="relative mx-auto max-w-5xl">
-          <nav className="grid min-h-14 grid-cols-[1fr_auto] items-center gap-3 rounded-full border border-[var(--color-border-subtle)] bg-white/90 px-4 py-2.5 shadow-sm shadow-neutral-900/5 backdrop-blur md:grid-cols-[1fr_auto_1fr] md:px-5">
+          <nav className="flex min-h-14 items-center justify-between gap-3 rounded-full border border-[var(--color-border-subtle)] bg-white/90 px-4 py-2.5 shadow-sm shadow-neutral-900/5 backdrop-blur md:px-5">
             <Link
               to="/"
-              className="text-sm font-semibold hover:opacity-80 transition-opacity"
+              className="inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80 transition-opacity"
             >
-              OpenSEO
+              <FindableMark size={22} className="text-[#0C5C55]" />
+              <span className="text-base font-bold tracking-tight text-neutral-900">Findable</span>
             </Link>
 
-            <div className="hidden items-center justify-center gap-5 md:flex">
-              <FeatureDropdown />
-              <ResourcesDropdown />
-              <Link
-                to="/pricing"
-                className="text-sm font-semibold text-neutral-600 transition-colors hover:text-neutral-900"
-              >
-                Pricing
-              </Link>
-            </div>
-
-            <div className="flex items-center justify-end gap-2 sm:gap-3">
-              <button
-                type="button"
-                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-                aria-expanded={mobileMenuOpen}
-                onClick={() => setMobileMenuOpen((open) => !open)}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-900 transition-colors hover:bg-[#f5f1ec] md:hidden"
-              >
-                {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
-              </button>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <LanguageSelector />
               <a
-                href="https://github.com/every-app/open-seo"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`GitHub, ${githubStarCount} stars`}
-                className="hidden h-9 items-center gap-1.5 px-2 text-sm font-semibold text-neutral-600 transition-colors hover:text-neutral-900 md:inline-flex"
+                href={SIGNIN_URL}
+                className="h-9 inline-flex items-center rounded-full border border-[var(--color-border-subtle)] px-3 sm:px-4 text-xs sm:text-sm font-medium text-neutral-900 transition-colors hover:border-neutral-900"
               >
-                <GitHubIcon size={16} />
-                <span>GitHub</span>
-                <span className="text-neutral-500">{githubStarCount}</span>
+                {t.nav.signIn}
               </a>
               <a
-                href="https://app.openseo.so/sign-in"
-                className="hidden h-9 items-center rounded-full border border-[var(--color-border-subtle)] px-4 text-sm font-medium text-neutral-900 transition-colors hover:border-neutral-900 md:inline-flex"
+                href={SIGNUP_URL}
+                className="h-9 inline-flex items-center rounded-full bg-[#0C5C55] px-3 sm:px-4 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-[#094843]"
               >
-                Sign in
+                {t.nav.getStarted}
               </a>
             </div>
           </nav>
 
-          {mobileMenuOpen ? (
-            <div className="absolute left-0 right-0 top-full z-30 mt-3 rounded-2xl border border-[var(--color-border-subtle)] bg-white p-3 shadow-xl shadow-neutral-900/10 md:hidden">
-              <div className="grid grid-cols-2 gap-2">
-                <a
-                  href="https://app.openseo.so/sign-in"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex h-11 items-center justify-center rounded-xl bg-neutral-950 px-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-800"
-                >
-                  Try OpenSEO
-                </a>
-                <a
-                  href="https://app.openseo.so/sign-in"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex h-11 items-center justify-center rounded-xl border border-[var(--color-border-subtle)] px-3 text-sm font-semibold text-neutral-800 transition-colors hover:border-neutral-900 hover:bg-[#f5f1ec]"
-                >
-                  Sign in
-                </a>
-              </div>
-
-              <div className="mt-3 space-y-3">
-                {mobileNavItems.map((section) => (
-                  <div key={section.label}>
-                    <p className="px-2 text-xs font-semibold uppercase tracking-wide text-neutral-500">
-                      {section.label}
-                    </p>
-                    <div className="mt-1 space-y-1">
-                      {section.links.map((item) => (
-                        <a
-                          key={item.href}
-                          href={item.href}
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="flex min-h-10 items-center rounded-xl px-2 text-sm font-semibold text-neutral-800 transition-colors hover:bg-neutral-50 hover:text-neutral-950"
-                        >
-                          {item.label}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : null}
         </div>
       </div>
 
@@ -271,12 +201,12 @@ function ResourcesDropdown() {
     {
       label: "MCP",
       href: "/docs/mcp",
-      description: "Connect OpenSEO to AI clients.",
+      description: "Connect Findable to AI clients.",
     },
     {
       label: "Skills",
       href: "/docs/skills",
-      description: "Focused OpenSEO workflows.",
+      description: "Focused Findable workflows.",
     },
     {
       label: "Strategy Library",
@@ -382,7 +312,7 @@ function FeatureDropdown() {
                   className="block rounded-md p-2 transition-colors hover:bg-[#f5f1ec]"
                 >
                   <span className="text-sm font-semibold text-neutral-900">
-                    OpenSEO MCP
+                    Findable MCP
                   </span>
                   <span className="mt-0.5 block text-xs leading-relaxed text-neutral-600">
                     Connect Claude, Codex, and agents.

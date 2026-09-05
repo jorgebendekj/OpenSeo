@@ -1,87 +1,37 @@
 import { Link } from "@tanstack/react-router";
-import { featureGroups } from "@/lib/feature-pages";
-
-const featureLinks = featureGroups.flatMap((group) =>
-  group.pages.map((page) => ({
-    label: page.eyebrow,
-    href: `/features/${page.slug}`,
-  })),
-);
+import { FindableMark } from "@/components/findable-mark";
+import { useI18n } from "@/lib/i18n";
 
 export function SiteFooter({ className }: { className?: string }) {
+  const { t } = useI18n();
+
   return (
     <div className={className}>
-      <Link to="/" className="text-sm font-semibold text-neutral-900">
-        OpenSEO
-      </Link>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 py-6 border-t border-[#ebe7e1]">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-900 hover:opacity-80 transition-opacity"
+        >
+          <FindableMark size={20} className="text-[#0C5C55]" />
+          <span>Findable</span>
+        </Link>
 
-      <div className="mt-6 grid grid-cols-2 gap-8 md:grid-cols-[repeat(auto-fit,minmax(9rem,1fr))]">
-        <div>
-          <p className="font-semibold text-neutral-900">Features</p>
-          <div className="mt-2 flex flex-col gap-1.5">
-            {featureLinks.map((link) => (
-              <a key={link.href} href={link.href}>
-                {link.label}
-              </a>
-            ))}
-            <Link to="/features">All features</Link>
-          </div>
-        </div>
-
-        <div>
-          <p className="font-semibold text-neutral-900">AI agents</p>
-          <div className="mt-2 flex flex-col gap-1.5">
-            <Link to="/features/mcp">OpenSEO MCP</Link>
-            <Link to="/google-search-console-mcp">
-              Google Search Console MCP
-            </Link>
-          </div>
-        </div>
-
-        <div>
-          <p className="font-semibold text-neutral-900">Resources</p>
-          <div className="mt-2 flex flex-col gap-1.5">
-            <a href="/docs/mcp">MCP</a>
-            <a href="/docs/skills">Skills</a>
-            <Link to="/library">Strategy Library</Link>
-            <Link to="/open-source-seo">Why Open Source?</Link>
-            <Link to="/blogs">Blog</Link>
-            <a href="/docs">Docs</a>
-          </div>
-        </div>
-
-        <div>
-          <p className="font-semibold text-neutral-900">Free Tools</p>
-          <div className="mt-2 flex flex-col gap-1.5">
-            <Link to="/backlink-checker">Backlink Checker</Link>
-          </div>
-        </div>
-
-        <div>
-          <p className="font-semibold text-neutral-900">Company</p>
-          <div className="mt-2 flex flex-col gap-1.5">
-            <Link to="/support">Support</Link>
-            <Link to="/roadmap">Roadmap</Link>
-            <Link to="/pricing">Pricing</Link>
-            <a
-              href="https://github.com/every-app/open-seo"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://discord.gg/c9uGs3cFXr"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Discord
-            </a>
-            <Link to="/privacy">Privacy</Link>
-            <Link to="/terms-and-conditions">Terms</Link>
-          </div>
+        <div className="flex items-center gap-6 text-sm text-neutral-600">
+          <Link
+            to="/privacy"
+            className="hover:text-neutral-900 transition-colors"
+          >
+            {t.footer.privacy}
+          </Link>
+          <Link
+            to="/terms-and-conditions"
+            className="hover:text-neutral-900 transition-colors"
+          >
+            {t.footer.terms}
+          </Link>
         </div>
       </div>
     </div>
   );
 }
+

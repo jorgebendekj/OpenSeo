@@ -7,6 +7,7 @@ import {
 import * as React from "react";
 import appCss from "@/styles/app.css?url";
 import { RootProvider } from "fumadocs-ui/provider/tanstack";
+import { I18nProvider } from "@/lib/i18n";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -55,7 +56,7 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <head>
         <HeadContent />
         <script
@@ -66,7 +67,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         />
       </head>
       <body className="flex flex-col min-h-screen bg-fd-background text-fd-foreground">
-        <RootProvider search={{ enabled: false }}>{children}</RootProvider>
+        <I18nProvider>
+          <RootProvider search={{ enabled: false }}>{children}</RootProvider>
+        </I18nProvider>
         <Scripts />
       </body>
     </html>

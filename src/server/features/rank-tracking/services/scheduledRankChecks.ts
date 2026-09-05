@@ -2,6 +2,7 @@ import { RankTrackingRepository } from "@/server/features/rank-tracking/reposito
 import { beginRankCheckRun } from "@/server/features/rank-tracking/services/rankCheckRunGuards";
 import { customerHasPaidPlan } from "@/server/billing/subscription";
 import { isHostedServerAuthMode } from "@/server/lib/runtime-env";
+import { BRAND } from "@/shared/brand";
 import {
   computeNextCheckAt,
   devicesCount,
@@ -173,7 +174,7 @@ export async function runScheduledRankChecks(env: Env) {
           projectId: config.projectId,
           billingCustomer: {
             userId: "system",
-            userEmail: "system@openseo.so",
+            userEmail: `system@${BRAND.domain}`,
             organizationId: config.organizationId,
             projectId: config.projectId,
           },

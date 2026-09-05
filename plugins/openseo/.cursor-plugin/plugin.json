@@ -1,12 +1,12 @@
 {
-  "name": "openseo",
+  "name": "findable",
   "version": "1.0.0",
   "description": "SEO made simple. Research keywords and competitors, audit sites, track rankings, and use Search Console data from your agent.",
   "author": {
     "name": "Every App, Inc",
-    "email": "support@openseo.so"
+    "email": "support@findable.io"
   },
-  "homepage": "https://openseo.so",
+  "homepage": "https://findable.io",
   "repository": "https://github.com/every-app/open-seo",
   "license": "MIT",
   "keywords": [

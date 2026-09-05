@@ -1,0 +1,23 @@
+# Findable (https://findable.io)
+
+> Find out whether AI and search engines recommend your business. Pay for what you use, never for seats.
+
+## Overview
+Findable is a commercial, multi-tenant SaaS platform operated by Ribentek AI for SEO and AI-search visibility. It enables businesses, agencies, and autonomous AI agents to measure, track, and optimize visibility across both traditional search engines (Google, Bing) and generative AI engines (ChatGPT Search, Perplexity, Claude, Gemini).
+
+## Key Features
+- AI Search Visibility: Track brand recommendations and citations across leading LLMs.
+- Keyword Research & SERPs: Global search volume, keyword difficulty, intent analysis, and real-time ranking positions across 150+ countries.
+- Backlink Intelligence: Complete link profiles, lost/gained backlinks, anchor analysis, and domain authority without seat fees.
+- Site Audits & Technical SEO: Comprehensive technical health, Core Web Vitals, and structured data validation.
+- Model Context Protocol (MCP): Native read-only MCP server enabling seamless integration with Claude, Cursor, and custom agent workflows.
+- Ada AI Strategist: Multilingual in-app AI SEO partner.
+
+## Pricing Architecture
+- Pure usage-based credit ledger (1,000 credits = $1.00 USD).
+- Volume purchase bonuses: +10% ($50), +15% ($100), +25% ($250), +35% ($500).
+- 500 complimentary signup trial credits + 100/mo active allocation.
+- No monthly seat charges. Zero markup on seat count.
+
+## Supported Locales
+English (default), Spanish, German, French, Italian, Portuguese (Brazil), Dutch, Polish, Japanese, Simplified Chinese.

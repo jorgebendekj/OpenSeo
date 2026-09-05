@@ -1,9 +1,10 @@
 import * as React from "react";
+import { BRAND } from "@/shared/brand";
 
 export type ThemePreference = "system" | "light" | "dark";
 
-const LIGHT_THEME_NAME = "openseo";
-const DARK_THEME_NAME = "openseo-dark";
+const LIGHT_THEME_NAME = BRAND.themeLight;
+const DARK_THEME_NAME = BRAND.themeDark;
 
 const THEME_STORAGE_KEY = "theme-preference";
 const THEME_CHANGE_EVENT = "theme-preference-change";

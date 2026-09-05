@@ -66,3 +66,12 @@ export const archiveSamSession = createServerFn({ method: "POST" })
     await SamSessionRepository.archiveSession(data.sessionId);
     return { ok: true };
   });
+
+export const checkAdaAccess = createServerFn({ method: "GET" })
+  .middleware(requireProjectContext)
+  .validator(projectScopedSchema)
+  .handler(async () => {
+    return { enabled: true };
+  });
+
+export const checkSamAccess = checkAdaAccess;

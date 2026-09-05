@@ -5,11 +5,11 @@ import { buildPageSeo } from "@/lib/seo";
 export const Route = createFileRoute("/_marketing/pricing")({
   head: () =>
     buildPageSeo({
-      title: "Pricing estimator",
+      title: "Pricing & Plans",
       description:
-        "Start at $10/mo. The $10 includes $10 of usage, enough for most people. Move the sliders to estimate what your month would cost.",
+        "Free tier includes 100 free credits monthly. Paid plans start at $39/mo with 10,000 usage credits and 10 AI articles. Scale with Growth ($69/mo) and Agency ($99/mo) for full autopilot.",
       path: "/pricing",
-      titleSuffix: "OpenSEO",
+      titleSuffix: "Findable",
     }),
   component: Pricing,
 });
@@ -22,9 +22,9 @@ export const Route = createFileRoute("/_marketing/pricing")({
  *   creditsCharged = ceil(billedUsd * 1000)
  *   1 credit = $0.001  (1,000 credits = $1.00)
  * ------------------------------------------------------------------ */
-const MARKUP = 1.28; // OpenSEO's flat 28% premium over raw DataForSEO cost
+const MARKUP = 1.28; // Findable's flat 28% premium over raw DataForSEO cost
 const CREDIT_USD = 0.001; // $ value of a single credit
-const BASE_PRICE_USD = 10; // Base Plan / month
+const BASE_PRICE_USD = 39; // Starter Plan / month
 const BASE_INCLUDED_CREDIT_USD = 10; // $10 of usage credits included, reset monthly
 const WEEKS_PER_MONTH = 4.345; // 52 / 12
 const DEFAULT_RANK_DEPTH = 40;
