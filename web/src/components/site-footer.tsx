@@ -7,12 +7,12 @@ export function SiteFooter({ className }: { className?: string }) {
 
   return (
     <div className={className}>
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 py-6 border-t border-[#ebe7e1]">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 py-6 border-t border-[#D8E2F5]">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-900 hover:opacity-80 transition-opacity"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-[#142340] hover:opacity-80 transition-opacity"
         >
-          <FindableMark size={20} className="text-[#0C5C55]" />
+          <FindableMark size={20} className="text-[#2B66FE]" />
           <span>Findable</span>
         </Link>
 

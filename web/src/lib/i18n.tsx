@@ -716,17 +716,17 @@ export function LanguageSelector({ className }: { className?: string }) {
 
   return (
     <div
-      className={`inline-flex items-center rounded-full border border-neutral-200 bg-neutral-100/90 p-0.5 text-xs font-semibold ${
+      className={`inline-flex items-center rounded-full border border-[#D8E2F5] bg-[#EEF2FB]/90 p-0.5 text-xs font-semibold shrink-0 ${
         className || ""
       }`}
     >
       <button
         type="button"
         onClick={() => setLang("en")}
-        className={`flex items-center gap-1 rounded-full px-2.5 py-1 transition-all ${
+        className={`flex items-center gap-0.5 rounded-full px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-[11px] sm:text-xs transition-all ${
           lang === "en"
-            ? "bg-white text-[#0C5C55] shadow-xs font-bold"
-            : "text-neutral-500 hover:text-neutral-900"
+            ? "bg-white text-[#2B66FE] shadow-xs font-bold"
+            : "text-[#5E6D82] hover:text-[#142340]"
         }`}
         aria-label="Switch to English"
       >
@@ -735,10 +735,10 @@ export function LanguageSelector({ className }: { className?: string }) {
       <button
         type="button"
         onClick={() => setLang("es")}
-        className={`flex items-center gap-1 rounded-full px-2.5 py-1 transition-all ${
+        className={`flex items-center gap-0.5 rounded-full px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-[11px] sm:text-xs transition-all ${
           lang === "es"
-            ? "bg-white text-[#0C5C55] shadow-xs font-bold"
-            : "text-neutral-500 hover:text-neutral-900"
+            ? "bg-white text-[#2B66FE] shadow-xs font-bold"
+            : "text-[#5E6D82] hover:text-[#142340]"
         }`}
         aria-label="Cambiar a Español"
       >
@@ -747,10 +747,10 @@ export function LanguageSelector({ className }: { className?: string }) {
       <button
         type="button"
         onClick={() => setLang("pl")}
-        className={`flex items-center gap-1 rounded-full px-2.5 py-1 transition-all ${
+        className={`flex items-center gap-0.5 rounded-full px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-[11px] sm:text-xs transition-all ${
           lang === "pl"
-            ? "bg-white text-[#0C5C55] shadow-xs font-bold"
-            : "text-neutral-500 hover:text-neutral-900"
+            ? "bg-white text-[#2B66FE] shadow-xs font-bold"
+            : "text-[#5E6D82] hover:text-[#142340]"
         }`}
         aria-label="Przełącz na Polski"
       >

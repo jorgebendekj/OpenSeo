@@ -126,7 +126,7 @@ export const Route = createFileRoute("/_marketing")({
 });
 
 function MarketingLayout() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const { githubStarCount } = Route.useLoaderData();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { pathname } = useLocation();
@@ -136,15 +136,15 @@ function MarketingLayout() {
   // every other marketing page gets the shared marketing canvas and footer.
   const isHome = pathname === "/";
 
-  // On the landing route, paint html/body cream so the area behind the
+  // On the landing route, paint html/body Mist (#EEF2FB) so the area behind the
   // floating nav and any overscroll matches the landing canvas.
   useEffect(() => {
     if (!isHome) return;
     const root = document.documentElement;
     const prevRoot = root.style.backgroundColor;
     const prevBody = document.body.style.backgroundColor;
-    root.style.backgroundColor = "#f5f1ec";
-    document.body.style.backgroundColor = "#f5f1ec";
+    root.style.backgroundColor = "#EEF2FB";
+    document.body.style.backgroundColor = "#EEF2FB";
     return () => {
       root.style.backgroundColor = prevRoot;
       document.body.style.backgroundColor = prevBody;
@@ -153,36 +153,39 @@ function MarketingLayout() {
 
   return (
     <main className="fd-light min-h-screen bg-[var(--color-surface)] text-[var(--color-brand)]">
-      <div className="relative z-50 mx-auto w-full max-w-6xl px-4 pt-6 sm:px-6 md:pt-8">
+      <div className="relative z-50 mx-auto w-full max-w-6xl px-3 sm:px-6 pt-4 sm:pt-6 md:pt-8">
         <div className="relative mx-auto max-w-5xl">
-          <nav className="flex min-h-14 items-center justify-between gap-3 rounded-full border border-[var(--color-border-subtle)] bg-white/90 px-4 py-2.5 shadow-sm shadow-neutral-900/5 backdrop-blur md:px-5">
+          <nav className="flex min-h-12 sm:min-h-14 items-center justify-between gap-1.5 sm:gap-3 rounded-full border border-[var(--color-border-subtle)] bg-white/95 px-3 py-1.5 sm:px-5 sm:py-2.5 shadow-sm shadow-blue-950/5 backdrop-blur">
             <Link
               to="/"
-              className="inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80 transition-opacity"
+              className="inline-flex items-center gap-1.5 sm:gap-2 text-sm font-semibold hover:opacity-80 transition-opacity shrink-0"
             >
-              <FindableMark size={22} className="text-[#0C5C55]" />
-              <span className="text-base font-bold tracking-tight text-neutral-900">Findable</span>
+              <FindableMark size={22} className="text-[#2B66FE]" />
+              <span className="text-base font-bold tracking-tight text-[#142340]">Findable</span>
             </Link>
 
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
               <a
                 href="/blogs"
-                className="hidden sm:inline-flex items-center text-xs sm:text-sm font-medium text-neutral-600 hover:text-neutral-900 transition-colors px-2 py-1"
+                className="hidden md:inline-flex items-center text-xs sm:text-sm font-medium text-[#5E6D82] hover:text-[#142340] transition-colors px-2 py-1"
               >
                 {t.nav.blogs}
               </a>
               <LanguageSelector />
               <a
                 href={SIGNIN_URL}
-                className="h-9 inline-flex items-center rounded-full border border-[var(--color-border-subtle)] px-3 sm:px-4 text-xs sm:text-sm font-medium text-neutral-900 transition-colors hover:border-neutral-900"
+                className="hidden sm:inline-flex h-8 sm:h-9 items-center rounded-full border border-[var(--color-border-subtle)] px-3 text-xs sm:text-sm font-medium text-[#142340] transition-colors hover:border-[#2B66FE] hover:text-[#2B66FE] whitespace-nowrap shrink-0"
               >
                 {t.nav.signIn}
               </a>
               <a
                 href={SIGNUP_URL}
-                className="h-9 inline-flex items-center rounded-full bg-[#0C5C55] px-3 sm:px-4 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-[#094843]"
+                className="h-8 sm:h-9 inline-flex items-center rounded-full bg-[#2B66FE] px-3 sm:px-4 text-xs sm:text-sm font-medium text-white shadow-sm shadow-blue-500/20 transition-colors hover:bg-[#1E4DD1] whitespace-nowrap shrink-0"
               >
-                {t.nav.getStarted}
+                <span className="hidden sm:inline">{t.nav.getStarted}</span>
+                <span className="sm:hidden">
+                  {lang === "pl" ? "Zacznij" : lang === "es" ? "Empezar" : "Start"}
+                </span>
               </a>
             </div>
           </nav>

@@ -96,7 +96,7 @@ export function ArticleDetailModal({
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #1f2937; }
     h1, h2, h3 { color: #111827; }
-    blockquote { border-left: 4px solid #0C5C55; background: #f0fdf4; padding: 12px 16px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+    blockquote { border-left: 4px solid #2B66FE; background: #EEF2FB; padding: 12px 16px; margin: 20px 0; border-radius: 0 8px 8px 0; }
     table { width: 100%; border-collapse: collapse; margin: 24px 0; }
     th, td { border: 1px solid #e5e7eb; padding: 8px 12px; text-align: left; }
     th { background: #f9fafb; font-weight: 600; }
@@ -317,7 +317,7 @@ ${articleContentRef.current?.innerHTML ?? article.contentMarkdown}
                   ),
                   blockquote: ({ node, children, ...props }) => {
                     return (
-                      <div className="my-5 rounded-xl border-l-4 border-[#0C5C55] bg-emerald-50/70 dark:bg-emerald-950/20 p-4 text-xs sm:text-sm text-emerald-950 dark:text-emerald-200 shadow-2xs">
+                      <div className="my-5 rounded-xl border-l-4 border-[#2B66FE] bg-[#EEF2FB] dark:bg-[#1E3360]/40 p-4 text-xs sm:text-sm text-[#142340] dark:text-[#C5D6FF] shadow-2xs">
                         {children}
                       </div>
                     );

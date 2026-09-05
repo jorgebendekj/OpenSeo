@@ -105,11 +105,11 @@ export function FreePlanBanner() {
     return (
       <div className="shrink-0 px-4 py-2 md:px-6">
         <div className="mx-auto max-w-7xl">
-          <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-emerald-200/80 bg-emerald-50/60 px-4 py-2 text-xs text-emerald-950 shadow-xs">
+          <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#C5D6FF] bg-[#EEF2FB] px-4 py-2 text-xs text-[#142340] shadow-xs">
             <div className="flex items-center gap-2">
-              <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="font-semibold text-[#0C5C55]">Free Plan Active</span>
-              <span className="hidden sm:inline text-neutral-500">·</span>
+              <span className="flex h-2 w-2 rounded-full bg-[#2B66FE] animate-pulse" />
+              <span className="font-semibold text-[#2B66FE]">Free Plan Active</span>
+              <span className="hidden sm:inline text-neutral-400">·</span>
               <span className="hidden sm:inline text-neutral-600">
                 100 Free Monthly Credits + GSC/GA4 Sync + MCP Server Access
               </span>
@@ -119,7 +119,7 @@ export function FreePlanBanner() {
               <Link
                 to={SUBSCRIBE_ROUTE}
                 search={{ upgrade: true }}
-                className="font-bold text-[#0C5C55] hover:underline"
+                className="font-bold text-[#2B66FE] hover:underline"
               >
                 ⚡ Upgrade to Autopilot ($69/mo)
               </Link>
@@ -146,17 +146,17 @@ export function FreePlanBanner() {
   return (
     <div className="shrink-0 px-4 pt-3 pb-2 md:px-6">
       <div className="mx-auto max-w-7xl">
-        <div className="relative overflow-hidden rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50/90 via-white to-teal-50/50 p-5 md:p-6 shadow-sm">
+        <div className="relative overflow-hidden rounded-2xl border border-[#C5D6FF] bg-gradient-to-br from-[#EEF2FB] via-white to-[#EEF2FB]/60 p-5 md:p-6 shadow-sm">
           {/* Header row */}
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <div className="flex items-center gap-2 mb-1.5">
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#0C5C55]/10 px-2.5 py-0.5 text-xs font-bold text-[#0C5C55]">
+                <span className="inline-flex items-center gap-1 rounded-full bg-[#EEF2FB] border border-[#C5D6FF] px-2.5 py-0.5 text-xs font-bold text-[#2B66FE]">
                   <span>✨</span> Free Plan Active
                 </span>
                 <span className="text-xs text-neutral-500">Free forever with 100 monthly credits</span>
               </div>
-              <h2 className="text-lg md:text-xl font-bold text-neutral-900">
+              <h2 className="text-lg md:text-xl font-bold text-[#142340]">
                 Welcome to Findable! 🚀 Test our AI SEO Engine for Free
               </h2>
               <p className="mt-1 text-xs md:text-sm text-neutral-600 max-w-3xl">
@@ -179,10 +179,10 @@ export function FreePlanBanner() {
             {/* Step 1 */}
             <Link
               to={keywordsUrl}
-              className="group flex flex-col justify-between rounded-xl border border-neutral-200/80 bg-white p-3.5 shadow-2xs transition-all hover:border-[#0C5C55] hover:shadow-xs"
+              className="group flex flex-col justify-between rounded-xl border border-[#D8E2F5] bg-white p-3.5 shadow-2xs transition-all hover:border-[#2B66FE] hover:shadow-xs"
             >
               <div>
-                <div className="flex items-center justify-between text-xs font-bold text-[#0C5C55] mb-1.5">
+                <div className="flex items-center justify-between text-xs font-bold text-[#2B66FE] mb-1.5">
                   <span>1. Keyword Research</span>
                   <span className="text-base group-hover:translate-x-0.5 transition-transform">→</span>
                 </div>
@@ -190,7 +190,7 @@ export function FreePlanBanner() {
                   Search high-intent keyword ideas with real search volume and competitor SERP analysis.
                 </p>
               </div>
-              <span className="mt-3 inline-block text-[11px] font-semibold text-[#0C5C55] group-hover:underline">
+              <span className="mt-3 inline-block text-[11px] font-semibold text-[#2B66FE] group-hover:underline">
                 Try a search »
               </span>
             </Link>
@@ -198,10 +198,10 @@ export function FreePlanBanner() {
             {/* Step 2 */}
             <Link
               to={articlesUrl}
-              className="group flex flex-col justify-between rounded-xl border border-neutral-200/80 bg-white p-3.5 shadow-2xs transition-all hover:border-[#0C5C55] hover:shadow-xs"
+              className="group flex flex-col justify-between rounded-xl border border-[#D8E2F5] bg-white p-3.5 shadow-2xs transition-all hover:border-[#2B66FE] hover:shadow-xs"
             >
               <div>
-                <div className="flex items-center justify-between text-xs font-bold text-[#0C5C55] mb-1.5">
+                <div className="flex items-center justify-between text-xs font-bold text-[#2B66FE] mb-1.5">
                   <span>2. 1-Click AI Articles</span>
                   <span className="text-base group-hover:translate-x-0.5 transition-transform">→</span>
                 </div>
@@ -209,7 +209,7 @@ export function FreePlanBanner() {
                   Generate full 1,500+ word rank-ready articles with FAQ Schema & structured headings.
                 </p>
               </div>
-              <span className="mt-3 inline-block text-[11px] font-semibold text-[#0C5C55] group-hover:underline">
+              <span className="mt-3 inline-block text-[11px] font-semibold text-[#2B66FE] group-hover:underline">
                 Generate article »
               </span>
             </Link>
@@ -217,10 +217,10 @@ export function FreePlanBanner() {
             {/* Step 3 */}
             <Link
               to={gscUrl}
-              className="group flex flex-col justify-between rounded-xl border border-neutral-200/80 bg-white p-3.5 shadow-2xs transition-all hover:border-[#0C5C55] hover:shadow-xs"
+              className="group flex flex-col justify-between rounded-xl border border-[#D8E2F5] bg-white p-3.5 shadow-2xs transition-all hover:border-[#2B66FE] hover:shadow-xs"
             >
               <div>
-                <div className="flex items-center justify-between text-xs font-bold text-[#0C5C55] mb-1.5">
+                <div className="flex items-center justify-between text-xs font-bold text-[#2B66FE] mb-1.5">
                   <span>3. GSC & GA4 Sync</span>
                   <span className="text-base group-hover:translate-x-0.5 transition-transform">→</span>
                 </div>
@@ -228,7 +228,7 @@ export function FreePlanBanner() {
                   Connect Google Search Console for free to find striking-distance rankings (positions 4–20).
                 </p>
               </div>
-              <span className="mt-3 inline-block text-[11px] font-semibold text-[#0C5C55] group-hover:underline">
+              <span className="mt-3 inline-block text-[11px] font-semibold text-[#2B66FE] group-hover:underline">
                 Connect GSC »
               </span>
             </Link>
@@ -236,10 +236,10 @@ export function FreePlanBanner() {
             {/* Step 4 */}
             <Link
               to={mcpUrl}
-              className="group flex flex-col justify-between rounded-xl border border-neutral-200/80 bg-white p-3.5 shadow-2xs transition-all hover:border-[#0C5C55] hover:shadow-xs"
+              className="group flex flex-col justify-between rounded-xl border border-[#D8E2F5] bg-white p-3.5 shadow-2xs transition-all hover:border-[#2B66FE] hover:shadow-xs"
             >
               <div>
-                <div className="flex items-center justify-between text-xs font-bold text-[#0C5C55] mb-1.5">
+                <div className="flex items-center justify-between text-xs font-bold text-[#2B66FE] mb-1.5">
                   <span>4. AI Agents & MCP</span>
                   <span className="text-base group-hover:translate-x-0.5 transition-transform">→</span>
                 </div>
@@ -247,14 +247,14 @@ export function FreePlanBanner() {
                   Connect Claude Code, Cursor, or ChatGPT to query your SEO rankings directly from the terminal.
                 </p>
               </div>
-              <span className="mt-3 inline-block text-[11px] font-semibold text-[#0C5C55] group-hover:underline">
+              <span className="mt-3 inline-block text-[11px] font-semibold text-[#2B66FE] group-hover:underline">
                 Setup MCP »
               </span>
             </Link>
           </div>
 
           {/* Action Row */}
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-emerald-100/80 pt-3.5">
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-[#D8E2F5] pt-3.5">
             <div className="text-xs text-neutral-500">
               Need more websites or 30+ automated AI articles monthly?
             </div>
@@ -268,7 +268,7 @@ export function FreePlanBanner() {
               <Link
                 to={SUBSCRIBE_ROUTE}
                 search={{ upgrade: true }}
-                className="rounded-lg bg-[#0C5C55] px-3.5 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-[#094843] transition-colors"
+                className="rounded-lg bg-[#2B66FE] px-3.5 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-[#1E4DD1] transition-colors"
               >
                 ⚡ Upgrade Plan ($39 / $69 / $99)
               </Link>

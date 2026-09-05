@@ -10,30 +10,30 @@
 .itc {
   --canvas: var(--color-surface);
   --surface: var(--color-surface-raised);
-  --surface-2: #ebe7e1;
-  --ink: var(--color-brand);
-  --ink-muted: #626260;
-  --ink-subtle: #7b7b78;
-  --ink-tertiary: #9c9fa5;
-  --hairline: #d3cec6;
-  --hairline-soft: #ebe7e1;
-  --orange: var(--color-brand-accent);
-  --inverse: #000000;
-  --inverse-surface: #313130;
-  --inverse-muted: #9c9fa5;
-  /* Testimonial band (light: deep greige band, white cards, charcoal text) */
-  --q-bg: #e3dccd;
+  --surface-2: #EEF2FB;
+  --ink: #142340;
+  --ink-muted: #5E6D82;
+  --ink-subtle: #7A899E;
+  --ink-tertiary: #9AA8BC;
+  --hairline: #D8E2F5;
+  --hairline-soft: #EEF2FB;
+  --orange: #2B66FE;
+  --inverse: #0A1428;
+  --inverse-surface: #142340;
+  --inverse-muted: #9AA8BC;
+  /* Testimonial band (light: Mist band, white cards, Deep Navy text) */
+  --q-bg: #EEF2FB;
   --q-card: #ffffff;
-  --q-card-border: #d0c9bb;
-  --q-text: #111111;
-  --q-muted: #7b7b78;
-  --q-avatar-bg: #111111;
+  --q-card-border: #D8E2F5;
+  --q-text: #142340;
+  --q-muted: #5E6D82;
+  --q-avatar-bg: #142340;
   --q-avatar-fg: #ffffff;
-  --q-mark: #b8ac96;
+  --q-mark: #C5D6FF;
   /* Dark "emphasis" surfaces: featured pricing card + MCP terminal */
-  --feat-bg: #221f1b;
+  --feat-bg: linear-gradient(135deg, #0A1428 0%, #142340 50%, #1E3360 100%);
   --feat-text: #ffffff;
-  --term-bg: #221f1b;
+  --term-bg: #0A1428;
   font-family:
     "Inter",
     ui-sans-serif,
@@ -95,10 +95,10 @@
 
 /* ── Type scale (Inter standing in for Saans; weight 500 carries display) ── */
 .itc-display-xl {
-  font-size: clamp(40px, 6.5vw, 72px);
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.028em;
+  font-size: clamp(28px, 5.5vw, 68px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
   margin: 0;
   text-wrap: balance;
 }
@@ -196,29 +196,32 @@
   border-radius: 10px;
 }
 .itc-btn-primary {
-  background: var(--ink);
+  background: #2B66FE;
   color: #ffffff;
+  border-color: #2B66FE;
 }
 .itc-btn-primary:hover {
-  background: #000000;
+  background: #1E4DD1;
+  border-color: #1E4DD1;
 }
 .itc-btn-secondary {
   background: var(--surface);
-  color: var(--ink);
+  color: #142340;
   border-color: var(--hairline);
 }
 .itc-btn-secondary:hover {
-  border-color: var(--ink);
+  border-color: #2B66FE;
+  background: #EEF2FB;
 }
 .itc-btn-fin {
-  background: var(--orange);
+  background: #2B66FE;
   color: #ffffff;
 }
 .itc-btn-fin:hover {
-  background: #e64d00;
+  background: #1E4DD1;
 }
 .itc-btn-fin:focus-visible {
-  outline-color: var(--orange);
+  outline-color: #2B66FE;
 }
 .itc-arrow {
   transition: transform 0.15s ease;
@@ -342,9 +345,9 @@
 }
 @media (max-width: 767px) {
   .itc-hero {
-    min-height: calc(100svh - 120px);
-    padding-top: 72px;
-    padding-bottom: 88px;
+    min-height: auto;
+    padding-top: 32px;
+    padding-bottom: 48px;
   }
 }
 .itc-hero-ctas {

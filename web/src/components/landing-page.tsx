@@ -114,7 +114,7 @@ function ArrowCta({
     <a
       href={href}
       className={`${className}${size === "lg" ? " itc-btn-lg" : ""}`}
-      style={{ backgroundColor: "#0C5C55", borderColor: "#0C5C55", color: "#fff" }}
+      style={{ backgroundColor: "#2B66FE", borderColor: "#2B66FE", color: "#fff" }}
     >
       {children}
       <IconArrowRight size={size === "lg" ? 18 : 16} className="itc-arrow" />
@@ -130,8 +130,8 @@ function Hero() {
   return (
     <section className="itc-hero">
       <Container>
-        <div className="inline-flex items-center gap-2 rounded-full border border-[#0C5C55]/20 bg-emerald-50/60 px-4 py-1.5 text-xs font-semibold text-[#0C5C55] mb-6 shadow-sm">
-          <FindableMark size={15} className="text-[#0C5C55]" />
+        <div className="inline-flex items-center gap-2 rounded-full border border-[#C5D6FF] bg-[#EEF2FB] px-3.5 sm:px-4 py-1.5 text-xs font-semibold text-[#2B66FE] mb-5 sm:mb-6 shadow-xs max-w-full">
+          <FindableMark size={15} className="text-[#2B66FE] shrink-0" />
           <span>{t.hero.badge}</span>
         </div>
         <h1
@@ -179,8 +179,8 @@ function DashboardPreview() {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-[#0C5C55]">
-                <span className="h-2 w-2 rounded-full bg-[#0C5C55]" />
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#EEF2FB] px-3 py-1 text-xs font-semibold text-[#2B66FE]">
+                <span className="h-2 w-2 rounded-full bg-[#2B66FE]" />
                 {t.dashboard.gscConnected}
               </span>
             </div>
@@ -188,24 +188,24 @@ function DashboardPreview() {
 
           {/* KPI Metrics */}
           <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            <div className="rounded-xl border border-neutral-100 bg-neutral-50/70 p-4">
+            <div className="rounded-xl border border-neutral-100 bg-[#EEF2FB]/50 p-4">
               <p className="text-xs font-medium text-neutral-500">{t.dashboard.clicks}</p>
-              <p className="mt-1.5 text-2xl font-bold text-neutral-900">48,290</p>
-              <p className="mt-1 text-xs font-semibold text-emerald-700">{t.dashboard.clicksDelta}</p>
+              <p className="mt-1.5 text-2xl font-bold text-[#142340]">48,290</p>
+              <p className="mt-1 text-xs font-semibold text-[#2B66FE]">{t.dashboard.clicksDelta}</p>
             </div>
-            <div className="rounded-xl border border-neutral-100 bg-neutral-50/70 p-4">
+            <div className="rounded-xl border border-neutral-100 bg-[#EEF2FB]/50 p-4">
               <p className="text-xs font-medium text-neutral-500">{t.dashboard.impressions}</p>
-              <p className="mt-1.5 text-2xl font-bold text-neutral-900">1.24M</p>
-              <p className="mt-1 text-xs font-semibold text-emerald-700">{t.dashboard.impressionsDelta}</p>
+              <p className="mt-1.5 text-2xl font-bold text-[#142340]">1.24M</p>
+              <p className="mt-1 text-xs font-semibold text-[#2B66FE]">{t.dashboard.impressionsDelta}</p>
             </div>
-            <div className="rounded-xl border border-neutral-100 bg-neutral-50/70 p-4">
+            <div className="rounded-xl border border-neutral-100 bg-[#EEF2FB]/50 p-4">
               <p className="text-xs font-medium text-neutral-500">{t.dashboard.top10}</p>
-              <p className="mt-1.5 text-2xl font-bold text-neutral-900">342</p>
-              <p className="mt-1 text-xs font-semibold text-emerald-700">{t.dashboard.top10Delta}</p>
+              <p className="mt-1.5 text-2xl font-bold text-[#142340]">342</p>
+              <p className="mt-1 text-xs font-semibold text-[#2B66FE]">{t.dashboard.top10Delta}</p>
             </div>
-            <div className="rounded-xl border border-neutral-100 bg-neutral-50/70 p-4">
+            <div className="rounded-xl border border-neutral-100 bg-[#EEF2FB]/50 p-4">
               <p className="text-xs font-medium text-neutral-500">{t.dashboard.health}</p>
-              <p className="mt-1.5 text-2xl font-bold text-[#0C5C55]">96 / 100</p>
+              <p className="mt-1.5 text-2xl font-bold text-[#2B66FE]">96 / 100</p>
               <p className="mt-1 text-xs font-medium text-neutral-500">{t.dashboard.healthDelta}</p>
             </div>
           </div>
@@ -309,10 +309,10 @@ function FeaturesGrid() {
   ];
 
   return (
-    <section id="features" className="itc-section" style={{ backgroundColor: "#faf8f5", padding: "72px 0" }}>
+    <section id="features" className="itc-section" style={{ backgroundColor: "#EEF2FB", padding: "72px 0" }}>
       <Container>
         <div style={{ textAlign: "center", maxWidth: 840, margin: "0 auto 48px" }}>
-          <p className="itc-eyebrow" style={{ color: "#0C5C55", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+          <p className="itc-eyebrow" style={{ color: "#2B66FE", textTransform: "uppercase", letterSpacing: "0.08em" }}>
             {t.features.eyebrow}
           </p>
           <h2 className="itc-display-lg" style={{ marginTop: 8 }}>
@@ -327,16 +327,16 @@ function FeaturesGrid() {
           {features.map((feat) => (
             <div
               key={feat.title}
-              className="rounded-2xl border border-neutral-200/80 bg-white p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+              className="rounded-2xl border border-[#D8E2F5] bg-white p-6 shadow-sm hover:shadow-md hover:border-[#2B66FE]/40 transition-all flex flex-col justify-between"
             >
               <div>
                 <div
                   className="flex h-11 w-11 items-center justify-center rounded-xl text-white mb-4 shadow-sm"
-                  style={{ backgroundColor: "#0C5C55" }}
+                  style={{ backgroundColor: "#2B66FE" }}
                 >
                   <feat.Icon size={22} />
                 </div>
-                <h3 className="text-lg font-bold text-neutral-900">{feat.title}</h3>
+                <h3 className="text-lg font-bold text-[#142340]">{feat.title}</h3>
                 <p className="mt-2 text-sm text-neutral-600 leading-relaxed">{feat.description}</p>
               </div>
             </div>
@@ -356,7 +356,7 @@ function PricingSection() {
     <section id="pricing" className="itc-section" style={{ backgroundColor: "#ffffff", padding: "80px 0" }}>
       <Container>
         <div style={{ textAlign: "center", maxWidth: 820, margin: "0 auto 52px" }}>
-          <p className="itc-eyebrow" style={{ color: "#0C5C55", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+          <p className="itc-eyebrow" style={{ color: "#2B66FE", textTransform: "uppercase", letterSpacing: "0.08em" }}>
             {t.pricing.eyebrow}
           </p>
           <h2 className="itc-display-lg" style={{ marginTop: 8 }}>
@@ -421,7 +421,7 @@ function PricingSection() {
                 <ul className="space-y-2.5">
                   {t.pricing.starterTier.features.map((feat) => (
                     <li key={feat} className="flex items-start gap-2 text-xs text-neutral-700">
-                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-100/70 text-[#0C5C55]">
+                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#EEF2FB] text-[#2B66FE]">
                         <IconCheck size={11} />
                       </span>
                       <span>{feat}</span>
@@ -434,7 +434,7 @@ function PricingSection() {
             <div className="mt-8">
               <a
                 href={SIGNUP_URL}
-                className="w-full inline-flex items-center justify-center rounded-xl border border-[#0C5C55]/30 bg-white px-4 py-2.5 text-xs font-semibold text-[#0C5C55] transition-colors hover:bg-emerald-50"
+                className="w-full inline-flex items-center justify-center rounded-xl border border-[#2B66FE]/30 bg-white px-4 py-2.5 text-xs font-semibold text-[#2B66FE] transition-colors hover:bg-[#EEF2FB]"
               >
                 {t.pricing.starterTier.cta}
               </a>
@@ -442,17 +442,17 @@ function PricingSection() {
           </div>
 
           {/* 3. Growth Plan ($69) - POPULAR */}
-          <div className="relative flex flex-col justify-between rounded-2xl border-2 border-[#0C5C55] bg-[#0C5C55]/[0.02] p-6 shadow-xl shadow-[#0C5C55]/10">
-            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#0C5C55] px-3.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm whitespace-nowrap">
+          <div className="relative flex flex-col justify-between rounded-2xl border-2 border-[#2B66FE] bg-[#2B66FE]/[0.02] p-6 shadow-xl shadow-[#2B66FE]/10">
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#2B66FE] px-3.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm whitespace-nowrap">
               {t.pricing.popularBadge}
             </div>
 
             <div>
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-bold text-neutral-900">{t.pricing.growthTier.name}</h3>
+                <h3 className="text-lg font-bold text-[#142340]">{t.pricing.growthTier.name}</h3>
               </div>
               <div className="mt-4 flex items-baseline gap-1">
-                <span className="text-4xl font-extrabold tracking-tight text-[#0C5C55]">{t.pricing.growthTier.price}</span>
+                <span className="text-4xl font-extrabold tracking-tight text-[#2B66FE]">{t.pricing.growthTier.price}</span>
                 <span className="text-xs font-medium text-neutral-500">/ {t.pricing.growthTier.period}</span>
               </div>
               <p className="mt-3 text-xs text-neutral-600 leading-relaxed min-h-[36px]">{t.pricing.growthTier.description}</p>
@@ -461,7 +461,7 @@ function PricingSection() {
                 <ul className="space-y-2.5">
                   {t.pricing.growthTier.features.map((feat) => (
                     <li key={feat} className="flex items-start gap-2 text-xs text-neutral-800 font-medium">
-                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#0C5C55] text-white">
+                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#2B66FE] text-white">
                         <IconCheck size={11} />
                       </span>
                       <span>{feat}</span>
@@ -474,7 +474,7 @@ function PricingSection() {
             <div className="mt-8">
               <a
                 href={SIGNUP_URL}
-                className="w-full inline-flex items-center justify-center rounded-xl bg-[#0C5C55] px-4 py-2.5 text-xs font-semibold text-white shadow-md transition-colors hover:bg-[#094843]"
+                className="w-full inline-flex items-center justify-center rounded-xl bg-[#2B66FE] px-4 py-2.5 text-xs font-semibold text-white shadow-md transition-colors hover:bg-[#1E4DD1]"
               >
                 {t.pricing.growthTier.cta}
               </a>
@@ -524,9 +524,9 @@ function PricingSection() {
         </p>
 
         {/* Comparison Callout */}
-        <div className="mt-10 rounded-xl border border-emerald-200/80 bg-emerald-50/50 p-4 sm:p-5 text-center max-w-4xl mx-auto">
-          <p className="text-sm text-[#0C5C55] font-medium">
-            <strong className="font-semibold">{t.pricing.comparisonTitle}</strong> {t.pricing.comparisonText}
+        <div className="mt-10 rounded-xl border border-[#C5D6FF] bg-[#EEF2FB] p-4 sm:p-5 text-center max-w-4xl mx-auto">
+          <p className="text-sm text-[#142340] font-medium">
+            <strong className="font-semibold text-[#2B66FE]">{t.pricing.comparisonTitle}</strong> {t.pricing.comparisonText}
           </p>
         </div>
 
@@ -548,32 +548,32 @@ function FaqAccordion({
 
   return (
     <div className="mt-16 max-w-3xl mx-auto">
-      <h3 className="text-xl font-bold text-center text-neutral-900 mb-8">{title}</h3>
+      <h3 className="text-xl font-bold text-center text-[#142340] mb-8">{title}</h3>
       <div className="space-y-3">
         {faqs.map((faq, index) => {
           const isOpen = openIndex === index;
           return (
             <div
               key={faq.q}
-              className="rounded-2xl border border-neutral-200 bg-white transition-all overflow-hidden shadow-xs hover:border-[#0C5C55]/40"
+              className="rounded-2xl border border-[#D8E2F5] bg-white transition-all overflow-hidden shadow-xs hover:border-[#2B66FE]/40"
             >
               <button
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : index)}
-                className="w-full flex items-center justify-between gap-4 p-5 text-left font-semibold text-neutral-900 transition-colors hover:text-[#0C5C55] focus:outline-none"
+                className="w-full flex items-center justify-between gap-4 p-5 text-left font-semibold text-[#142340] transition-colors hover:text-[#2B66FE] focus:outline-none"
                 aria-expanded={isOpen}
               >
-                <span className="text-base font-semibold text-neutral-900">{faq.q}</span>
+                <span className="text-base font-semibold text-[#142340]">{faq.q}</span>
                 <span
-                  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 transition-transform duration-200 ${
-                    isOpen ? "rotate-180 bg-[#0C5C55]/10 text-[#0C5C55]" : ""
+                  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EEF2FB] text-[#142340] transition-transform duration-200 ${
+                    isOpen ? "rotate-180 bg-[#EEF2FB] text-[#2B66FE]" : ""
                   }`}
                 >
                   <IconChevronDown size={16} />
                 </span>
               </button>
               {isOpen && (
-                <div className="px-5 pb-5 pt-0 border-t border-neutral-100 text-sm text-neutral-600 leading-relaxed">
+                <div className="px-5 pb-5 pt-0 border-t border-[#D8E2F5]/60 text-sm text-[#5E6D82] leading-relaxed">
                   <p className="pt-3">{faq.a}</p>
                 </div>
               )}
@@ -594,7 +594,7 @@ function BlogSection() {
     <section className="itc-section" style={{ backgroundColor: "#ffffff" }}>
       <Container>
         <div className="itc-section-header">
-          <p className="itc-eyebrow" style={{ color: "#0C5C55" }}>
+          <p className="itc-eyebrow" style={{ color: "#2B66FE" }}>
             {t.blog.eyebrow}
           </p>
           <h2 className="itc-display-lg">{t.blog.title}</h2>
@@ -608,26 +608,26 @@ function BlogSection() {
             <a
               key={post.slug}
               href={`/blogs/${post.slug}`}
-              className="group flex flex-col justify-between rounded-2xl border border-neutral-200 bg-neutral-50/50 p-6 transition-all hover:bg-white hover:border-[#0C5C55]/40 hover:shadow-md"
+              className="group flex flex-col justify-between rounded-2xl border border-[#D8E2F5] bg-[#EEF2FB]/40 p-6 transition-all hover:bg-white hover:border-[#2B66FE]/50 hover:shadow-md"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="inline-flex items-center rounded-md bg-[#0C5C55]/10 px-2 py-0.5 text-xs font-semibold text-[#0C5C55]">
+                  <span className="inline-flex items-center rounded-md bg-[#EEF2FB] px-2 py-0.5 text-xs font-semibold text-[#2B66FE]">
                     {post.category}
                   </span>
-                  <span className="text-xs text-neutral-400 font-medium">
+                  <span className="text-xs text-[#5E6D82] font-medium">
                     {post.readTime}
                   </span>
                 </div>
-                <h3 className="text-base font-bold text-neutral-900 group-hover:text-[#0C5C55] transition-colors line-clamp-2">
+                <h3 className="text-base font-bold text-[#142340] group-hover:text-[#2B66FE] transition-colors line-clamp-2">
                   {post.title}
                 </h3>
-                <p className="mt-2 text-xs text-neutral-600 leading-relaxed line-clamp-3">
+                <p className="mt-2 text-xs text-[#5E6D82] leading-relaxed line-clamp-3">
                   {post.desc}
                 </p>
               </div>
 
-              <div className="mt-5 flex items-center gap-1 text-xs font-semibold text-[#0C5C55] group-hover:gap-2 transition-all">
+              <div className="mt-5 flex items-center gap-1 text-xs font-semibold text-[#2B66FE] group-hover:gap-2 transition-all">
                 <span>{t.blog.readMore}</span>
                 <IconArrowRight size={14} />
               </div>
@@ -638,7 +638,7 @@ function BlogSection() {
         <div className="mt-10 text-center">
           <a
             href="/blogs"
-            className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-white px-5 py-2.5 text-xs font-semibold text-neutral-800 transition-colors hover:bg-neutral-50 hover:border-[#0C5C55]/50 shadow-xs"
+            className="inline-flex items-center gap-2 rounded-xl border border-[#D8E2F5] bg-white px-5 py-2.5 text-xs font-semibold text-[#142340] transition-colors hover:bg-[#EEF2FB] hover:border-[#2B66FE]/50 hover:text-[#2B66FE] shadow-xs"
           >
             <span>{t.blog.viewAll}</span>
             <IconArrowRight size={14} />
@@ -667,11 +667,11 @@ function McpSection() {
   const { t, lang } = useI18n();
 
   return (
-    <section className="itc-mcp-section" style={{ backgroundColor: "#faf8f5" }}>
+    <section className="itc-mcp-section" style={{ backgroundColor: "#EEF2FB" }}>
       <Container>
         <div className="itc-mcp-grid">
           <div>
-            <p className="itc-eyebrow" style={{ color: "#0C5C55" }}>
+            <p className="itc-eyebrow" style={{ color: "#2B66FE" }}>
               {t.mcp.eyebrow}
             </p>
             <h2 className="itc-display-lg">{t.mcp.title}</h2>
@@ -680,7 +680,7 @@ function McpSection() {
             </p>
             <div className="itc-agent-icons" style={{ marginTop: 24 }}>
               {MCP_CLIENTS.map(({ name, Icon }) => (
-                <span key={name} className="itc-agent-icon" title={name} style={{ borderColor: "#0C5C5530" }}>
+                <span key={name} className="itc-agent-icon" title={name} style={{ borderColor: "#2B66FE40" }}>
                   <Icon aria-hidden="true" />
                   <span
                     style={{
@@ -701,8 +701,8 @@ function McpSection() {
             <div style={{ marginTop: 32 }}>
               <a
                 href={SIGNUP_URL}
-                className="itc-btn"
-                style={{ backgroundColor: "#0C5C55", color: "#fff", borderColor: "#0C5C55" }}
+                className="itc-btn itc-btn-fin"
+                style={{ backgroundColor: "#2B66FE", color: "#fff", borderColor: "#2B66FE" }}
               >
                 {t.mcp.cta}
                 <IconArrowRight size={16} className="itc-arrow" />
@@ -710,21 +710,21 @@ function McpSection() {
             </div>
           </div>
 
-          <div className="itc-terminal" style={{ backgroundColor: "#0E1A18", borderColor: "#0C5C5540" }}>
-            <div className="itc-terminal-bar" style={{ borderBottomColor: "#1e3330" }}>
+          <div className="itc-terminal" style={{ backgroundColor: "#0A1428", borderColor: "#1E3360" }}>
+            <div className="itc-terminal-bar" style={{ borderBottomColor: "#142340" }}>
               <span style={{ display: "flex", gap: 6 }} aria-hidden="true">
-                <span className="itc-terminal-dot" style={{ backgroundColor: "#0C5C55" }} />
-                <span className="itc-terminal-dot" style={{ backgroundColor: "#0D9488" }} />
-                <span className="itc-terminal-dot" style={{ backgroundColor: "#14B8A6" }} />
+                <span className="itc-terminal-dot" style={{ backgroundColor: "#2B66FE" }} />
+                <span className="itc-terminal-dot" style={{ backgroundColor: "#5B87FE" }} />
+                <span className="itc-terminal-dot" style={{ backgroundColor: "#C5D6FF" }} />
               </span>
-              <span className="itc-terminal-label" style={{ color: "#87A9A4" }}>claude · findable mcp</span>
+              <span className="itc-terminal-label" style={{ color: "#C5D6FF" }}>claude · findable mcp</span>
             </div>
             <pre>
               <code>
-                <span style={{ color: "#14B8A6" }}>›</span> {t.mcp.terminalCmd}{" "}
+                <span style={{ color: "#5B87FE" }}>›</span> {t.mcp.terminalCmd}{" "}
                 <span style={{ color: "#ffffff" }}>findableweb.io</span>
                 {"\n\n"}
-                <span style={{ color: "#87A9A4" }}>
+                <span style={{ color: "#C5D6FF" }}>
                   ⏺ findable.keyword_research(seed: &quot;{lang === "es" ? "posicionamiento seo" : "seo visibility"}&quot;)
                 </span>
                 {"\n"}
@@ -732,26 +732,26 @@ function McpSection() {
                 {"  "}{lang === "es" ? "posicionamiento seo web      " : "seo visibility platform      "}
                 <span style={{ color: "#ffffff" }}>1,300</span>
                 {"      "}
-                <span style={{ color: "#87A9A4" }}>12</span>
+                <span style={{ color: "#C5D6FF" }}>12</span>
                 {"\n"}
                 {"  "}{lang === "es" ? "google search console mcp    " : "google search console mcp    "}
                 <span style={{ color: "#ffffff" }}>720</span>
                 {"        "}
-                <span style={{ color: "#87A9A4" }}>9</span>
+                <span style={{ color: "#C5D6FF" }}>9</span>
                 {"\n"}
                 {"  "}{lang === "es" ? "plataforma seo inteligencia ia" : "ai search intelligence       "}
                 <span style={{ color: "#ffffff" }}>450</span>
                 {"        "}
-                <span style={{ color: "#87A9A4" }}>5</span>
+                <span style={{ color: "#C5D6FF" }}>5</span>
                 {"\n\n"}
-                <span style={{ color: "#14B8A6" }}>✓</span>
-                <span style={{ color: "#87A9A4" }}>
+                <span style={{ color: "#5B87FE" }}>✓</span>
+                <span style={{ color: "#C5D6FF" }}>
                   {" "}
                   {t.mcp.terminalSaved}
                 </span>
                 {"\n"}
-                <span style={{ color: "#14B8A6" }}>↳</span>
-                <span style={{ color: "#87A9A4" }}> {t.mcp.terminalView} </span>
+                <span style={{ color: "#5B87FE" }}>↳</span>
+                <span style={{ color: "#C5D6FF" }}> {t.mcp.terminalView} </span>
                 <span style={{ color: "#ffffff" }}>app.findableweb.io</span>
               </code>
             </pre>
@@ -809,12 +809,13 @@ function GeminiIcon(props: SVGProps<SVGSVGElement>) {
         />
       </mask>
       <g mask="url(#gemini-a)">
-        <ellipse cx="163" cy="149" fill="#0C5C55" rx="196" ry="159" />
-        <ellipse cx="33.5" cy="142.5" fill="#0D9488" rx="68.5" ry="72.5" />
+        <ellipse cx="163" cy="149" fill="#2B66FE" rx="196" ry="159" />
+        <ellipse cx="33.5" cy="142.5" fill="#5B87FE" rx="68.5" ry="72.5" />
       </g>
     </svg>
   );
 }
+
 
 // ─── Footer ──────────────────────────────────────────────────────────
 

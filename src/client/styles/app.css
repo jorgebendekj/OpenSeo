@@ -1,4 +1,4 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
 @theme {
   --container-8xl: 88rem;
@@ -27,26 +27,26 @@
   default: true;
   prefersdark: false;
   color-scheme: light;
-  --color-base-100: oklch(100% 0 0);
-  --color-base-200: oklch(95% 0.004 180);
-  --color-base-300: oklch(89% 0.009 180);
-  --color-base-content: oklch(21% 0.018 183);
-  --color-primary: oklch(43% 0.072 186);
-  --color-primary-content: oklch(100% 0 0);
-  --color-secondary: oklch(45% 0.020 183);
-  --color-secondary-content: oklch(100% 0 0);
-  --color-accent: oklch(43% 0.072 186);
-  --color-accent-content: oklch(100% 0 0);
-  --color-neutral: oklch(21% 0.018 183);
-  --color-neutral-content: oklch(100% 0 0);
-  --color-info: oklch(52% 0.097 242);
-  --color-info-content: oklch(100% 0 0);
-  --color-success: oklch(56% 0.119 159);
-  --color-success-content: oklch(100% 0 0);
-  --color-warning: oklch(63% 0.125 70);
-  --color-warning-content: oklch(100% 0 0);
-  --color-error: oklch(50% 0.178 29);
-  --color-error-content: oklch(100% 0 0);
+  --color-base-100: #ffffff;
+  --color-base-200: #EEF2FB;
+  --color-base-300: #D8E2F5;
+  --color-base-content: #142340;
+  --color-primary: #2B66FE;
+  --color-primary-content: #ffffff;
+  --color-secondary: #142340;
+  --color-secondary-content: #ffffff;
+  --color-accent: #5B87FE;
+  --color-accent-content: #ffffff;
+  --color-neutral: #142340;
+  --color-neutral-content: #ffffff;
+  --color-info: #2B66FE;
+  --color-info-content: #ffffff;
+  --color-success: #10B981;
+  --color-success-content: #ffffff;
+  --color-warning: #F59E0B;
+  --color-warning-content: #ffffff;
+  --color-error: #EF4444;
+  --color-error-content: #ffffff;
   --radius-selector: 0.5rem;
   --radius-field: 0.5rem;
   --radius-box: 0.75rem;
@@ -62,26 +62,26 @@
   name: "findable-dark";
   prefersdark: true;
   color-scheme: dark;
-  --color-base-100: oklch(22% 0.014 180);
-  --color-base-200: oklch(18% 0.011 186);
-  --color-base-300: oklch(30% 0.020 180);
-  --color-base-content: oklch(93% 0.007 174);
-  --color-primary: oklch(70% 0.104 185);
-  --color-primary-content: oklch(18% 0.011 186);
-  --color-secondary: oklch(65% 0.020 183);
-  --color-secondary-content: oklch(100% 0 0);
-  --color-accent: oklch(70% 0.104 185);
-  --color-accent-content: oklch(18% 0.011 186);
-  --color-neutral: oklch(85% 0.007 174);
-  --color-neutral-content: oklch(21% 0.018 183);
-  --color-info: oklch(70% 0.097 242);
-  --color-info-content: oklch(100% 0 0);
-  --color-success: oklch(70% 0.119 159);
-  --color-success-content: oklch(100% 0 0);
-  --color-warning: oklch(75% 0.125 70);
-  --color-warning-content: oklch(100% 0 0);
-  --color-error: oklch(65% 0.178 29);
-  --color-error-content: oklch(100% 0 0);
+  --color-base-100: #142340;
+  --color-base-200: #0A1428;
+  --color-base-300: #1E3360;
+  --color-base-content: #EEF2FB;
+  --color-primary: #5B87FE;
+  --color-primary-content: #0A1428;
+  --color-secondary: #C5D6FF;
+  --color-secondary-content: #142340;
+  --color-accent: #2B66FE;
+  --color-accent-content: #ffffff;
+  --color-neutral: #EEF2FB;
+  --color-neutral-content: #142340;
+  --color-info: #5B87FE;
+  --color-info-content: #ffffff;
+  --color-success: #34D399;
+  --color-success-content: #0A1428;
+  --color-warning: #FBBF24;
+  --color-warning-content: #0A1428;
+  --color-error: #F87171;
+  --color-error-content: #ffffff;
   --radius-selector: 0.5rem;
   --radius-field: 0.5rem;
   --radius-box: 0.75rem;
@@ -248,9 +248,9 @@ html[data-theme="findable"]
   --tw-ring-color: color-mix(in oklab, #84cc16 32%, transparent);
 }
 .tag-chip-emerald {
-  background-color: color-mix(in oklab, #0c5c55 14%, transparent);
-  color: #0e1a18;
-  --tw-ring-color: color-mix(in oklab, #0c5c55 30%, transparent);
+  background-color: color-mix(in oklab, #10b981 14%, transparent);
+  color: #064e3b;
+  --tw-ring-color: color-mix(in oklab, #10b981 30%, transparent);
 }
 .tag-chip-sky {
   background-color: color-mix(in oklab, #0ea5e9 14%, transparent);
@@ -305,9 +305,9 @@ html[data-theme="findable-dark"] .tag-chip-fuchsia {
 }
 
 .score-tier-1 {
-  background-color: color-mix(in oklab, #0c5c55 15%, transparent);
-  color: #0e1a18;
-  --tw-ring-color: color-mix(in oklab, #0c5c55 30%, transparent);
+  background-color: color-mix(in oklab, #10b981 15%, transparent);
+  color: #064e3b;
+  --tw-ring-color: color-mix(in oklab, #10b981 30%, transparent);
 }
 
 .score-tier-2 {
