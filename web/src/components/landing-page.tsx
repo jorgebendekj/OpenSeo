@@ -585,6 +585,70 @@ function FaqAccordion({
   );
 }
 
+// ─── Blog Section ───────────────────────────────────────────────────
+
+function BlogSection() {
+  const { t } = useI18n();
+
+  return (
+    <section className="itc-section" style={{ backgroundColor: "#ffffff" }}>
+      <Container>
+        <div className="itc-section-header">
+          <p className="itc-eyebrow" style={{ color: "#0C5C55" }}>
+            {t.blog.eyebrow}
+          </p>
+          <h2 className="itc-display-lg">{t.blog.title}</h2>
+          <p className="itc-subhead itc-muted" style={{ maxWidth: 640, margin: "16px auto 0" }}>
+            {t.blog.subtitle}
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {t.blog.featured.map((post) => (
+            <a
+              key={post.slug}
+              href={`/blogs/${post.slug}`}
+              className="group flex flex-col justify-between rounded-2xl border border-neutral-200 bg-neutral-50/50 p-6 transition-all hover:bg-white hover:border-[#0C5C55]/40 hover:shadow-md"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <span className="inline-flex items-center rounded-md bg-[#0C5C55]/10 px-2 py-0.5 text-xs font-semibold text-[#0C5C55]">
+                    {post.category}
+                  </span>
+                  <span className="text-xs text-neutral-400 font-medium">
+                    {post.readTime}
+                  </span>
+                </div>
+                <h3 className="text-base font-bold text-neutral-900 group-hover:text-[#0C5C55] transition-colors line-clamp-2">
+                  {post.title}
+                </h3>
+                <p className="mt-2 text-xs text-neutral-600 leading-relaxed line-clamp-3">
+                  {post.desc}
+                </p>
+              </div>
+
+              <div className="mt-5 flex items-center gap-1 text-xs font-semibold text-[#0C5C55] group-hover:gap-2 transition-all">
+                <span>{t.blog.readMore}</span>
+                <IconArrowRight size={14} />
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <div className="mt-10 text-center">
+          <a
+            href="/blogs"
+            className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-white px-5 py-2.5 text-xs font-semibold text-neutral-800 transition-colors hover:bg-neutral-50 hover:border-[#0C5C55]/50 shadow-xs"
+          >
+            <span>{t.blog.viewAll}</span>
+            <IconArrowRight size={14} />
+          </a>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
 // ─── MCP Section ─────────────────────────────────────────────────────
 
 type McpClient = {
@@ -784,6 +848,7 @@ export function LandingPage() {
       <DashboardPreview />
       <FeaturesGrid />
       <PricingSection />
+      <BlogSection />
       <McpSection />
       <Footer />
     </div>

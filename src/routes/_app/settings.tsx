@@ -31,15 +31,8 @@ const LANGUAGE_OPTIONS: {
   nativeName: string;
 }[] = [
   { value: "en", label: "English", nativeName: "English" },
-  { value: "pl", label: "Polish", nativeName: "Polski" },
   { value: "es", label: "Spanish", nativeName: "Español" },
-  { value: "de", label: "German", nativeName: "Deutsch" },
-  { value: "fr", label: "French", nativeName: "Français" },
-  { value: "it", label: "Italian", nativeName: "Italiano" },
-  { value: "pt-BR", label: "Portuguese", nativeName: "Português (Brasil)" },
-  { value: "nl", label: "Dutch", nativeName: "Nederlands" },
-  { value: "ja", label: "Japanese", nativeName: "日本語" },
-  { value: "zh-Hans", label: "Chinese", nativeName: "简体中文" },
+  { value: "pl", label: "Polish", nativeName: "Polski" },
 ];
 
 function SettingsPage() {

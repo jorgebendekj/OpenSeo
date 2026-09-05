@@ -165,6 +165,12 @@ function MarketingLayout() {
             </Link>
 
             <div className="flex items-center gap-2 sm:gap-3">
+              <a
+                href="/blogs"
+                className="hidden sm:inline-flex items-center text-xs sm:text-sm font-medium text-neutral-600 hover:text-neutral-900 transition-colors px-2 py-1"
+              >
+                {t.nav.blogs}
+              </a>
               <LanguageSelector />
               <a
                 href={SIGNIN_URL}

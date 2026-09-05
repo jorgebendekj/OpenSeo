@@ -1,14 +1,7 @@
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES, type SupportedLocale, LOCALE_META, normalizeLocale } from "./config";
 import en from "./locales/en";
 import es from "./locales/es";
-import de from "./locales/de";
-import fr from "./locales/fr";
-import it from "./locales/it";
-import ptBR from "./locales/pt-BR";
-import nl from "./locales/nl";
 import pl from "./locales/pl";
-import ja from "./locales/ja";
-import zhHans from "./locales/zh-Hans";
 
 export * from "./config";
 
@@ -17,14 +10,7 @@ export type Translations = typeof en;
 const catalogs: Record<SupportedLocale, any> = {
   en,
   es,
-  de,
-  fr,
-  it,
-  "pt-BR": ptBR,
-  nl,
   pl,
-  ja,
-  "zh-Hans": zhHans,
 };
 
 function getNestedValue(obj: any, path: string): string | undefined {

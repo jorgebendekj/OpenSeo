@@ -7,10 +7,8 @@ const LANGUAGE_OPTIONS: {
   shortLabel: string;
 }[] = [
   { value: "en", label: "English", shortLabel: "EN" },
-  { value: "pl", label: "Polski", shortLabel: "PL" },
   { value: "es", label: "Español", shortLabel: "ES" },
-  { value: "de", label: "Deutsch", shortLabel: "DE" },
-  { value: "fr", label: "Français", shortLabel: "FR" },
+  { value: "pl", label: "Polski", shortLabel: "PL" },
 ];
 
 export function LanguagePreferenceMenuItems() {
