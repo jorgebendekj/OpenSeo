@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Sparkles, Loader2, X, CheckCircle2, BookOpen, Layers, Target, Globe } from "lucide-react";
+import { Sparkles, Loader2, X, CheckCircle2 } from "lucide-react";
 import { generateArticleServerFn } from "@/serverFunctions/articles";
+import { useLanguagePreference } from "@/client/lib/language";
 import type { ArticleRecord, GenerateArticleInput } from "@/types/schemas/articles";
 
 type Props = {
@@ -22,12 +23,13 @@ export function GenerateArticleModal({
   serpContext,
   onArticleGenerated,
 }: Props) {
+  const { t, language } = useLanguagePreference();
   const [keyword, setKeyword] = useState(initialKeyword);
   const [format, setFormat] = useState<NonNullable<GenerateArticleInput["format"]>>("ultimate_guide");
   const [targetAudience, setTargetAudience] = useState("Buyers, decision makers & practitioners looking for the best solutions");
   const [secondaryKeywordsText, setSecondaryKeywordsText] = useState("");
   const [tone, setTone] = useState<"authoritative" | "conversational" | "educational" | "persuasive">("authoritative");
-  const [languageCode, setLanguageCode] = useState("en");
+  const [languageCode, setLanguageCode] = useState(language === "pl" ? "pl" : language === "es" ? "es" : "en");
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -53,7 +55,7 @@ export function GenerateArticleModal({
           format,
           secondaryKeywords: secondaryKeywords.length > 0 ? secondaryKeywords : undefined,
           languageCode,
-          locationCode: 2840,
+          locationCode: languageCode === "pl" ? 2616 : languageCode === "es" ? 2724 : 2840,
           targetAudience,
           searchIntent,
           tone,
@@ -90,9 +92,9 @@ export function GenerateArticleModal({
             <Sparkles className="size-5" />
           </div>
           <div>
-            <h2 className="text-lg font-bold">1-Click AI Article Generator</h2>
+            <h2 className="text-lg font-bold">{t("articles.modalTitle")}</h2>
             <p className="text-xs text-base-content/60">
-              Generates high-ranking 1,800–2,800 word articles formatted with Key Takeaways, Tables, GEO Direct Answers & FAQ Schema.
+              {t("articles.modalSubtitle")}
             </p>
           </div>
         </div>
@@ -106,7 +108,7 @@ export function GenerateArticleModal({
         <form onSubmit={handleGenerate} className="space-y-4">
           <div>
             <label className="text-xs font-semibold text-base-content/80 block mb-1">
-              Primary Target Keyword <span className="text-error">*</span>
+              {t("articles.primaryKeyword")} <span className="text-error">*</span>
             </label>
             <input
               type="text"
@@ -114,36 +116,36 @@ export function GenerateArticleModal({
               disabled={isGenerating}
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
-              placeholder="e.g. best ai seo tools 2026"
+              placeholder={t("articles.primaryKeywordPlaceholder")}
               className="input input-bordered w-full text-sm font-medium"
             />
           </div>
 
           <div>
             <label className="text-xs font-semibold text-base-content/80 block mb-1">
-              Article Structure & Format
+              {t("articles.formatLabel")}
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {[
                 {
                   id: "ultimate_guide" as const,
-                  title: "📘 Ultimate Pillar Guide",
-                  desc: "Comprehensive breakdown, tables & implementation",
+                  title: t("articles.formatUltimateGuide"),
+                  desc: t("articles.formatUltimateGuideDesc"),
                 },
                 {
                   id: "how_to" as const,
-                  title: "🛠️ Step-by-Step Tutorial",
-                  desc: "Chronological guide with prerequisites & pitfalls",
+                  title: t("articles.formatHowTo"),
+                  desc: t("articles.formatHowToDesc"),
                 },
                 {
                   id: "listicle" as const,
-                  title: "🏆 Ranked List / Top Solutions",
-                  desc: "Ranked options, pros/cons, metrics & verdict",
+                  title: t("articles.formatListicle"),
+                  desc: t("articles.formatListicleDesc"),
                 },
                 {
                   id: "comparison" as const,
-                  title: "⚖️ Head-to-Head Comparison",
-                  desc: "Side-by-side feature matrix & decision guide",
+                  title: t("articles.formatComparison"),
+                  desc: t("articles.formatComparisonDesc"),
                 },
               ].map((fmt) => (
                 <label
@@ -176,7 +178,7 @@ export function GenerateArticleModal({
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="text-xs font-semibold text-base-content/80 block mb-1">
-                Tone of Voice
+                {t("articles.toneLabel")}
               </label>
               <select
                 disabled={isGenerating}
@@ -184,16 +186,16 @@ export function GenerateArticleModal({
                 onChange={(e) => setTone(e.target.value as typeof tone)}
                 className="select select-bordered w-full text-xs"
               >
-                <option value="authoritative">Authoritative (Expert)</option>
-                <option value="conversational">Conversational (Engaging)</option>
-                <option value="educational">Educational (Step-by-step)</option>
-                <option value="persuasive">Persuasive (Conversion)</option>
+                <option value="authoritative">{t("articles.toneAuthoritative")}</option>
+                <option value="conversational">{t("articles.toneConversational")}</option>
+                <option value="educational">{t("articles.toneEducational")}</option>
+                <option value="persuasive">{t("articles.tonePersuasive")}</option>
               </select>
             </div>
 
             <div>
               <label className="text-xs font-semibold text-base-content/80 block mb-1">
-                Language
+                {t("articles.langLabel")}
               </label>
               <select
                 disabled={isGenerating}
@@ -202,39 +204,41 @@ export function GenerateArticleModal({
                 className="select select-bordered w-full text-xs"
               >
                 <option value="en">English (US)</option>
-                <option value="es">Spanish (Español)</option>
-                <option value="de">German (Deutsch)</option>
-                <option value="fr">French (Français)</option>
-                <option value="pt">Portuguese (Português)</option>
-                <option value="it">Italian (Italiano)</option>
+                <option value="pl">Polski (Polska)</option>
+                <option value="es">Español (España/LatAm)</option>
+                <option value="de">Deutsch</option>
+                <option value="fr">Français</option>
+                <option value="pt">Português</option>
+                <option value="it">Italiano</option>
               </select>
             </div>
           </div>
 
           <div>
             <label className="text-xs font-semibold text-base-content/80 block mb-1">
-              Secondary / Semantic Keywords <span className="text-base-content/50 font-normal">(Optional, comma separated)</span>
+              {t("articles.secondaryKeywords")}{" "}
+              <span className="text-base-content/50 font-normal">{t("articles.secondaryKeywordsOptional")}</span>
             </label>
             <input
               type="text"
               disabled={isGenerating}
               value={secondaryKeywordsText}
               onChange={(e) => setSecondaryKeywordsText(e.target.value)}
-              placeholder="e.g. pricing, features, best alternatives, ROI"
+              placeholder={t("articles.secondaryKeywordsPlaceholder")}
               className="input input-bordered w-full text-xs"
             />
           </div>
 
           <div>
             <label className="text-xs font-semibold text-base-content/80 block mb-1">
-              Target Audience Profile
+              {t("articles.targetAudience")}
             </label>
             <input
               type="text"
               disabled={isGenerating}
               value={targetAudience}
               onChange={(e) => setTargetAudience(e.target.value)}
-              placeholder="e.g. founders, developers, marketing teams, enterprise buyers"
+              placeholder={t("articles.targetAudiencePlaceholder")}
               className="input input-bordered w-full text-xs"
             />
           </div>
@@ -242,24 +246,24 @@ export function GenerateArticleModal({
           {/* Inclusions summary pill */}
           <div className="rounded-xl bg-emerald-500/5 border border-emerald-500/20 p-3 text-xs space-y-1">
             <span className="font-semibold text-emerald-600 dark:text-emerald-400 block">
-              ✨ Included in generated article:
+              {t("articles.includedTitle")}
             </span>
             <div className="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px] text-base-content/70">
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="size-3 text-emerald-500 shrink-0" />
-                <span>Executive Summary Callout</span>
+                <span>{t("articles.includedSummary")}</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="size-3 text-emerald-500 shrink-0" />
-                <span>GEO Direct Answers (AI Search)</span>
+                <span>{t("articles.includedGeo")}</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="size-3 text-emerald-500 shrink-0" />
-                <span>Markdown Comparison Tables</span>
+                <span>{t("articles.includedTables")}</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="size-3 text-emerald-500 shrink-0" />
-                <span>Valid FAQ JSON-LD Schema</span>
+                <span>{t("articles.includedSchema")}</span>
               </div>
             </div>
           </div>
@@ -283,7 +287,7 @@ export function GenerateArticleModal({
               onClick={onClose}
               className="btn btn-ghost btn-sm"
             >
-              Cancel
+              {t("common.cancel")}
             </button>
             <button
               type="submit"
@@ -293,12 +297,12 @@ export function GenerateArticleModal({
               {isGenerating ? (
                 <>
                   <Loader2 className="size-3.5 animate-spin mr-1.5" />
-                  Generating Article (~30s)...
+                  {t("articles.generating")}
                 </>
               ) : (
                 <>
                   <Sparkles className="size-3.5 mr-1.5" />
-                  Generate Ranking Article
+                  {t("articles.generateBtn")}
                 </>
               )}
             </button>

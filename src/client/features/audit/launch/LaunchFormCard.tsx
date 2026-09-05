@@ -3,6 +3,7 @@ import { Loader2 } from "lucide-react";
 import { MIN_PAGES } from "@/client/features/audit/launch/types";
 import type { useLaunchController } from "@/client/features/audit/launch/useLaunchController";
 import { getFieldError, getFormError } from "@/client/lib/forms";
+import { useLanguagePreference } from "@/client/lib/language";
 import { PAID_MAX_AUDIT_PAGES } from "@/shared/audit-limits";
 import { SUBSCRIBE_ROUTE } from "@/shared/billing";
 
@@ -17,10 +18,12 @@ export function LaunchFormCard({
   launchForm,
   maxPagesLimit,
 }: Props) {
+  const { t } = useLanguagePreference();
+
   return (
     <div className="card bg-base-100 border border-base-300">
       <div className="card-body gap-4">
-        <h2 className="card-title text-base">Start New Audit</h2>
+        <h2 className="card-title text-base">{t("audit.startNewAudit")}</h2>
 
         <form
           className="grid grid-cols-1 gap-3 lg:grid-cols-12 lg:items-center"
@@ -38,7 +41,7 @@ export function LaunchFormCard({
                   className={`input input-bordered w-full lg:col-span-9 ${urlError ? "input-error" : ""}`}
                 >
                   <input
-                    placeholder="https://example.com"
+                    placeholder={t("audit.urlPlaceholder")}
                     value={field.state.value}
                     onChange={(event) => {
                       field.handleChange(event.target.value);
@@ -61,10 +64,10 @@ export function LaunchFormCard({
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="size-4 animate-spin" /> Starting...
+                    <Loader2 className="size-4 animate-spin" /> {t("audit.starting")}
                   </>
                 ) : (
-                  "Start Audit"
+                  t("audit.startAuditBtn")
                 )}
               </button>
             )}
@@ -91,15 +94,16 @@ function LaunchOptions({
   commitMaxPagesInput,
   maxPagesLimit,
 }: Props) {
+  const { t } = useLanguagePreference();
   const isFreeLimited = maxPagesLimit < PAID_MAX_AUDIT_PAGES;
 
   return (
     <div className="rounded-lg border border-base-300 bg-base-200/20 p-3 space-y-2">
       <label className="text-xs font-medium uppercase tracking-wide text-base-content/60">
-        Crawl limit
+        {t("audit.crawlLimit")}
       </label>
       <div className="flex items-center gap-2">
-        <span className="text-sm text-base-content/70">Max pages</span>
+        <span className="text-sm text-base-content/70">{t("audit.maxPages")}</span>
         <launchForm.Field name="maxPagesInput">
           {(field) => (
             <input
@@ -122,7 +126,7 @@ function LaunchOptions({
         </launchForm.Field>
       </div>
       <p className="text-xs text-base-content/50">
-        Enter any value from {MIN_PAGES} to {maxPagesLimit.toLocaleString()}.
+        {t("audit.crawlPagesDesc", { min: MIN_PAGES, max: maxPagesLimit.toLocaleString() })}
         {isFreeLimited ? (
           <>
             {" "}
@@ -131,9 +135,9 @@ function LaunchOptions({
               search={{ upgrade: true }}
               className="link link-primary"
             >
-              Upgrade
+              {t("common.upgrade")}
             </Link>{" "}
-            to crawl up to {PAID_MAX_AUDIT_PAGES.toLocaleString()} pages.
+            {t("audit.upgradeToCrawlMore", { max: PAID_MAX_AUDIT_PAGES.toLocaleString() })}
           </>
         ) : null}
       </p>
@@ -142,6 +146,7 @@ function LaunchOptions({
 }
 
 function LighthouseOptions({ launchForm }: Pick<Props, "launchForm">) {
+  const { t } = useLanguagePreference();
   return (
     <div className="rounded-lg border border-base-300 bg-base-200/20 p-3 space-y-2">
       <label className="label cursor-pointer justify-start gap-2 p-0">
@@ -159,7 +164,7 @@ function LighthouseOptions({ launchForm }: Pick<Props, "launchForm">) {
           className="text-sm font-medium text-base-content/80"
           title="Lighthouse measures the performance of your pages and identifies issues."
         >
-          Include Lighthouse
+          {t("audit.includeLighthouse")}
         </span>
       </label>
 
@@ -170,8 +175,7 @@ function LighthouseOptions({ launchForm }: Pick<Props, "launchForm">) {
           runLighthouse ? (
             <div className="space-y-1">
               <p className="text-xs text-base-content/60">
-                We choose a sample of 20 pages to audit, removing pages from
-                duplicate templates.
+                {t("audit.lighthouseDesc")}
               </p>
             </div>
           ) : null

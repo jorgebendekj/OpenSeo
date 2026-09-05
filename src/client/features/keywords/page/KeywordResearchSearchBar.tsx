@@ -10,6 +10,7 @@ import {
 } from "@/client/features/keywords/keywordResearchTypes";
 import { isLabsLocationCode } from "@/client/features/keywords/locations";
 import { LocationSelect } from "@/client/components/LocationSelect";
+import { useLanguagePreference } from "@/client/lib/language";
 import type { KeywordResearchControllerState } from "./types";
 
 type Props = {
@@ -23,6 +24,7 @@ function getTextareaRows(value: string): number {
 }
 
 export function KeywordResearchSearchBar({ controller }: Props) {
+  const { t } = useLanguagePreference();
   const { controlsForm, handleSearchSubmit } = controller;
 
   return (
@@ -47,7 +49,7 @@ export function KeywordResearchSearchBar({ controller }: Props) {
                   <textarea
                     className="grow min-w-0 resize-none bg-transparent text-sm leading-6 outline-none placeholder:text-base-content/40"
                     rows={rows}
-                    placeholder="Enter a keyword"
+                    placeholder={t("keywords.searchPlaceholder")}
                     value={field.state.value}
                     onChange={(event) => field.handleChange(event.target.value)}
                     onKeyDown={(event) => {
@@ -88,7 +90,7 @@ export function KeywordResearchSearchBar({ controller }: Props) {
                 >
                   {RESULT_LIMITS.map((limit) => (
                     <option key={limit} value={limit}>
-                      {limit} results
+                      {t("keywords.resultsLimit", { count: limit })}
                     </option>
                   ))}
                 </select>
@@ -104,10 +106,10 @@ export function KeywordResearchSearchBar({ controller }: Props) {
                     field.handleChange(normalizeKeywordMode(event.target.value))
                   }
                 >
-                  <option value="auto">Auto</option>
-                  <option value="related">Related keywords</option>
-                  <option value="suggestions">Suggestions</option>
-                  <option value="ideas">Ideas</option>
+                  <option value="auto">{t("keywords.modeAuto")}</option>
+                  <option value="related">{t("keywords.modeRelated")}</option>
+                  <option value="suggestions">{t("keywords.modeSuggestions")}</option>
+                  <option value="ideas">{t("keywords.modeIdeas")}</option>
                 </select>
               )}
             </controlsForm.Field>
@@ -116,7 +118,7 @@ export function KeywordResearchSearchBar({ controller }: Props) {
               type="submit"
               className="btn btn-primary w-full px-6 lg:w-auto lg:shrink-0"
             >
-              Search
+              {t("keywords.searchBtn")}
             </button>
           </div>
         </form>
@@ -145,12 +147,12 @@ export function KeywordResearchSearchBar({ controller }: Props) {
                         }
                       />
                       <span className="text-sm font-medium text-base-content/80">
-                        Clickstream-refined volumes
+                        {t("keywords.clickstreamLabel")}
                       </span>
                     </label>
                     <div
                       className="tooltip tooltip-right"
-                      data-tip="Google reports one combined search volume for similar keywords (e.g. 'seo tool' and 'seo tools'). Turn this on to estimate each keyword's own volume. Costs 2x the credits."
+                      data-tip={t("keywords.clickstreamTooltip")}
                     >
                       <Info className="size-3.5 text-base-content/50" />
                     </div>
@@ -164,9 +166,7 @@ export function KeywordResearchSearchBar({ controller }: Props) {
               >
                 <Info className="mt-0.5 size-4 shrink-0 text-info" />
                 <span>
-                  Keyword data for this country comes from Google Ads — search
-                  volume, CPC, and trends are available, but difficulty and
-                  intent are not.
+                  {t("keywords.adsNotice")}
                 </span>
               </div>
             )

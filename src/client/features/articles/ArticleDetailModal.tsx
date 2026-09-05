@@ -18,6 +18,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { ArticleRecord } from "@/types/schemas/articles";
 import { deleteArticleServerFn } from "@/serverFunctions/articles";
+import { useLanguagePreference } from "@/client/lib/language";
 
 type Props = {
   article: ArticleRecord | null;
@@ -32,6 +33,7 @@ export function ArticleDetailModal({
   onClose,
   onDeleted,
 }: Props) {
+  const { t } = useLanguagePreference();
   const [copiedType, setCopiedType] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"article" | "seo" | "schema">("article");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -115,7 +117,7 @@ ${articleContentRef.current?.innerHTML ?? article.contentMarkdown}
 
   async function handleDelete() {
     if (!article) return;
-    if (!confirm("Are you sure you want to delete this article?")) return;
+    if (!confirm(`${t("articles.deleteArticle")} "${article.title}"?`)) return;
 
     setIsDeleting(true);
     try {
@@ -148,13 +150,13 @@ ${articleContentRef.current?.innerHTML ?? article.contentMarkdown}
                 🎯 {article.keyword}
               </span>
               <span className="badge badge-ghost badge-sm text-base-content/70">
-                📊 {article.wordCount.toLocaleString()} words
+                📊 {t("articles.wordsCount", { count: article.wordCount.toLocaleString() })}
               </span>
               <span className="badge badge-ghost badge-sm text-base-content/70 flex items-center gap-1">
-                <Clock className="size-3" /> ~{readingTimeMinutes} min read
+                <Clock className="size-3" /> {t("articles.minRead", { minutes: readingTimeMinutes })}
               </span>
               <span className="badge badge-soft badge-sm text-success border border-success/30 font-medium">
-                ✨ Ready to Publish
+                {t("articles.readyToPublish")}
               </span>
             </div>
             <h2 className="text-base sm:text-lg font-bold truncate text-base-content" title={article.title}>
@@ -172,15 +174,15 @@ ${articleContentRef.current?.innerHTML ?? article.contentMarkdown}
               >
                 {copiedType === "rich" ? (
                   <>
-                    <Check className="size-3.5" /> Copied Rich Text!
+                    <Check className="size-3.5" /> {t("common.copied")}
                   </>
                 ) : copiedType === "markdown" ? (
                   <>
-                    <Check className="size-3.5" /> Copied Markdown!
+                    <Check className="size-3.5" /> {t("common.copied")}
                   </>
                 ) : (
                   <>
-                    <Copy className="size-3.5" /> Copy / Export
+                    <Copy className="size-3.5" /> {t("articles.copyExport")}
                   </>
                 )}
               </button>
@@ -190,23 +192,23 @@ ${articleContentRef.current?.innerHTML ?? article.contentMarkdown}
               >
                 <li>
                   <button type="button" onClick={copyRichText} className="font-semibold">
-                    📋 Copy formatted (WordPress/Docs)
+                    {t("articles.copyRichText")}
                   </button>
                 </li>
                 <li>
                   <button type="button" onClick={() => copyToClipboard(article.contentMarkdown, "markdown")}>
-                    📝 Copy raw Markdown
+                    {t("articles.copyMarkdown")}
                   </button>
                 </li>
                 <div className="divider my-1"></div>
                 <li>
                   <button type="button" onClick={downloadMarkdown}>
-                    <Download className="size-3.5" /> Download .md file
+                    <Download className="size-3.5" /> {t("articles.downloadMd")}
                   </button>
                 </li>
                 <li>
                   <button type="button" onClick={downloadHtml}>
-                    <Code className="size-3.5" /> Download .html page
+                    <Code className="size-3.5" /> {t("articles.downloadHtml")}
                   </button>
                 </li>
               </ul>
@@ -217,7 +219,7 @@ ${articleContentRef.current?.innerHTML ?? article.contentMarkdown}
               onClick={handleDelete}
               disabled={isDeleting}
               className="btn btn-ghost btn-sm text-error hover:bg-error/10"
-              title="Delete Article"
+              title={t("articles.deleteArticle")}
             >
               <Trash2 className="size-4" />
             </button>
@@ -243,7 +245,7 @@ ${articleContentRef.current?.innerHTML ?? article.contentMarkdown}
             }`}
           >
             <BookOpen className="size-3.5" />
-            Formatted Article
+            {t("articles.tabFormatted")}
           </button>
           <button
             type="button"
@@ -255,7 +257,7 @@ ${articleContentRef.current?.innerHTML ?? article.contentMarkdown}
             }`}
           >
             <FileText className="size-3.5" />
-            SEO & SERP Preview
+            {t("articles.tabSeoPreview")}
           </button>
           {article.faqSchema ? (
             <button
@@ -268,7 +270,7 @@ ${articleContentRef.current?.innerHTML ?? article.contentMarkdown}
               }`}
             >
               <Code className="size-3.5" />
-              FAQ Schema (JSON-LD)
+              {t("articles.tabFaqSchema")}
             </button>
           ) : null}
         </div>
@@ -376,7 +378,7 @@ ${articleContentRef.current?.innerHTML ?? article.contentMarkdown}
             <div className="max-w-2xl mx-auto space-y-5">
               <div className="rounded-xl border border-base-300 p-5 bg-base-200/30 space-y-2.5">
                 <span className="text-xs font-bold text-base-content/60 uppercase tracking-wider flex items-center gap-1.5">
-                  <Eye className="size-3.5 text-primary" /> Google SERP Preview
+                  <Eye className="size-3.5 text-primary" /> {t("articles.serpPreviewTitle")}
                 </span>
                 <div className="space-y-1 bg-white dark:bg-base-100 p-4 rounded-xl border border-base-300">
                   <div className="text-xs text-emerald-700 dark:text-emerald-400 truncate font-mono">
@@ -395,10 +397,10 @@ ${articleContentRef.current?.innerHTML ?? article.contentMarkdown}
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <label className="font-semibold text-base-content/80">
-                      SEO Title ({article.title.length} characters)
+                      {t("articles.seoTitleLabel", { count: article.title.length })}
                     </label>
                     <span className={article.title.length <= 60 ? "text-success" : "text-warning"}>
-                      {article.title.length <= 60 ? "✓ Optimal length" : "⚠️ May truncate in SERPs"}
+                      {article.title.length <= 60 ? t("articles.optimalLength") : t("articles.mayTruncate")}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -419,7 +421,7 @@ ${articleContentRef.current?.innerHTML ?? article.contentMarkdown}
 
                 <div>
                   <label className="font-semibold text-base-content/80 block mb-1">
-                    URL Slug
+                    {t("articles.urlSlugLabel")}
                   </label>
                   <div className="flex items-center gap-2">
                     <input
@@ -440,10 +442,10 @@ ${articleContentRef.current?.innerHTML ?? article.contentMarkdown}
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <label className="font-semibold text-base-content/80">
-                      Meta Description ({article.metaDescription?.length ?? 0} characters)
+                      {t("articles.metaDescLabel", { count: article.metaDescription?.length ?? 0 })}
                     </label>
                     <span className="text-success">
-                      ✓ Optimized for CTR
+                      {t("articles.optimizedCtr")}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -468,7 +470,7 @@ ${articleContentRef.current?.innerHTML ?? article.contentMarkdown}
             <div className="max-w-2xl mx-auto space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs text-base-content/70 font-semibold">
-                  Paste this JSON-LD schema into your page's &lt;head&gt; or schema block:
+                  {t("articles.schemaHelp")}
                 </span>
                 <button
                   type="button"
@@ -476,7 +478,7 @@ ${articleContentRef.current?.innerHTML ?? article.contentMarkdown}
                   className="btn btn-primary btn-sm gap-1.5"
                 >
                   {copiedType === "schema" ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
-                  Copy JSON-LD
+                  {t("articles.copyJsonLd")}
                 </button>
               </div>
               <pre className="bg-base-300/60 p-4 rounded-xl text-xs font-mono overflow-x-auto border border-base-300 max-h-[60vh]">

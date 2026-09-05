@@ -1,6 +1,7 @@
 import type { FormEvent } from "react";
 import { AlertCircle, Search } from "lucide-react";
 import { getFieldError, getFormError } from "@/client/lib/forms";
+import { useLanguagePreference } from "@/client/lib/language";
 import type { DomainOverviewControlsForm } from "@/client/features/domain/DomainOverviewPage";
 import { toSortMode } from "@/client/features/domain/utils";
 import type { DomainSortMode } from "@/client/features/domain/types";
@@ -28,6 +29,8 @@ export function DomainSearchCard({
   onSortChange,
   onLocationChange,
 }: Props) {
+  const { t } = useLanguagePreference();
+
   return (
     <div className="card bg-base-100 border border-base-300">
       <div className="card-body gap-4">
@@ -46,7 +49,7 @@ export function DomainSearchCard({
                   <Search className="size-4 text-base-content/60" />
                   <input
                     className="grow min-w-0"
-                    placeholder="Enter a domain or URL"
+                    placeholder={t("domain.inputPlaceholder")}
                     value={field.state.value}
                     onChange={(event) => {
                       field.handleChange(event.target.value);
@@ -100,11 +103,11 @@ export function DomainSearchCard({
                   onSortChange(next);
                 }}
               >
-                <option value="rank">By Rank</option>
-                <option value="traffic">By Traffic</option>
-                <option value="volume">By Volume</option>
-                <option value="score">By Score</option>
-                <option value="cpc">By CPC</option>
+                <option value="traffic">Traffic</option>
+                <option value="volume">Volume</option>
+                <option value="rank">Rank</option>
+                <option value="score">Score</option>
+                <option value="cpc">CPC</option>
               </select>
             )}
           </controlsForm.Field>
@@ -116,7 +119,7 @@ export function DomainSearchCard({
                 className="btn btn-primary shrink-0 px-6"
                 disabled={isLoading || isSubmitting}
               >
-                {isLoading || isSubmitting ? "Loading..." : "Search"}
+                {isLoading || isSubmitting ? t("common.loading") : t("domain.searchBtn")}
               </button>
             )}
           </controlsForm.Subscribe>

@@ -1,9 +1,10 @@
 import { ChevronDown, Download, Loader2, X } from "lucide-react";
 import type { ReactNode } from "react";
+import { useLanguagePreference } from "@/client/lib/language";
 
 export function TableBulkActionBar({
   selectedCount,
-  selectedLabel = "selected",
+  selectedLabel,
   actions,
   onClear,
   placement = "fixed",
@@ -14,7 +15,10 @@ export function TableBulkActionBar({
   onClear: () => void;
   placement?: "fixed" | "inline";
 }) {
+  const { t } = useLanguagePreference();
   if (selectedCount === 0) return null;
+
+  const displaySelectedLabel = selectedLabel ?? t("common.actions");
 
   const wrapperClass =
     placement === "fixed"
@@ -38,7 +42,7 @@ export function TableBulkActionBar({
             <X className="size-3.5" />
           </button>
           <span className="font-medium tabular-nums">{selectedCount}</span>
-          <span className="text-base-content/60">{selectedLabel}</span>
+          <span className="text-base-content/60">{displaySelectedLabel}</span>
         </div>
         {actions}
       </div>
@@ -89,6 +93,7 @@ export function TableBulkExportMenu({
   }>;
   busy?: boolean;
 }) {
+  const { t } = useLanguagePreference();
   return (
     <div className="dropdown dropdown-top dropdown-end">
       <button
@@ -103,7 +108,7 @@ export function TableBulkExportMenu({
         ) : (
           <Download className="size-3.5" />
         )}
-        Export
+        {t("common.export")}
         <ChevronDown className="size-3 opacity-60" />
       </button>
       <ul
@@ -142,11 +147,12 @@ export function TableExportMenu({
   buttonClassName?: string;
   menuClassName?: string;
 }) {
+  const { t } = useLanguagePreference();
   return (
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className={buttonClassName}>
         <Download className="size-4" />
-        Export
+        {t("common.export")}
         <ChevronDown className="size-3 opacity-60" />
       </div>
       <ul tabIndex={0} className={menuClassName}>

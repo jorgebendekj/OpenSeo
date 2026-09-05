@@ -3,6 +3,7 @@ import { AuditHistorySection } from "@/client/features/audit/launch/AuditHistory
 import { LaunchFormCard } from "@/client/features/audit/launch/LaunchFormCard";
 import { useLaunchController } from "@/client/features/audit/launch/useLaunchController";
 import { getCustomerPlanStatus } from "@/client/features/billing/plan-detection";
+import { useLanguagePreference } from "@/client/lib/language";
 import { useSession } from "@/lib/auth-client";
 import { isHostedClientAuthMode } from "@/lib/auth-mode";
 
@@ -43,6 +44,7 @@ function LaunchContent({
   isFreePlan,
   onAuditStarted,
 }: LaunchViewProps & { isFreePlan: boolean }) {
+  const { t } = useLanguagePreference();
   const controller = useLaunchController({
     projectId,
     isFreePlan,
@@ -52,7 +54,12 @@ function LaunchContent({
   return (
     <div className="px-4 py-4 md:px-6 md:py-6 pb-24 md:pb-8 overflow-auto">
       <div className="mx-auto max-w-5xl space-y-4">
-        <h1 className="text-2xl font-semibold">Site Audit</h1>
+        <div>
+          <h1 className="text-2xl font-semibold">{t("audit.title")}</h1>
+          <p className="text-sm text-base-content/70">
+            {t("audit.subtitle")}
+          </p>
+        </div>
 
         <LaunchFormCard
           launchForm={controller.launchForm}

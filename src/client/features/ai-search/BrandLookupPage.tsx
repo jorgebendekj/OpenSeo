@@ -8,6 +8,7 @@ import {
   Quote,
   TrendingUp,
 } from "lucide-react";
+import { useLanguagePreference } from "@/client/lib/language";
 import { lookupBrand } from "@/serverFunctions/ai-search";
 import {
   HostedPlanGate,
@@ -256,13 +257,15 @@ function BrandLookupPageInner({
       : null;
   const resultData = hasActiveQuery ? lookupQuery.data : undefined;
 
+  const { t } = useLanguagePreference();
+
   return (
     <div className="px-4 py-4 pb-24 overflow-auto md:px-6 md:py-6 md:pb-8">
       <div className="mx-auto max-w-7xl space-y-4">
         <div>
-          <h1 className="text-2xl font-semibold">Brand Lookup</h1>
+          <h1 className="text-2xl font-semibold">{t("brandLookup.title")}</h1>
           <p className="text-sm text-base-content/70">
-            See how AI search cites any brand name or domain.
+            {t("brandLookup.subtitle")}
           </p>
         </div>
 
@@ -317,7 +320,7 @@ function BrandLookupPageInner({
                     className="btn btn-ghost btn-sm gap-2 px-0 text-base-content/70 hover:bg-transparent"
                   >
                     <ArrowLeft className="size-4" />
-                    Recent searches
+                    {t("common.recentSearches")}
                   </Link>
                 </div>
                 <BrandLookupResults result={resultData} projectId={projectId} />

@@ -21,6 +21,7 @@ import {
   type Report,
   type SearchPerformanceTableRow,
 } from "@/client/features/search-performance/SearchPerformanceColumns";
+import { useLanguagePreference } from "@/client/lib/language";
 import {
   buildCsv,
   downloadCsv,
@@ -155,30 +156,31 @@ function positionDelta(current: number, previous: number): Delta {
 }
 
 export function TotalsCards({ report }: { report: Report }) {
+  const { t } = useLanguagePreference();
   const { totals, prevTotals, range } = report;
   const deltaTitle = `vs ${range.prevStartDate} to ${range.prevEndDate}`;
   return (
     <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
       <TotalCard
-        label="Clicks"
+        label={t("searchPerformance.clicks")}
         value={formatCount(totals.clicks)}
         delta={percentDelta(totals.clicks, prevTotals.clicks)}
         deltaTitle={deltaTitle}
       />
       <TotalCard
-        label="Impressions"
+        label={t("searchPerformance.impressions")}
         value={formatCount(totals.impressions)}
         delta={percentDelta(totals.impressions, prevTotals.impressions)}
         deltaTitle={deltaTitle}
       />
       <TotalCard
-        label="CTR"
+        label={t("searchPerformance.ctr")}
         value={formatCtr(totals.ctr)}
         delta={percentDelta(totals.ctr, prevTotals.ctr)}
         deltaTitle={deltaTitle}
       />
       <TotalCard
-        label="Avg position"
+        label={t("searchPerformance.avgPosition")}
         value={formatPosition(totals.position)}
         delta={positionDelta(totals.position, prevTotals.position)}
         deltaTitle={deltaTitle}
@@ -227,9 +229,10 @@ export function DimensionTable({
   keyLabel: string;
   onGenerateArticle?: (query: string) => void;
 }) {
+  const { t } = useLanguagePreference();
   const columns = useMemo(
-    () => buildDimensionColumns(keyLabel, onGenerateArticle),
-    [keyLabel, onGenerateArticle],
+    () => buildDimensionColumns(keyLabel, onGenerateArticle, t),
+    [keyLabel, onGenerateArticle, t],
   );
   const table = useAppTable({
     data: rows,
@@ -244,7 +247,7 @@ export function DimensionTable({
       wrapperClassName="overflow-x-auto"
       empty={
         <p className="p-6 text-sm text-base-content/60">
-          No data for this period yet. Search Console data trails by a few days.
+          {t("searchPerformance.noDataPeriod")}
         </p>
       }
     />
@@ -260,12 +263,13 @@ export function StrikingDistanceTable({
   rows: Report["strikingDistance"];
   onGenerateArticle?: (query: string) => void;
 }) {
+  const { t } = useLanguagePreference();
   const queryClient = useQueryClient();
   const anchorRef = useSelectionAnchor();
   const [rowSelection, setRowSelection] = useState({});
   const columns = useMemo(
-    () => buildStrikingColumns(anchorRef, onGenerateArticle),
-    [anchorRef, onGenerateArticle],
+    () => buildStrikingColumns(anchorRef, onGenerateArticle, t),
+    [anchorRef, onGenerateArticle, t],
   );
   const table = useAppTable({
     data: rows,
@@ -330,9 +334,7 @@ export function StrikingDistanceTable({
   if (rows.length === 0) {
     return (
       <p className="p-6 text-sm text-base-content/60">
-        No striking-distance queries in this period. These are queries ranking
-        at positions 5 to 20, where an improvement is most likely to move
-        traffic.
+        {t("searchPerformance.noStrikingData")}
       </p>
     );
   }
@@ -341,8 +343,7 @@ export function StrikingDistanceTable({
     <>
       <div className="p-4">
         <p className="mb-3 text-sm text-base-content/60">
-          Queries ranking at positions 5 to 20, sorted by impressions. Improve
-          the listed page to move them into the top results.
+          {t("searchPerformance.strikingDistanceHelp")}
         </p>
         <AppDataTable
           table={table}
@@ -370,7 +371,7 @@ export function StrikingDistanceTable({
               icon={<Copy className="size-3.5" />}
               onClick={() => void copyKeywords()}
             >
-              Copy keywords
+              {t("searchPerformance.copyKeywords")}
             </TableBulkActionButton>
             <TableBulkActionButton
               icon={
@@ -383,7 +384,7 @@ export function StrikingDistanceTable({
               onClick={() => save.mutate(selectedQueries)}
               disabled={save.isPending}
             >
-              Save as keywords
+              {t("searchPerformance.saveAsKeywords")}
             </TableBulkActionButton>
           </div>
         }

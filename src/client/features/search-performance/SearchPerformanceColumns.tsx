@@ -45,8 +45,10 @@ import { Sparkles } from "lucide-react";
 export function buildDimensionColumns(
   keyLabel: string,
   onGenerateArticle?: (query: string) => void,
+  t?: (key: string) => string,
 ): ColumnDef<DimensionRow>[] {
-  const isQuery = keyLabel.toLowerCase().includes("query");
+  const isQuery = keyLabel.toLowerCase().includes("query") || keyLabel.toLowerCase().includes("consulta") || keyLabel.toLowerCase().includes("zapytanie");
+  const tr = (k: string, fb: string) => (t ? t(k) || fb : fb);
   const cols: ColumnDef<DimensionRow>[] = [
     dimensionHelper.accessor("key", {
       enableSorting: false,
@@ -59,28 +61,28 @@ export function buildDimensionColumns(
     }),
     dimensionHelper.accessor("clicks", {
       header: ({ column }) => (
-        <SortableHeader column={column} label="Clicks" align="right" />
+        <SortableHeader column={column} label={tr("searchPerformance.clicks", "Clicks")} align="right" />
       ),
       cell: ({ getValue }) => formatCount(getValue()),
       meta: rightAligned,
     }),
     dimensionHelper.accessor("impressions", {
       header: ({ column }) => (
-        <SortableHeader column={column} label="Impressions" align="right" />
+        <SortableHeader column={column} label={tr("searchPerformance.impressions", "Impressions")} align="right" />
       ),
       cell: ({ getValue }) => formatCount(getValue()),
       meta: rightAligned,
     }),
     dimensionHelper.accessor("ctr", {
       header: ({ column }) => (
-        <SortableHeader column={column} label="CTR" align="right" />
+        <SortableHeader column={column} label={tr("searchPerformance.ctr", "CTR")} align="right" />
       ),
       cell: ({ getValue }) => formatCtr(getValue()),
       meta: rightAligned,
     }),
     dimensionHelper.accessor("position", {
       header: ({ column }) => (
-        <SortableHeader column={column} label="Position" align="right" />
+        <SortableHeader column={column} label={tr("searchPerformance.position", "Position")} align="right" />
       ),
       cell: ({ getValue }) => formatPosition(getValue()),
       meta: rightAligned,
@@ -101,7 +103,7 @@ export function buildDimensionColumns(
               title="Generate AI Article"
             >
               <Sparkles className="size-3" />
-              <span className="hidden lg:inline">Write</span>
+              <span className="hidden lg:inline">{tr("searchPerformance.writeArticle", "Write")}</span>
             </button>
           </div>
         ),
@@ -121,12 +123,14 @@ const strikingHelper = createColumnHelper<StrikingRow>();
 export function buildStrikingColumns(
   anchorRef: MutableRefObject<SelectionAnchor | null>,
   onGenerateArticle?: (query: string) => void,
+  t?: (key: string) => string,
 ): ColumnDef<StrikingRow>[] {
+  const tr = (k: string, fb: string) => (t ? t(k) || fb : fb);
   const cols: ColumnDef<StrikingRow>[] = [
     makeSelectionColumn<StrikingRow>(anchorRef),
     strikingHelper.accessor("query", {
       enableSorting: false,
-      header: () => "Query",
+      header: () => tr("searchPerformance.query", "Query"),
       cell: ({ getValue }) => (
         <span className="block max-w-xs truncate font-medium" title={getValue()}>
           {getValue()}
@@ -135,7 +139,7 @@ export function buildStrikingColumns(
     }),
     strikingHelper.accessor("page", {
       enableSorting: false,
-      header: () => "Page",
+      header: () => tr("searchPerformance.page", "Page"),
       // GSC page keys are canonical http(s) URLs of the verified property;
       // the scheme check is defense-in-depth before rendering an href.
       cell: ({ getValue }) =>
@@ -157,21 +161,21 @@ export function buildStrikingColumns(
     }),
     strikingHelper.accessor("impressions", {
       header: ({ column }) => (
-        <SortableHeader column={column} label="Impressions" align="right" />
+        <SortableHeader column={column} label={tr("searchPerformance.impressions", "Impressions")} align="right" />
       ),
       cell: ({ getValue }) => formatCount(getValue()),
       meta: rightAligned,
     }),
     strikingHelper.accessor("clicks", {
       header: ({ column }) => (
-        <SortableHeader column={column} label="Clicks" align="right" />
+        <SortableHeader column={column} label={tr("searchPerformance.clicks", "Clicks")} align="right" />
       ),
       cell: ({ getValue }) => formatCount(getValue()),
       meta: rightAligned,
     }),
     strikingHelper.accessor("position", {
       header: ({ column }) => (
-        <SortableHeader column={column} label="Position" align="right" />
+        <SortableHeader column={column} label={tr("searchPerformance.position", "Position")} align="right" />
       ),
       cell: ({ getValue }) => formatPosition(getValue()),
       meta: rightAligned,
@@ -192,7 +196,7 @@ export function buildStrikingColumns(
               title="Generate AI Article"
             >
               <Sparkles className="size-3" />
-              <span className="hidden lg:inline">Write</span>
+              <span className="hidden lg:inline">{tr("searchPerformance.writeArticle", "Write")}</span>
             </button>
           </div>
         ),

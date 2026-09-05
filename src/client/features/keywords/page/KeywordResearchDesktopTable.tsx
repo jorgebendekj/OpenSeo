@@ -21,79 +21,75 @@ import {
 import { DifficultyBadge } from "@/client/features/domain/components/DifficultyBadge";
 import { formatNumber } from "@/client/features/keywords/utils";
 import { GenerateArticleModal } from "@/client/features/articles/GenerateArticleModal";
+import { useLanguagePreference } from "@/client/lib/language";
 import type { KeywordResearchRow } from "@/types/keywords";
 import { EmptyFilterResults } from "./keywordResearchFilters";
 
 type Props = {
   activeFilterCount: number;
   filteredRows: KeywordResearchRow[];
+  handleRowClick: (row: KeywordResearchRow) => void;
   overviewKeyword: KeywordResearchRow | null;
+  resetFilters: () => void;
   selectedRows: Set<string>;
   setSelectedRows: (rows: Set<string>) => void;
   sortDir: SortDir;
   sortField: SortField;
   toggleSort: (field: SortField) => void;
-  resetFilters: () => void;
-  handleRowClick: (row: KeywordResearchRow) => void;
 };
 
-const keywordColumnHelper = createColumnHelper<KeywordResearchRow>();
+const columnHelper = createColumnHelper<KeywordResearchRow>();
 
 export function KeywordResearchDesktopTable({
   activeFilterCount,
   filteredRows,
+  handleRowClick,
   overviewKeyword,
+  resetFilters,
   selectedRows,
   setSelectedRows,
   sortDir,
   sortField,
   toggleSort,
-  resetFilters,
-  handleRowClick,
 }: Props) {
-  const { projectId } = useParams({ strict: false }) as { projectId?: string };
-  const [modalKeyword, setModalKeyword] = useState<string | null>(null);
-  const [modalIntent, setModalIntent] = useState<string | undefined>(undefined);
-
+  const { t } = useLanguagePreference();
   const selectAnchorRef = useSelectionAnchor();
-  const rowSelection = useMemo<RowSelectionState>(
-    () =>
-      Object.fromEntries(
-        [...selectedRows].map((keyword) => [keyword, true]),
-      ) as RowSelectionState,
-    [selectedRows],
-  );
+  const params = useParams({ strict: false }) as { projectId?: string };
+  const projectId = params.projectId;
+  const [modalKeyword, setModalKeyword] = useState<string | null>(null);
+  const [modalIntent, setModalIntent] = useState<string | null>(null);
+
+  const rowSelection = useMemo<RowSelectionState>(() => {
+    const state: RowSelectionState = {};
+    for (const keyword of selectedRows) {
+      state[keyword] = true;
+    }
+    return state;
+  }, [selectedRows]);
+
   const columns = useMemo<ColumnDef<KeywordResearchRow>[]>(
     () => [
       makeSelectionColumn<KeywordResearchRow>(selectAnchorRef),
-      keywordColumnHelper.accessor("keyword", {
+      columnHelper.accessor("keyword", {
         header: () => (
           <SortHeader
-            label="Keyword"
+            label={t("keywords.colKeyword")}
             field="keyword"
             current={sortField}
             dir={sortDir}
             onToggle={toggleSort}
-            className="min-w-48 md:min-w-0"
           />
         ),
-        cell: ({ row }) => (
-          <span
-            className="block min-w-48 whitespace-normal break-words font-medium capitalize md:min-w-0 md:truncate"
-            title={row.original.keyword}
-          >
-            {row.original.keyword}
+        cell: (info) => (
+          <span className="font-medium text-base-content">
+            {info.getValue()}
           </span>
         ),
-        meta: {
-          headerClassName: "min-w-48 md:min-w-0",
-          cellClassName: "min-w-48 md:min-w-0",
-        },
       }),
-      keywordColumnHelper.accessor("searchVolume", {
+      columnHelper.accessor("searchVolume", {
         header: () => (
           <SortHeader
-            label="Volume"
+            label={t("keywords.colVolume")}
             field="searchVolume"
             current={sortField}
             dir={sortDir}
@@ -101,18 +97,16 @@ export function KeywordResearchDesktopTable({
             className="justify-end"
           />
         ),
-        cell: ({ getValue }) => formatNumber(getValue()),
-        meta: {
-          headerClassName: "text-right",
-          cellClassName:
-            "whitespace-nowrap text-right tabular-nums text-base-content/70",
-        },
+        cell: (info) => (
+          <span className="text-right block font-mono text-xs">
+            {formatNumber(info.getValue())}
+          </span>
+        ),
       }),
-      keywordColumnHelper.accessor("cpc", {
+      columnHelper.accessor("cpc", {
         header: () => (
           <SortHeader
-            label="CPC"
-            helpText="Average cost per click in USD for Google Search Ads."
+            label={t("keywords.colCpc")}
             field="cpc"
             current={sortField}
             dir={sortDir}
@@ -120,21 +114,19 @@ export function KeywordResearchDesktopTable({
             className="justify-end"
           />
         ),
-        cell: ({ getValue }) => {
-          const value = getValue();
-          return value == null ? "-" : `$${value.toFixed(2)}`;
-        },
-        meta: {
-          headerClassName: "text-right",
-          cellClassName:
-            "whitespace-nowrap text-right tabular-nums text-base-content/70",
+        cell: (info) => {
+          const val = info.getValue();
+          return (
+            <span className="text-right block font-mono text-xs text-base-content/70">
+              {val != null ? `$${val.toFixed(2)}` : "—"}
+            </span>
+          );
         },
       }),
-      keywordColumnHelper.accessor("competition", {
+      columnHelper.accessor("competition", {
         header: () => (
           <SortHeader
-            label="Comp."
-            helpText="Paid-search competition from Google Ads (0-1): higher means more advertisers bidding."
+            label={t("keywords.colComp")}
             field="competition"
             current={sortField}
             dir={sortDir}
@@ -142,70 +134,84 @@ export function KeywordResearchDesktopTable({
             className="justify-end"
           />
         ),
-        cell: ({ getValue }) => {
-          const value = getValue();
-          return value == null ? "-" : value.toFixed(2);
-        },
-        meta: {
-          headerClassName: "text-right",
-          cellClassName:
-            "whitespace-nowrap text-right tabular-nums text-base-content/70",
+        cell: (info) => {
+          const val = info.getValue();
+          return (
+            <span className="text-right block font-mono text-xs text-base-content/70">
+              {val != null ? val.toFixed(2) : "—"}
+            </span>
+          );
         },
       }),
-      keywordColumnHelper.accessor("keywordDifficulty", {
+      columnHelper.accessor("keywordDifficulty", {
         header: () => (
           <SortHeader
-            label="Score"
-            helpText="Organic ranking difficulty (0-100): higher means harder to reach Google's top 10."
+            label={t("keywords.colScore")}
             field="keywordDifficulty"
             current={sortField}
             dir={sortDir}
             onToggle={toggleSort}
-            className="justify-end"
+            className="justify-center"
           />
         ),
-        cell: ({ getValue }) => <DifficultyBadge value={getValue()} />,
-        meta: { headerClassName: "text-right", cellClassName: "text-right" },
+        cell: (info) => (
+          <div className="flex justify-center">
+            <DifficultyBadge value={info.getValue()} />
+          </div>
+        ),
       }),
-      keywordColumnHelper.accessor("intent", {
-        header: "Intent",
-        cell: ({ getValue }) => <IntentBadge intent={getValue()} />,
-        meta: {
-          headerClassName: "text-center",
-          cellClassName: "whitespace-nowrap text-center",
-        },
+      columnHelper.accessor("intent", {
+        header: () => (
+          <span className="text-xs font-semibold text-base-content/70">
+            {t("keywords.colIntent")}
+          </span>
+        ),
+        cell: (info) => <IntentBadge intent={info.getValue()} />,
       }),
-      keywordColumnHelper.display({
+      columnHelper.display({
         id: "actions",
-        header: () => <span className="sr-only">Actions</span>,
-        cell: ({ row }) => (
-          <div className="flex justify-end" onClick={(e) => e.stopPropagation()}>
+        header: () => (
+          <span className="text-xs font-semibold text-base-content/70">
+            {t("keywords.colActions")}
+          </span>
+        ),
+        cell: (info) => {
+          if (!projectId) return null;
+          const row = info.row.original;
+          return (
             <button
               type="button"
-              onClick={() => {
-                setModalKeyword(row.original.keyword);
-                setModalIntent(row.original.intent ?? undefined);
+              className="btn btn-ghost btn-xs gap-1 text-primary hover:bg-primary/10"
+              onClick={(e) => {
+                e.stopPropagation();
+                setModalKeyword(row.keyword);
+                setModalIntent(row.intent ?? null);
               }}
-              className="btn btn-ghost btn-xs text-primary gap-1 hover:bg-primary/10"
               title="Generate AI Article"
             >
               <Sparkles className="size-3" />
-              <span className="hidden lg:inline">Write</span>
+              {t("keywords.writeBtn")}
             </button>
-          </div>
-        ),
-        meta: {
-          headerClassName: "text-right w-16",
-          cellClassName: "text-right w-16",
+          );
         },
       }),
     ],
-    [selectAnchorRef, sortDir, sortField, toggleSort],
+    [
+      selectAnchorRef,
+      sortField,
+      sortDir,
+      toggleSort,
+      projectId,
+      t,
+    ],
   );
+
   const table = useAppTable({
     data: filteredRows,
     columns,
-    state: { rowSelection },
+    state: {
+      rowSelection,
+    },
     onRowSelectionChange: (updater) => {
       const next =
         typeof updater === "function" ? updater(rowSelection) : updater;
@@ -250,7 +256,7 @@ export function KeywordResearchDesktopTable({
           onClose={() => setModalKeyword(null)}
           projectId={projectId}
           initialKeyword={modalKeyword}
-          searchIntent={modalIntent}
+          searchIntent={modalIntent ?? undefined}
         />
       ) : null}
     </div>

@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from "react";
 import type { SortingState, Updater } from "@tanstack/react-table";
+import { useLanguagePreference } from "@/client/lib/language";
 import { BacklinksSearchCard } from "./BacklinksSearchCard";
 import { BacklinksBody } from "./BacklinksPageContent";
 import type { BacklinksPageProps } from "./backlinksPageTypes";
@@ -179,14 +180,15 @@ export function BacklinksPage({
     }),
     [],
   );
+  const { t } = useLanguagePreference();
+
   return (
     <div className="px-4 py-4 pb-24 overflow-auto md:px-6 md:py-6 md:pb-8">
       <div className="mx-auto max-w-7xl space-y-4">
         <div>
-          <h1 className="text-2xl font-semibold">Backlinks</h1>
+          <h1 className="text-2xl font-semibold">{t("backlinks.title")}</h1>
           <p className="text-sm text-base-content/70">
-            Understand who links to a site, what changed recently, and which
-            pages attract links.
+            {t("backlinks.subtitle")}
           </p>
         </div>
 

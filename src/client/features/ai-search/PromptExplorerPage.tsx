@@ -8,6 +8,7 @@ import {
   SearchCheck,
   Sparkles,
 } from "lucide-react";
+import { useLanguagePreference } from "@/client/lib/language";
 import { explorePrompt } from "@/serverFunctions/ai-search";
 import {
   HostedPlanGate,
@@ -195,14 +196,15 @@ function PromptExplorerPageInner({
     if (validationError) setValidationError(null);
   };
 
+  const { t } = useLanguagePreference();
+
   return (
     <div className="px-4 py-4 pb-24 overflow-auto md:px-6 md:py-6 md:pb-8">
       <div className="mx-auto max-w-7xl space-y-4">
         <div>
-          <h1 className="text-2xl font-semibold">Prompt Explorer</h1>
+          <h1 className="text-2xl font-semibold">{t("promptExplorer.title")}</h1>
           <p className="text-sm text-base-content/70">
-            Ask any prompt across ChatGPT, Claude, Gemini, and Perplexity
-            side-by-side.
+            {t("promptExplorer.subtitle")}
           </p>
         </div>
 
@@ -254,7 +256,7 @@ function PromptExplorerPageInner({
                     className="btn btn-ghost btn-sm gap-2 px-0 text-base-content/70 hover:bg-transparent"
                   >
                     <ArrowLeft className="size-4" />
-                    Recent searches
+                    {t("common.recentSearches")}
                   </Link>
                 </div>
                 <PromptExplorerResults result={resultData} />

@@ -1,5 +1,6 @@
 import { Minus, Plus, RotateCcw, X } from "lucide-react";
 import { useState, type KeyboardEvent } from "react";
+import { useLanguagePreference } from "@/client/lib/language";
 import type { SavedKeywordsFilterValues } from "./savedKeywordsFilterTypes";
 import type { SavedKeywordsFilterForm } from "./useSavedKeywordsFilters";
 
@@ -12,14 +13,16 @@ export function SavedKeywordsFilterPanel({
   activeFilterCount: number;
   onReset: () => void;
 }) {
+  const { t } = useLanguagePreference();
+
   return (
     <div className="space-y-3 border-b border-base-300 bg-gradient-to-b from-base-100 to-base-200/30 px-4 py-3">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <p className="text-sm font-semibold">Refine results</p>
+          <p className="text-sm font-semibold">{t("saved.filters")}</p>
           {activeFilterCount > 0 ? (
             <span className="badge badge-xs badge-primary border-0 text-primary-content">
-              {activeFilterCount} active
+              {activeFilterCount}
             </span>
           ) : null}
         </div>
@@ -30,7 +33,7 @@ export function SavedKeywordsFilterPanel({
           disabled={activeFilterCount === 0}
         >
           <RotateCcw className="size-3" />
-          Clear all
+          {t("saved.resetFilters")}
         </button>
       </div>
 
@@ -54,14 +57,14 @@ export function SavedKeywordsFilterPanel({
       <div className="grid grid-cols-1 gap-2 lg:grid-cols-3">
         <FilterRangeInputs
           form={form}
-          title="Search Volume"
+          title={t("keywords.colVolume")}
           minName="minVol"
           maxName="maxVol"
           min={0}
         />
         <FilterRangeInputs
           form={form}
-          title="CPC (USD)"
+          title={t("keywords.colCpc")}
           minName="minCpc"
           maxName="maxCpc"
           step="0.01"
@@ -69,7 +72,7 @@ export function SavedKeywordsFilterPanel({
         />
         <FilterRangeInputs
           form={form}
-          title="Difficulty"
+          title={t("keywords.colScore")}
           minName="minKd"
           maxName="maxKd"
           min={0}

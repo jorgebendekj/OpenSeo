@@ -13,6 +13,7 @@ import { TablePagination } from "@/client/components/table/TablePagination";
 import { SearchConsoleConnectionCard } from "@/client/features/gsc/SearchConsoleConnectionCard";
 import { SearchPerformanceLoadingState } from "@/client/features/search-performance/SearchPerformanceLoadingState";
 import { GenerateArticleModal } from "@/client/features/articles/GenerateArticleModal";
+import { useLanguagePreference } from "@/client/lib/language";
 import {
   DimensionTable,
   exportDimensionRows,
@@ -38,26 +39,6 @@ import {
   type SearchPerformanceDevice,
   type SearchPerformanceTableDimension,
 } from "@/types/schemas/search-performance";
-
-const RANGE_LABELS: Record<SearchPerformanceDateRange, string> = {
-  last_7_days: "Last 7 days",
-  last_28_days: "Last 28 days",
-  last_3_months: "Last 3 months",
-};
-const RANGE_OPTIONS = SEARCH_PERFORMANCE_RANGES.map((value) => ({
-  value,
-  label: RANGE_LABELS[value],
-}));
-
-const DEVICE_LABELS: Record<SearchPerformanceDevice, string> = {
-  DESKTOP: "Desktop",
-  MOBILE: "Mobile",
-  TABLET: "Tablet",
-};
-const DEVICE_OPTIONS = GSC_DEVICES.map((value) => ({
-  value,
-  label: DEVICE_LABELS[value],
-}));
 
 // Sentinel for "no filter" in the selects; never sent to the server.
 const ALL = "ALL";
@@ -119,6 +100,7 @@ function tableQueryOptions(
 }
 
 export function SearchPerformancePage({ projectId }: { projectId: string }) {
+  const { t } = useLanguagePreference();
   const queryClient = useQueryClient();
   const [range, setRange] =
     useState<SearchPerformanceDateRange>("last_28_days");
@@ -132,6 +114,18 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
     SEARCH_PERFORMANCE_DEFAULT_PAGE_SIZE,
   );
   const [modalKeyword, setModalKeyword] = useState<string | null>(null);
+
+  const rangeOptions = [
+    { value: "last_7_days" as const, label: t("searchPerformance.last7Days") },
+    { value: "last_28_days" as const, label: t("searchPerformance.last28Days") },
+    { value: "last_3_months" as const, label: t("searchPerformance.last3Months") },
+  ];
+
+  const deviceOptions = [
+    { value: "DESKTOP" as const, label: t("searchPerformance.desktop") },
+    { value: "MOBILE" as const, label: t("searchPerformance.mobile") },
+    { value: "TABLET" as const, label: t("searchPerformance.tablet") },
+  ];
 
   // Any change to the query set (tab, filters, page size) restarts at page 1.
   useEffect(() => {
@@ -195,10 +189,9 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
       <div className="mx-auto max-w-7xl space-y-4">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">Search Performance</h1>
+            <h1 className="text-2xl font-semibold">{t("searchPerformance.title")}</h1>
             <p className="text-sm text-base-content/70">
-              See your site&apos;s clicks, impressions, CTR, and position from
-              Google Search Console.
+              {t("searchPerformance.subtitle")}
             </p>
           </div>
           {report?.connected ? (
@@ -207,7 +200,7 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
               params={{ projectId }}
               className="link link-hover shrink-0 self-start text-sm font-medium text-base-content/60 transition-colors hover:text-base-content sm:mt-1"
             >
-              Change property
+              {t("searchPerformance.changeProperty")}
             </Link>
           ) : null}
         </div>
@@ -233,17 +226,17 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
                   <TabButton
                     active={tab === "striking"}
                     onClick={() => setTab("striking")}
-                    label={`Striking distance (${report.strikingDistance.length})`}
+                    label={t("searchPerformance.strikingTab", { count: report.strikingDistance.length })}
                   />
                   <TabButton
                     active={tab === "queries"}
                     onClick={() => setTab("queries")}
-                    label="Queries"
+                    label={t("searchPerformance.queriesTab")}
                   />
                   <TabButton
                     active={tab === "pages"}
                     onClick={() => setTab("pages")}
-                    label="Pages"
+                    label={t("searchPerformance.pagesTab")}
                   />
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
@@ -260,8 +253,8 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
                     }}
                     aria-label="Device filter"
                   >
-                    <option value={ALL}>All devices</option>
-                    {DEVICE_OPTIONS.map((option) => (
+                    <option value={ALL}>{t("searchPerformance.allDevices")}</option>
+                    {deviceOptions.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
                       </option>
@@ -273,7 +266,7 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
                     onChange={(event) => setCountry(event.target.value)}
                     aria-label="Country filter"
                   >
-                    <option value={ALL}>All countries</option>
+                    <option value={ALL}>{t("searchPerformance.allCountries")}</option>
                     {report.countries.map((row) => (
                       <option key={row.key} value={row.key}>
                         {row.key.toUpperCase()}
@@ -290,7 +283,7 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
                     }}
                     aria-label="Date range"
                   >
-                    {RANGE_OPTIONS.map((option) => (
+                    {rangeOptions.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
                       </option>
@@ -300,12 +293,12 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
                     buttonClassName="btn btn-ghost btn-sm gap-1"
                     actions={[
                       {
-                        label: "Export to Sheets",
+                        label: t("common.exportSheets"),
                         icon: <Sheet className="size-4" />,
                         onClick: () => void handleExport("sheets"),
                       },
                       {
-                        label: "Download CSV",
+                        label: t("common.exportCsv"),
                         icon: <Download className="size-4" />,
                         onClick: () => void handleExport("csv"),
                       },
@@ -322,7 +315,7 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
                 />
               ) : tableQuery.isPending ? (
                 <div className="flex items-center gap-2 p-8 text-sm text-base-content/60">
-                  <Loader2 className="size-4 animate-spin" /> Loading…
+                  <Loader2 className="size-4 animate-spin" /> {t("common.loading")}
                 </div>
               ) : tableQuery.isError ? (
                 <div className="p-4">
@@ -337,7 +330,7 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
                   <div className="p-4">
                     <DimensionTable
                       rows={tableRows}
-                      keyLabel={tab === "queries" ? "Query" : "Page"}
+                      keyLabel={tab === "queries" ? t("searchPerformance.query") : t("searchPerformance.page")}
                       onGenerateArticle={(q) => setModalKeyword(q)}
                     />
                   </div>

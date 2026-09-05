@@ -6,6 +6,7 @@ import {
   RefreshCw,
   Sheet,
 } from "lucide-react";
+import { useLanguagePreference } from "@/client/lib/language";
 
 export function SavedKeywordsHeader({
   totalCount,
@@ -22,15 +23,15 @@ export function SavedKeywordsHeader({
   onExportSheets: () => void;
   onRefreshMetrics: () => void;
 }) {
+  const { t } = useLanguagePreference();
   const disabled = totalCount === 0 || exporting != null;
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
       <div>
-        <h1 className="text-2xl font-semibold">Saved Keywords</h1>
+        <h1 className="text-2xl font-semibold">{t("saved.title")}</h1>
         <p className="text-sm text-base-content/70">
-          Save keyword ideas from research, organize them with tags, and revisit
-          when you&apos;re ready to act.
+          {t("saved.subtitle")}
         </p>
       </div>
 
@@ -46,7 +47,7 @@ export function SavedKeywordsHeader({
             <RefreshCw
               className={`size-4 ${metricsRefreshing ? "animate-spin" : ""}`}
             />
-            {metricsRefreshing ? "Updating..." : "Actions"}
+            {metricsRefreshing ? t("common.loading") : t("common.actions")}
             <ChevronDown className="size-3 opacity-60" />
           </button>
           <ul
@@ -62,9 +63,9 @@ export function SavedKeywordsHeader({
               >
                 <RefreshCw className="size-4" />
                 <span className="flex flex-col items-start">
-                  <span>Update keyword stats</span>
+                  <span>{t("saved.refreshStats")}</span>
                   <span className="text-xs text-base-content/50">
-                    Volume, difficulty &amp; CPC
+                    Volume, CPC &amp; KD
                   </span>
                 </span>
               </button>
@@ -85,7 +86,7 @@ export function SavedKeywordsHeader({
             ) : (
               <Download className="size-4" />
             )}
-            Export
+            {t("common.export")}
             <ChevronDown className="size-3 opacity-60" />
           </button>
           <ul
@@ -100,13 +101,13 @@ export function SavedKeywordsHeader({
                 disabled={disabled}
               >
                 <Sheet className="size-4" />
-                Export to Sheets
+                {t("saved.exportSheets")}
               </button>
             </li>
             <li>
               <button type="button" onClick={onExportCsv} disabled={disabled}>
                 <FileDown className="size-4" />
-                Export CSV
+                {t("saved.exportCsv")}
               </button>
             </li>
           </ul>

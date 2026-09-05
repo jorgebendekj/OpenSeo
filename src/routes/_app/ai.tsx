@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, ShieldAlert } from "lucide-react";
 import { getAuthMode, isHostedClientAuthMode } from "@/lib/auth-mode";
 import { captureClientEvent } from "@/client/lib/posthog";
+import { useLanguagePreference } from "@/client/lib/language";
 import { ClaudeIcon, CodexIcon } from "@/client/features/ai-mcp/AgentIcons";
 import { AvailableTools } from "@/client/features/ai-mcp/AvailableTools";
 import {
@@ -11,7 +12,7 @@ import {
 } from "@/client/features/ai-mcp/SetupControls";
 
 const DISCORD_URL = "https://discord.gg/c9uGs3cFXr";
-const SUPPORT_EMAIL = "ben@openseo.so";
+const SUPPORT_EMAIL = "ben@findableweb.io";
 const SAM_GITHUB_URL = "https://github.com/every-app/sam";
 const SKILL_NAMES = [
   "seo-project-setup",
@@ -43,18 +44,18 @@ export const Route = createFileRoute("/_app/ai")({
 });
 
 function AiPage() {
+  const { t } = useLanguagePreference();
   const mcpUrl =
     typeof window === "undefined"
-      ? "https://app.openseo.so/mcp"
+      ? "https://app.findableweb.io/mcp"
       : `${window.location.origin}/mcp`;
 
   return (
     <div className="h-full overflow-auto bg-base-100 px-4 py-12 md:px-6 md:py-16 pb-24 md:pb-12">
       <div className="mx-auto max-w-3xl">
-        <h1 className="text-2xl font-semibold">AI & MCP</h1>
+        <h1 className="text-2xl font-semibold">{t("ai.title")}</h1>
         <p className="mt-2 text-sm text-base-content/70 leading-relaxed">
-          Connect your AI agent to OpenSEO. Run keyword research, SERP analysis,
-          domain lookups, and backlink reviews from your editor or chat.
+          {t("ai.subtitle")}
         </p>
 
         {getAuthMode(import.meta.env.AUTH_MODE) === "cloudflare_access" ? (
@@ -64,7 +65,7 @@ function AiPage() {
               This instance is behind Cloudflare Access. MCP clients cannot
               connect until Managed OAuth is enabled on your Access application.{" "}
               <a
-                href="https://openseo.so/docs/self-hosting/cloudflare#connect-the-mcp-server-through-cloudflare-access"
+                href="https://findableweb.io/docs/self-hosting/cloudflare#connect-the-mcp-server-through-cloudflare-access"
                 target="_blank"
                 rel="noreferrer"
                 className="link font-medium"
@@ -79,11 +80,11 @@ function AiPage() {
           <div className="rounded-lg border border-base-300 bg-base-200 px-4 py-3.5">
             <div className="flex items-center justify-between gap-3">
               <p className="text-xs font-medium uppercase tracking-wide text-base-content/50">
-                MCP server URL
+                {t("ai.mcpServerUrl")}
               </p>
               <CopyButton
                 value={mcpUrl}
-                successMessage="MCP URL copied"
+                successMessage={t("ai.mcpUrlCopied")}
                 onCopy={() => captureClientEvent("mcp:setup_url_copy")}
               />
             </div>
@@ -92,9 +93,7 @@ function AiPage() {
             </code>
           </div>
           <p className="mt-2.5 text-xs text-base-content/55 leading-relaxed">
-            Paste this into any MCP client. This URL points at the OpenSEO
-            instance you are using now, whether hosted, self-hosted, or local.
-            Sign in with OpenSEO when prompted.
+            {t("ai.mcpHelpText")}
           </p>
           {isHostedClientAuthMode() ? (
             <p className="mt-2 text-xs text-base-content/55">
@@ -108,22 +107,22 @@ function AiPage() {
         </section>
 
         <section className="mt-10">
-          <h2 className="text-base font-semibold">Setup guides</h2>
+          <h2 className="text-base font-semibold">{t("ai.setupGuides")}</h2>
           <p className="mt-1.5 text-sm text-base-content/70">
-            Pick your agent.
+            {t("ai.pickYourAgent")}
           </p>
           <div className="mt-4 divide-y divide-base-300 overflow-hidden rounded-lg border border-base-300 bg-base-200">
             <Collapsible
               id="claude-code"
-              title="Claude Code"
-              subtitle="Add with the CLI"
+              title={t("ai.claudeCodeTitle")}
+              subtitle={t("ai.claudeCodeSubtitle")}
               icon={<ClaudeIcon className="size-5" />}
             >
               <p className="text-sm text-base-content/70">
-                Run this in your terminal:
+                {t("ai.runInTerminal")}
               </p>
               <CodeBlock
-                code={`claude mcp add --transport http --scope user openseo ${mcpUrl}`}
+                code={`claude mcp add --transport http --scope user findable ${mcpUrl}`}
                 onCopy={() =>
                   captureClientEvent("mcp:setup_command_copy", {
                     agent: "claude-code",
@@ -131,14 +130,14 @@ function AiPage() {
                 }
               />
               <p className="text-sm text-base-content/70">
-                Approve the login when prompted.
+                {t("ai.approveLoginPrompt")}
               </p>
             </Collapsible>
 
             <Collapsible
               id="claude-desktop"
-              title="Claude Desktop"
-              subtitle="Add a custom connector"
+              title={t("ai.claudeDesktopTitle")}
+              subtitle={t("ai.claudeDesktopSubtitle")}
               icon={<ClaudeIcon className="size-5" />}
             >
               <ol className="ml-5 list-decimal space-y-1.5 text-sm text-base-content/70 leading-relaxed">
@@ -154,9 +153,9 @@ function AiPage() {
                   .
                 </li>
                 <li>Paste the MCP URL above and click Add.</li>
-                <li>Approve the OpenSEO login when prompted.</li>
+                <li>Approve the Findable login when prompted.</li>
                 <li>
-                  Optional: after OpenSEO connects, click{" "}
+                  Optional: after Findable connects, click{" "}
                   <span className="font-medium text-base-content">
                     Configure
                   </span>
@@ -174,15 +173,15 @@ function AiPage() {
 
             <Collapsible
               id="codex"
-              title="Codex"
-              subtitle="Add with the CLI"
+              title={t("ai.codexTitle")}
+              subtitle={t("ai.codexSubtitle")}
               icon={<CodexIcon className="size-5" />}
             >
               <p className="text-sm text-base-content/70">
-                Run this in your terminal:
+                {t("ai.runInTerminal")}
               </p>
               <CodeBlock
-                code={`codex mcp add openseo --url ${mcpUrl}`}
+                code={`codex mcp add findable --url ${mcpUrl}`}
                 onCopy={() =>
                   captureClientEvent("mcp:setup_command_copy", {
                     agent: "codex",
@@ -190,14 +189,14 @@ function AiPage() {
                 }
               />
               <p className="text-sm text-base-content/70">
-                Approve the login when prompted.
+                {t("ai.approveLoginPrompt")}
               </p>
             </Collapsible>
 
             <Collapsible
               id="codex-desktop"
-              title="Codex Desktop"
-              subtitle="Settings → Integrations & MCP"
+              title={t("ai.codexDesktopTitle")}
+              subtitle={t("ai.codexDesktopSubtitle")}
               icon={<CodexIcon className="size-5" />}
             >
               <ol className="ml-5 list-decimal space-y-1.5 text-sm text-base-content/70 leading-relaxed">
@@ -216,18 +215,16 @@ function AiPage() {
                   .
                 </li>
                 <li>Paste the MCP URL above.</li>
-                <li>Approve the OpenSEO login when prompted.</li>
+                <li>Approve the Findable login when prompted.</li>
               </ol>
             </Collapsible>
           </div>
         </section>
 
         <section className="mt-12">
-          <h2 className="text-base font-semibold">OpenSEO Skills</h2>
+          <h2 className="text-base font-semibold">{t("ai.findableSkillsTitle")}</h2>
           <p className="mt-1.5 text-sm text-base-content/70 leading-relaxed">
-            Skills give Codex and Claude Code reusable SEO workflows that can
-            call your OpenSEO MCP tools when live SERP, keyword, backlink, or
-            domain data is needed.
+            {t("ai.findableSkillsDesc")}
           </p>
           <div className="mt-4 divide-y divide-base-300 overflow-hidden rounded-lg border border-base-300 bg-base-200">
             <Collapsible
@@ -237,7 +234,7 @@ function AiPage() {
             >
               <CodeBlock code={SKILLS_INSTALL} />
               <p className="text-sm text-base-content/70">
-                You can also auto-accept each OpenSEO skill:
+                You can also auto-accept each Findable skill:
               </p>
               <CodeBlock code={ALL_SKILLS_INSTALL} />
             </Collapsible>
@@ -275,7 +272,7 @@ function AiPage() {
               and competitors to your project context.
             </p>
             <p className="mt-4 text-xs font-medium uppercase tracking-wide text-base-content/50">
-              Available skills
+              {t("ai.availableToolsTitle")}
             </p>
             <ul className="mt-2 grid gap-1.5 text-sm text-base-content/70 sm:grid-cols-2">
               {SKILL_NAMES.map((skill) => (
@@ -289,18 +286,16 @@ function AiPage() {
         </section>
 
         <section className="mt-12">
-          <h2 className="text-base font-semibold">Available tools</h2>
+          <h2 className="text-base font-semibold">{t("ai.availableToolsTitle")}</h2>
           <div className="mt-5">
             <AvailableTools />
           </div>
         </section>
 
         <section className="mt-12">
-          <h2 className="text-base font-semibold">Sam: AI SEO teammate</h2>
+          <h2 className="text-base font-semibold">{t("ai.samTitle")}</h2>
           <p className="mt-1.5 text-sm text-base-content/70 leading-relaxed">
-            Sam is an experimental content workflow for Claude Code and other
-            coding agents. It combines keyword research, source discovery,
-            drafting, and QA.
+            {t("ai.samDesc")}
           </p>
           <a
             href={SAM_GITHUB_URL}

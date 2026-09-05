@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "@tanstack/react-form";
 import { Search } from "lucide-react";
+import { useLanguagePreference } from "@/client/lib/language";
 import {
   createFormValidationErrors,
   getFieldError,
@@ -54,6 +55,7 @@ export function BacklinksSearchCard({
   initialValues: SearchDraft;
   onSubmit: (values: SearchDraft) => void;
 }) {
+  const { t } = useLanguagePreference();
   const [userSelectedScope, setUserSelectedScope] = useState(false);
   const form = useForm({
     defaultValues: initialValues,
@@ -97,7 +99,7 @@ export function BacklinksSearchCard({
                     >
                       <Search className="size-4 text-base-content/60" />
                       <input
-                        placeholder="Enter a domain or URL"
+                        placeholder={t("backlinks.inputPlaceholder")}
                         value={field.state.value}
                         onChange={(event) => {
                           const nextTarget = event.target.value;
@@ -134,7 +136,7 @@ export function BacklinksSearchCard({
                     className="btn btn-primary shrink-0 px-6"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Loading..." : "Search"}
+                    {isSubmitting ? t("common.loading") : t("backlinks.searchBtn")}
                   </button>
                 )}
               </form.Subscribe>
