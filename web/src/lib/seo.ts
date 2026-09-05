@@ -67,6 +67,7 @@ export function buildPageSeo({
         : []),
       { property: "og:url", content: canonicalUrl },
       { property: "og:image", content: socialImageUrl },
+      { property: "og:image:secure_url", content: socialImageUrl },
       { property: "og:image:alt", content: imageAlt },
       { property: "og:image:type", content: "image/jpeg" },
       { property: "og:image:width", content: "1200" },

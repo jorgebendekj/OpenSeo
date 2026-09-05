@@ -60,6 +60,51 @@ export const Route = createRootRoute({
         name: "apple-mobile-web-app-status-bar-style",
         content: "black-translucent",
       },
+      {
+        property: "og:site_name",
+        content: "Findable",
+      },
+      {
+        property: "og:title",
+        content: "Findable - AI-Powered SEO & GEO Search Intelligence Platform",
+      },
+      {
+        property: "og:description",
+        content:
+          "Findable is the AI-powered SEO and search intelligence platform. Generate ranking articles in 1-click, track Google keyword rankings, and monitor AI visibility.",
+      },
+      {
+        property: "og:image",
+        content: "https://findableweb.io/social-card.jpg",
+      },
+      {
+        property: "og:image:secure_url",
+        content: "https://findableweb.io/social-card.jpg",
+      },
+      {
+        property: "og:image:type",
+        content: "image/jpeg",
+      },
+      {
+        property: "og:image:width",
+        content: "1200",
+      },
+      {
+        property: "og:image:height",
+        content: "630",
+      },
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+      {
+        name: "twitter:title",
+        content: "Findable - AI-Powered SEO & GEO Search Intelligence Platform",
+      },
+      {
+        name: "twitter:image",
+        content: "https://findableweb.io/social-card.jpg",
+      },
     ],
     links: [
       { rel: "stylesheet", href: "/fonts/fonts.css" },
