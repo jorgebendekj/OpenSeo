@@ -13,6 +13,7 @@ import {
   getProjects,
   updateProject,
 } from "@/serverFunctions/projects";
+import { useLanguagePreference } from "@/client/lib/language";
 import type { ProjectSummary } from "./types";
 
 export function ProjectGeneralSettings({ projectId }: { projectId: string }) {
@@ -42,6 +43,7 @@ export function ProjectGeneralSettings({ projectId }: { projectId: string }) {
 
 function GeneralSection({ project }: { project: ProjectSummary }) {
   const queryClient = useQueryClient();
+  const { t } = useLanguagePreference();
   const [name, setName] = React.useState(project.name);
   const [domain, setDomain] = React.useState(project.domain ?? "");
   const [market, setMarket] = React.useState({
@@ -61,7 +63,7 @@ function GeneralSection({ project }: { project: ProjectSummary }) {
       }),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["projects"] });
-      toast.success("Project updated");
+      toast.success(t("settings.saved") || "Project updated");
     },
     onError: (error) =>
       toast.error(getStandardErrorMessage(error, "Failed to update project")),
@@ -85,10 +87,12 @@ function GeneralSection({ project }: { project: ProjectSummary }) {
 
   return (
     <section className="space-y-3">
-      <h2 className="text-sm font-medium text-base-content/50">General</h2>
+      <h2 className="text-sm font-medium text-base-content/50">
+        {t("settings.general") || "General"}
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <label className="flex flex-col gap-1.5 text-sm">
-          <span className="font-medium">Name</span>
+          <span className="font-medium">{t("settings.name") || "Name"}</span>
           <input
             type="text"
             value={name}
@@ -100,7 +104,8 @@ function GeneralSection({ project }: { project: ProjectSummary }) {
 
         <label className="flex flex-col gap-1.5 text-sm">
           <span className="font-medium">
-            Domain <span className="text-base-content/50">(optional)</span>
+            {t("settings.domain") || "Domain"}{" "}
+            <span className="text-base-content/50">({t("settings.optional") || "optional"})</span>
           </span>
           <input
             type="text"
@@ -115,8 +120,8 @@ function GeneralSection({ project }: { project: ProjectSummary }) {
         <div className="flex flex-col gap-1.5">
           <ProjectMarketFields value={market} onChange={setMarket} />
           <span className="text-xs text-base-content/50">
-            Keyword, SERP, and domain data uses this country and language unless
-            a call asks for a different one.
+            {t("settings.targetMarketDesc") ||
+              "Keyword, SERP, and domain data uses this country and language unless a call asks for a different one."}
           </span>
         </div>
 
@@ -126,7 +131,7 @@ function GeneralSection({ project }: { project: ProjectSummary }) {
             className="btn btn-primary btn-sm"
             disabled={updateMutation.isPending || !isDirty}
           >
-            Save changes
+            {t("settings.saveChanges") || "Save changes"}
           </button>
         </div>
       </form>
@@ -143,6 +148,7 @@ function DangerSection({
 }) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { t } = useLanguagePreference();
   const [confirming, setConfirming] = React.useState(false);
 
   const archiveMutation = useMutation({
@@ -150,7 +156,7 @@ function DangerSection({
     onSuccess: async () => {
       if (getLastProjectId() === project.id) clearLastProjectId();
       await queryClient.invalidateQueries({ queryKey: ["projects"] });
-      toast.success("Project archived");
+      toast.success(t("settings.archiveProject") || "Project archived");
       // Re-resolve to a remaining project via the landing redirect.
       void navigate({ to: "/" });
     },
@@ -161,7 +167,7 @@ function DangerSection({
   return (
     <section className="space-y-3 border-t border-base-300 pt-8">
       <h2 className="text-sm font-medium text-base-content/50">
-        Archive project
+        {t("settings.archiveProject") || "Archive project"}
       </h2>
 
       {confirming ? (
@@ -181,7 +187,7 @@ function DangerSection({
               onClick={() => archiveMutation.mutate()}
               disabled={archiveMutation.isPending}
             >
-              Yes, archive project
+              {t("settings.yesArchive") || "Yes, archive project"}
             </button>
             <button
               type="button"
@@ -189,7 +195,7 @@ function DangerSection({
               onClick={() => setConfirming(false)}
               disabled={archiveMutation.isPending}
             >
-              Cancel
+              {t("settings.cancel") || "Cancel"}
             </button>
           </div>
         </div>
@@ -197,7 +203,7 @@ function DangerSection({
         <div className="flex items-center justify-between gap-4">
           <p className="text-sm text-base-content/60">
             {canArchive
-              ? "Archive this project to remove it from your workspace."
+              ? t("settings.archiveDesc") || "Archive this project to remove it from your workspace."
               : "You can't archive your only project."}
           </p>
           <button
@@ -206,10 +212,11 @@ function DangerSection({
             onClick={() => setConfirming(true)}
             disabled={!canArchive}
           >
-            Archive project
+            {t("settings.archiveProject") || "Archive project"}
           </button>
         </div>
       )}
     </section>
   );
 }
+

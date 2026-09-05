@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Monitor, Moon, Sun } from "lucide-react";
+import { Globe, Monitor, Moon, Sun } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { ApiKeySettings } from "@/client/features/settings/ApiKeySettings";
 import { type ThemePreference, useThemePreference } from "@/client/lib/theme";
+import { useLanguagePreference } from "@/client/lib/language";
+import type { SupportedLocale } from "@/shared/i18n";
 import { authClient, useSession } from "@/lib/auth-client";
 import { isHostedClientAuthMode } from "@/lib/auth-mode";
 import { BRAND } from "@/shared/brand";
@@ -23,9 +25,27 @@ const THEME_OPTIONS: {
   { value: "dark", label: "Dark", icon: Moon },
 ];
 
+const LANGUAGE_OPTIONS: {
+  value: SupportedLocale;
+  label: string;
+  nativeName: string;
+}[] = [
+  { value: "en", label: "English", nativeName: "English" },
+  { value: "pl", label: "Polish", nativeName: "Polski" },
+  { value: "es", label: "Spanish", nativeName: "Español" },
+  { value: "de", label: "German", nativeName: "Deutsch" },
+  { value: "fr", label: "French", nativeName: "Français" },
+  { value: "it", label: "Italian", nativeName: "Italiano" },
+  { value: "pt-BR", label: "Portuguese", nativeName: "Português (Brasil)" },
+  { value: "nl", label: "Dutch", nativeName: "Nederlands" },
+  { value: "ja", label: "Japanese", nativeName: "日本語" },
+  { value: "zh-Hans", label: "Chinese", nativeName: "简体中文" },
+];
+
 function SettingsPage() {
   const isHosted = isHostedClientAuthMode();
   const { themePreference, setThemePreference } = useThemePreference();
+  const { language, setLanguage, t } = useLanguagePreference();
   const { data: session, isPending: isSessionPending } = useSession();
   const [isSaving, setIsSaving] = useState(false);
 
@@ -52,14 +72,22 @@ function SettingsPage() {
   return (
     <div className="h-full overflow-auto bg-base-100 px-4 py-8 pb-24 md:px-6 md:py-12 md:pb-8">
       <div className="mx-auto max-w-3xl space-y-10">
-        <h1 className="text-2xl font-bold tracking-tight">Settings</h1>
+        <h1 className="text-2xl font-bold tracking-tight">
+          {t("settings.title") || "Settings"}
+        </h1>
 
-        <section className="space-y-3">
+        <section className="space-y-4">
           <h2 className="text-sm font-medium text-base-content/50">
-            Appearance
+            {t("settings.appearance") || "Appearance & Language"}
           </h2>
-          <div className="flex items-center justify-between gap-6">
-            <span className="text-sm">Theme</span>
+
+          <div className="flex items-center justify-between gap-6 border-b border-base-200 pb-4">
+            <div>
+              <span className="text-sm font-medium">{t("settings.theme") || "Theme"}</span>
+              <p className="text-xs text-base-content/60 mt-0.5">
+                Customize how Findable looks on your device
+              </p>
+            </div>
             <div
               role="radiogroup"
               aria-label="Theme preference"
@@ -89,6 +117,36 @@ function SettingsPage() {
               })}
             </div>
           </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-1.5">
+                <Globe className="size-4 text-primary" />
+                <span className="text-sm font-medium">
+                  {t("settings.language") || "Interface Language"}
+                </span>
+              </div>
+              <p className="text-xs text-base-content/60 mt-0.5">
+                {t("settings.languageDesc") || "Choose the language used for the application interface."}
+              </p>
+            </div>
+            <select
+              value={language}
+              onChange={(e) => {
+                const nextLang = e.target.value as SupportedLocale;
+                setLanguage(nextLang);
+                toast.success(`Language set to ${LANGUAGE_OPTIONS.find(o => o.value === nextLang)?.nativeName || nextLang}`);
+              }}
+              className="select select-bordered select-sm w-full sm:w-48 font-medium"
+              aria-label="Interface Language"
+            >
+              {LANGUAGE_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.nativeName} ({opt.label})
+                </option>
+              ))}
+            </select>
+          </div>
         </section>
 
         {isHosted ? (
@@ -97,13 +155,13 @@ function SettingsPage() {
 
             <section className="space-y-3">
               <h2 className="text-sm font-medium text-base-content/50">
-                Analytics
+                {t("settings.analytics") || "Analytics"}
               </h2>
               <div className="flex items-start justify-between gap-6">
                 <div>
-                  <p className="text-sm">Help improve {BRAND.name}</p>
+                  <p className="text-sm">{t("settings.helpImprove") || `Help improve ${BRAND.name}`}</p>
                   <p className="mt-1 text-sm text-base-content/60">
-                    Share analytics and usage data.
+                    {t("settings.shareAnalytics") || "Share analytics and usage data."}
                   </p>
                 </div>
                 <input
@@ -121,9 +179,11 @@ function SettingsPage() {
           </>
         ) : (
           <section className="space-y-3">
-            <h2 className="text-sm font-medium text-base-content/50">About</h2>
+            <h2 className="text-sm font-medium text-base-content/50">
+              {t("settings.about") || "About"}
+            </h2>
             <div className="flex items-center justify-between gap-6">
-              <span className="text-sm">Version</span>
+              <span className="text-sm">{t("settings.version") || "Version"}</span>
               <span className="font-mono text-sm text-base-content/60">
                 v{version}
               </span>
@@ -134,3 +194,4 @@ function SettingsPage() {
     </div>
   );
 }
+

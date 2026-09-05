@@ -75,7 +75,22 @@ const projectNavItems = [
   },
 ] as const;
 
-const aiNavItem = linkOptions({
+export const NAV_KEYS = {
+  "/p/$projectId": "nav.dashboard",
+  "/p/$projectId/articles": "nav.aiArticles",
+  "/p/$projectId/keywords": "nav.keywordResearch",
+  "/p/$projectId/saved": "nav.savedKeywords",
+  "/p/$projectId/rank-tracking": "nav.rankTracking",
+  "/p/$projectId/search-performance": "nav.gscInsights",
+  "/p/$projectId/domain": "nav.domainOverview",
+  "/p/$projectId/backlinks": "nav.backlinks",
+  "/p/$projectId/audit": "nav.siteAudit",
+  "/p/$projectId/brand-lookup": "nav.brandLookup",
+  "/p/$projectId/prompt-explorer": "nav.promptExplorer",
+  "/ai": "nav.aiAndMcp",
+} as const;
+
+export const aiNavItem = linkOptions({
   to: "/ai" as const,
   label: "AI & MCP",
   icon: Bot,
@@ -86,6 +101,19 @@ export const connectNavGroup = {
   label: "Connect",
   items: [aiNavItem],
 };
+
+export function getConnectNavGroup(t?: (key: string) => string) {
+  const translate = (key: string, fallback: string) => (t ? t(key) || fallback : fallback);
+  return {
+    label: translate("nav.connect", "Connect"),
+    items: [
+      {
+        ...aiNavItem,
+        label: translate("nav.aiAndMcp", "AI & MCP"),
+      },
+    ],
+  };
+}
 
 function getProjectNavItems(projectId: string) {
   return linkOptions(
@@ -99,18 +127,25 @@ function getProjectNavItems(projectId: string) {
 
 // Grouped by scope: "My Site" is the project's own domain (tracked data),
 // "Research" is point-at-anything lookup tools.
-export function getProjectNavGroups(projectId: string) {
+export function getProjectNavGroups(projectId: string, t?: (key: string) => string) {
   const all = getProjectNavItems(projectId);
-  const byPath = (path: (typeof projectNavItems)[number]["to"]) =>
-    all.find((i) => i.to === path)!;
+  const translate = (key: string, fallback: string) => (t ? t(key) || fallback : fallback);
+  const byPath = (path: (typeof projectNavItems)[number]["to"]) => {
+    const item = all.find((i) => i.to === path)!;
+    const key = NAV_KEYS[path as keyof typeof NAV_KEYS];
+    return {
+      ...item,
+      label: key ? translate(key, item.label) : item.label,
+    };
+  };
 
   return [
     {
-      label: "Overview",
+      label: translate("nav.overview", "Overview"),
       items: [byPath("/p/$projectId")],
     },
     {
-      label: "Content & Growth",
+      label: translate("nav.contentAndGrowth", "Content & Growth"),
       items: [
         byPath("/p/$projectId/articles"),
         byPath("/p/$projectId/search-performance"),
@@ -118,7 +153,7 @@ export function getProjectNavGroups(projectId: string) {
       ],
     },
     {
-      label: "Research",
+      label: translate("nav.research", "Research"),
       items: [
         byPath("/p/$projectId/keywords"),
         byPath("/p/$projectId/domain"),
@@ -128,7 +163,7 @@ export function getProjectNavGroups(projectId: string) {
       ],
     },
     {
-      label: "Site Assets",
+      label: translate("nav.siteAssets", "Site Assets"),
       items: [
         byPath("/p/$projectId/saved"),
         byPath("/p/$projectId/audit"),

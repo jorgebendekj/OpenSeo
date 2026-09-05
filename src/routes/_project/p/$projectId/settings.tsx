@@ -2,24 +2,26 @@ import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronLeft } from "lucide-react";
 import { getProjects } from "@/serverFunctions/projects";
+import { useLanguagePreference } from "@/client/lib/language";
 
 export const Route = createFileRoute("/_project/p/$projectId/settings")({
   component: ProjectSettingsLayout,
 });
 
-const tabs = [
-  { to: "/p/$projectId/settings" as const, label: "General", exact: true },
-  { to: "/p/$projectId/settings/context" as const, label: "Context" },
-  { to: "/p/$projectId/settings/integrations" as const, label: "Integrations" },
-];
-
 function ProjectSettingsLayout() {
   const { projectId } = Route.useParams();
+  const { t } = useLanguagePreference();
   const projectsQuery = useQuery({
     queryKey: ["projects"],
     queryFn: () => getProjects(),
   });
   const project = projectsQuery.data?.find((entry) => entry.id === projectId);
+
+  const tabs = [
+    { to: "/p/$projectId/settings" as const, label: t("settings.general") || "General", exact: true },
+    { to: "/p/$projectId/settings/context" as const, label: t("settings.context") || "Context" },
+    { to: "/p/$projectId/settings/integrations" as const, label: t("settings.integrations") || "Integrations" },
+  ];
 
   return (
     <div className="h-full overflow-auto bg-base-100">
@@ -30,11 +32,11 @@ function ProjectSettingsLayout() {
             className="inline-flex items-center gap-1 text-sm text-base-content/60 transition-colors hover:text-base-content"
           >
             <ChevronLeft className="size-4" />
-            Projects
+            {t("projects.projects") || "Projects"}
           </Link>
           <div>
             <h1 className="text-2xl font-bold tracking-tight">
-              Project settings
+              {t("settings.projectSettings") || "Project settings"}
             </h1>
             <p className="text-sm text-base-content/60">
               {project?.name ?? " "}
