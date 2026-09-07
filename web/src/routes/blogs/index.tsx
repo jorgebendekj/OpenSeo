@@ -4,7 +4,8 @@ import { BlogLayout } from "@/components/blog-layout";
 import { getBlogPosts } from "@/lib/content.functions";
 import { buildPageSeo } from "@/lib/seo";
 
-const blogIndexDescription = "SEO articles and guides from Findable.";
+const blogIndexDescription =
+  "Odkryj przewodniki, analizy i strategie SEO od Findable. Poznaj techniki pozycjonowania w Google, Generative Engine Optimization (GEO) i agentów AI.";
 
 export const Route = createFileRoute("/blogs/")({
   head: () =>

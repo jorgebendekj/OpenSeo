@@ -4,7 +4,7 @@ import { featureGroups } from "@/lib/feature-pages";
 import { buildPageSeo } from "@/lib/seo";
 
 const featuresDescription =
-  "Explore Findable's open-source SEO tools for AI-agent workflows, Google Search Console MCP, keyword research, rank tracking, backlinks, site audits, competitor analysis, and AI visibility.";
+  "Explore Findable SEO tools: AI article generator, keyword research, rank tracking, backlink analyzer, site audit, and MCP server for AI agents.";
 
 export const Route = createFileRoute("/_marketing/features/")({
   head: () =>

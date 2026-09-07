@@ -6,7 +6,7 @@ import { buildPageSeo } from "@/lib/seo";
 export const Route = createFileRoute("/_marketing/backlink-checker")({
   head: () =>
     buildPageSeo({
-      title: "Free Backlink Checker: Check Backlinks to Any Website",
+      title: "Free Backlink Checker - Check Any Domain",
       description:
         "Check backlinks for any domain: referring domains, top backlinks, anchor text, and follow status. Instant results, no signup required.",
       path: "/backlink-checker",

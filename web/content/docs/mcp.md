@@ -1,6 +1,6 @@
 ---
 title: "Set up Findable MCP"
-description: "Connect Findable MCP to Claude, Codex, and other AI clients."
+description: "Connect Findable MCP server to Claude Code, Cursor, and AI agents. Automate keyword research, SERP analysis, and Google Search Console data via AI."
 ---
 
 Findable MCP lets compatible AI clients call Findable tools for keyword research, SERP inspection, local business research, competitive search intelligence, domain research, backlink overview, saved keywords, rank tracking, shared project context, and Google Search Console performance and URL inspection.

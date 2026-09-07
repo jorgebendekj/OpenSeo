@@ -4,7 +4,7 @@ import { buildPageSeo } from "@/lib/seo";
 
 const homeTitle = "Findable - AI-Powered SEO Engine & 1-Click Article Generator";
 const homeDescription =
-  "Findable is the AI-powered SEO and search intelligence platform. Generate ranking articles in 1-click, track Google keyword rankings, monitor AI visibility across ChatGPT & Perplexity, run automated site audits, and sync Google Search Console & GA4.";
+  "AI-powered SEO and search intelligence platform. Generate ranking articles in 1-click, track Google keyword rankings, and monitor AI search visibility.";
 
 const schemaJson = JSON.stringify({
   "@context": "https://schema.org",

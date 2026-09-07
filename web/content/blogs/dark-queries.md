@@ -1,5 +1,5 @@
 ---
-title: "The Dark Query Problem: Why Search Console Hides Most of Your Searches"
+title: "The Dark Query Problem in Search Console"
 description: "Google shows you the clicks but hides the questions behind them. Here's how to triangulate the searches you can't see using data you already have."
 author: "Jeremy Rivera"
 date: "2026-07-20"

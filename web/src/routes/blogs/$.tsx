@@ -27,7 +27,7 @@ export const Route = createFileRoute("/blogs/$")({
       title,
       description,
       path: data?.url ?? "/blogs",
-      titleSuffix: "Findable Blog",
+      titleSuffix: "Findable",
       ogType: "article",
     });
   },
