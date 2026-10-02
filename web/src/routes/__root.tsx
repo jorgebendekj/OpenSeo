@@ -3,12 +3,11 @@ import {
   HeadContent,
   Outlet,
   Scripts,
-  useLocation,
 } from "@tanstack/react-router";
 import * as React from "react";
 import appCss from "@/styles/app.css?url";
 import { RootProvider } from "fumadocs-ui/provider/tanstack";
-import { I18nProvider, getUrlLanguage } from "@/lib/i18n";
+import { I18nProvider, useContentLanguage } from "@/lib/i18n";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -56,10 +55,10 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const { pathname } = useLocation();
+  const lang = useContentLanguage() ?? "en";
 
   return (
-    <html lang={getUrlLanguage(pathname) ?? "en"} suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         <HeadContent />
         <script

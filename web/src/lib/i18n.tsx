@@ -1,4 +1,8 @@
-import { useLocation, useNavigate } from "@tanstack/react-router";
+import {
+  useLocation,
+  useNavigate,
+  useRouterState,
+} from "@tanstack/react-router";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 export type Language = "en" | "es" | "pl";
@@ -675,9 +679,24 @@ export function getUrlLanguage(pathname: string): Language | null {
   return pathname === "/es" || pathname.startsWith("/es/") ? "es" : null;
 }
 
-export function I18nProvider({ children }: { children: React.ReactNode }) {
+// Blog posts declare their language in frontmatter and expose it through the
+// route loader, so a Spanish guide renders as Spanish at any URL.
+export function useContentLanguage(): Language | null {
   const { pathname } = useLocation();
-  const urlLang = getUrlLanguage(pathname);
+  const loaderLang = useRouterState({
+    select: (state) => {
+      for (const match of state.matches) {
+        const lang = (match.loaderData as { lang?: unknown } | undefined)?.lang;
+        if (lang === "en" || lang === "es" || lang === "pl") return lang;
+      }
+      return null;
+    },
+  });
+  return getUrlLanguage(pathname) ?? loaderLang;
+}
+
+export function I18nProvider({ children }: { children: React.ReactNode }) {
+  const urlLang = useContentLanguage();
   const [preferred, setPreferred] = useState<Language>("en");
   const lang = urlLang ?? preferred;
 
