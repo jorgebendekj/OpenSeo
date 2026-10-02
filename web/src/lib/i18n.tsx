@@ -10,7 +10,7 @@ export const esHomeFaqs = [
   },
   {
     q: "¿Mide Findable mi visibilidad en ChatGPT en España?",
-    a: "Todavía no por país. La consulta de marca de la app (disponible en los planes de pago) usa hoy datos de Estados Unidos en inglés, tanto para ChatGPT como para Google AI Overviews. Lo que sí funciona con datos de España es la investigación de palabras clave, el seguimiento de posiciones en Google y Search Console.",
+    a: "Solo en parte. La consulta de marca (disponible en los planes de pago) te deja elegir España para Google AI Overviews, pero los datos de ChatGPT son únicamente de Estados Unidos en inglés. Por eso, en una consulta para España, ChatGPT no se suma al total. La investigación de palabras clave, el seguimiento de posiciones y Search Console sí funcionan con datos de España.",
   },
   {
     q: "¿Cuánto cuesta Findable?",

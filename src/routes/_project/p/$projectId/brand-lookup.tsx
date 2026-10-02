@@ -11,7 +11,7 @@ function BrandLookupRoute() {
   const { projectId } = Route.useParams();
   const navigate = useNavigate({ from: Route.fullPath });
   // `c` is already an opaque competitor string array via the schema transform.
-  const { q = "", c = [], scope } = Route.useSearch();
+  const { q = "", c = [], scope, loc } = Route.useSearch();
 
   return (
     <BrandLookupPage
@@ -19,7 +19,8 @@ function BrandLookupRoute() {
       initialQuery={q}
       initialCompetitors={c}
       initialScope={scope}
-      onSearchChange={(nextQuery, nextCompetitors, nextScope) => {
+      initialLocationCode={loc}
+      onSearchChange={(nextQuery, nextCompetitors, nextScope, nextLoc) => {
         void navigate({
           search: (prev) => ({
             ...prev,
@@ -32,6 +33,7 @@ function BrandLookupRoute() {
             // The page passes a scope only when it differs from the default
             // derived from `q`.
             scope: nextScope,
+            loc: nextLoc,
           }),
           replace: true,
         });

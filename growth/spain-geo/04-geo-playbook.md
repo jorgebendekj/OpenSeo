@@ -21,8 +21,8 @@ Spanish home, five guides, schema, `llms.txt`, hreflang. Next: pricing and featu
 ### C. Distribution
 Spanish LinkedIn posts from a named founder, YouTube walkthrough in Spanish (screen recording of the manual method), Spanish-language SEO communities and X/Twitter.
 
-### D. Product (unlocks the claim)
-Country and language selector on Brand Lookup (Spain 2724 / es). Then publish the first Spain data study with Findable's own numbers.
+### D. Product
+Brand Lookup country selector is shipped (Google AI Overviews for Spain). Next unlock for a data study: ChatGPT by country, which depends on the data provider. Until then, run the study with manual prompts and Google AI Overviews lookups.
 
 ## Measurement routine (monthly)
 
@@ -39,7 +39,7 @@ Country and language selector on Brand Lookup (Spain 2724 / es). Then publish th
 | 1-2 | Ship branch, submit `/es` and sitemap in Search Console, baseline measurement, 10 customer calls | Baseline sheet |
 | 3-4 | Listings and entity consistency; 2 new guides (ecommerce, local) | 8 listings live |
 | 5-8 | Data study fieldwork and publication; pitch 20 roundup authors | Study + 5 mentions |
-| 9-10 | Spanish pricing/feature pages; Brand Lookup Spain selector | Product claim true |
+| 9-10 | Spanish pricing/feature pages | Spanish product pages live |
 | 11-12 | Review, remeasure, double down on winning cluster | Month-3 report |
 
 Success at day 90 (targets, not promises): indexed `/es` and all guides; ≥ 20 non-brand queries with impressions in Search Console; Findable named in at least 3 of the 30 tracked prompts; ≥ 5 independent Spanish-language mentions.

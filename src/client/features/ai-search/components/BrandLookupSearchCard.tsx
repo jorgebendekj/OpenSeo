@@ -2,6 +2,8 @@ import type { FormEvent } from "react";
 import { Search } from "lucide-react";
 import { isHostedClientAuthMode } from "@/lib/auth-mode";
 import { applyBillingMarkupUsd } from "@/shared/billing";
+import { LABS_LOCATION_OPTIONS } from "@/client/features/keywords/locations";
+import { LocationSelect } from "@/client/components/LocationSelect";
 import { ResearchScopeSelect } from "@/client/components/ResearchScopeSelect";
 import type { ResearchScope } from "@/shared/researchScope";
 import { BRAND_LOOKUP_MAX_INPUT_LENGTH } from "@/types/schemas/ai-search";
@@ -12,6 +14,8 @@ type Props = {
   scope: ResearchScope;
   onScopeChange: (next: ResearchScope) => void;
   scopeDisabledReason: string | undefined;
+  locationCode: number;
+  onLocationChange: (next: number) => void;
   competitors: string;
   onCompetitorsChange: (next: string) => void;
   onSubmit: (event: FormEvent) => void;
@@ -50,6 +54,8 @@ export function BrandLookupSearchCard({
   scope,
   onScopeChange,
   scopeDisabledReason,
+  locationCode,
+  onLocationChange,
   competitors,
   onCompetitorsChange,
   onSubmit,
@@ -91,6 +97,13 @@ export function BrandLookupSearchCard({
               value={scope}
               onChange={onScopeChange}
               disabledReason={scopeDisabledReason}
+            />
+
+            <LocationSelect
+              value={locationCode}
+              options={LABS_LOCATION_OPTIONS}
+              className="w-full lg:w-44 lg:shrink-0"
+              onChange={onLocationChange}
             />
 
             <button

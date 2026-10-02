@@ -38,6 +38,6 @@ Search Console no etiqueta los AI Overviews, pero sí te da señales útiles:
 
 ## Cómo ayuda Findable
 
-La [consulta de marca](/features/ai-brand-visibility) de Findable muestra las menciones y fuentes que aparecen en Google AI Overviews y ChatGPT para una marca o un dominio. En la app usa hoy datos de Estados Unidos en inglés, así que sirve para detectar tipos de fuente y huecos de contenido, no para cuantificar tu presencia en España. Para España, combina la comprobación manual con los datos de Search Console, que puedes [conectar a Findable](/es) para encontrar las páginas con más margen de mejora.
+La [consulta de marca](/features/ai-brand-visibility) de Findable muestra las menciones y fuentes que aparecen en Google AI Overviews y ChatGPT para una marca o un dominio. En la app puedes elegir España como país para Google AI Overviews. Los datos de ChatGPT, en cambio, son solo de Estados Unidos en inglés. Combina la consulta con la comprobación manual y con los datos de Search Console, que puedes [conectar a Findable](/es) para encontrar las páginas con más margen de mejora.
 
 Para el plan completo, consulta la [guía GEO para empresas en España](/blogs/como-aparecer-en-chatgpt-guia-geo-espana).

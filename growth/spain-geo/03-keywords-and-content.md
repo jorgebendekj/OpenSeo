@@ -1,20 +1,23 @@
 # Keywords and content plan (Spain, es-ES)
 
-Volumes are **not yet verified**. Run each seed through Findable keyword research (location Spain, language `es`) and keep the `keyword → page` mapping in the project.
+Volumes are Spain, Google, from Findable keyword data on 2026-10-02. All terms below are saved in the Findable project "Findable España (GEO)" with tag `spain-geo`, and an 11-keyword manual rank tracker is set up there (run the baseline after the pages are indexed).
 
-## Seeds by intent
+## Keyword map (verified volumes)
 
-| Cluster | Seeds | Page |
-|---|---|---|
-| GEO basics | geo seo, generative engine optimization, qué es geo, seo vs geo | Guide: cómo aparecer en ChatGPT (published) |
-| Check visibility | cómo saber si chatgpt recomienda mi marca, visibilidad en chatgpt, aparecer en chatgpt | Guide (published) |
-| AI Overviews | google ai overviews españa, resúmenes de ia google, ai overviews seo | Guide (published) |
-| Tools | herramientas geo, herramientas visibilidad ia, alternativa a semrush barata | Comparison (published) |
-| Technical | datos estructurados ia, schema para chatgpt, llms.txt | Guide (published) |
-| Local | seo local españa ia, google business profile chatgpt | Next |
-| Sector | geo para ecommerce, geo para abogados, geo para clínicas | Next, one per sector |
-| Agencies | informe geo para clientes, white label seo ia | Next |
-| MCP | seo con claude code, mcp seo, search console mcp en español | Translate existing EN docs |
+| Cluster | Terms (monthly searches, KD) | Page | Status |
+|---|---|---|---|
+| What is GEO / GEO vs SEO | geo seo 590 (0), geo que es 320 (1), posicionamiento geo 260 (0), geo ia 210 (0), geo vs seo 210 (0), seo vs geo 210 (0) | `/blogs/geo-vs-seo-diferencias` | Published |
+| SEO for AI | seo para ia 320 (0), seo ia 320 (44), generative engine optimization 260 (36) | `/blogs/como-aparecer-en-chatgpt-guia-geo-espana` | Published |
+| AI Overviews | ai overviews 1,000 (67), google ai overviews 260 (61) | `/blogs/google-ai-overviews-espana-como-medirlos` | Published |
+| Tool prices | semrush precios 210 (17), semrush gratis 210 (0), alternativa semrush 40 | `/blogs/alternativa-barata-semrush-ahrefs` | Published |
+| Free tools | herramientas seo gratis 480 (18), herramientas seo 880 (21) | `/blogs/herramientas-seo-gratis`, `/blogs/herramientas-geo-espana-comparativa` | Published |
+| Structured data | datos estructurados 390 (2) | `/blogs/datos-estructurados-schema-para-seo-y-ia` | Published |
+| Local | seo local 880 (11) | next: SEO local + IA | Todo |
+| Audit | auditoría seo 720 (7), auditoria seo gratis 170 (17) | next: checklist + link to `/features/site-audit` | Todo |
+| Agencies | agencia seo 4,400 (33), seo para pymes 170 (0) | next: "informe GEO para clientes" | Todo |
+| Brand/competitor navigational | semrush 22,200, ahrefs 6,600 | not targeted directly | n/a |
+
+Note: "cómo aparecer en chatgpt" returned no volume in the keyword tool, but its SERP is crowded; it stays as the flagship because it fits the product story, not because of volume.
 
 ## Publishing order (next 10 pieces)
 

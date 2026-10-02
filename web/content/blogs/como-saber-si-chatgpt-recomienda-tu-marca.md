@@ -46,7 +46,7 @@ Busca las mismas preguntas en Google España. Cuando aparece un resumen de IA (A
 Con 20 preguntas, la hoja de cálculo basta. Si gestionas varias marcas o clientes, una herramienta ahorra horas. En Findable, la [consulta de marca](/features/ai-brand-visibility) te devuelve menciones y fuentes citadas en ChatGPT y Google AI Overviews para una marca o dominio, y permite comparar con hasta cinco competidores. Limitaciones que debes conocer:
 
 - Está disponible en los planes de pago, no en el plan gratuito.
-- Hoy usa datos de Estados Unidos en inglés. Es útil para ver qué fuentes dominan tu categoría a nivel global, no para sacar tu cuota de visibilidad en España.
+- Puedes elegir España para Google AI Overviews. Los datos de ChatGPT son solo de Estados Unidos en inglés, así que en una consulta para España ChatGPT no se suma al total: úsalo para ver qué fuentes dominan tu categoría, no para medir tu cuota en España.
 - Cada consulta consume créditos; ver y exportar resultados ya consultados no.
 
 ## Paso 6: decide qué hacer con el resultado

@@ -6,7 +6,7 @@
 Findable is a commercial, multi-tenant SaaS platform operated by Ribentek AI for SEO and AI-search visibility. It enables businesses, agencies, and autonomous AI agents to measure, track, and optimize visibility across both traditional search engines (Google, Bing) and generative AI engines (ChatGPT and Google AI Overviews).
 
 ## Key Features
-- AI Search Visibility: Look up brand mentions and cited sources in ChatGPT and Google AI Overviews. ChatGPT data is US/English only; Google AI Overviews supports country and language selection, including Spain.
+- AI Search Visibility: Look up brand mentions and cited sources in ChatGPT and Google AI Overviews. ChatGPT data is US/English only; Google AI Overviews supports country selection in the app, including Spain.
 - Keyword Research & SERPs: Global search volume, keyword difficulty, intent analysis, and real-time ranking positions across 150+ countries.
 - Backlink Intelligence: Complete link profiles, lost/gained backlinks, anchor analysis, and domain authority without seat fees.
 - Site Audits & Technical SEO: Comprehensive technical health, Core Web Vitals, and structured data validation.
@@ -25,7 +25,7 @@ English (default), Spanish, German, French, Italian, Portuguese (Brazil), Dutch,
 ## Spanish (España)
 Spanish homepage: https://findableweb.io/es
 Spanish guides on GEO (visibility in ChatGPT and Google AI Overviews) and SEO for Spain: https://findableweb.io/blogs
-Spanish keyword research, rank tracking and Google AI Overviews lookups can target Spain (location code 2724, language "es").
+Spanish keyword research, rank tracking and Google AI Overviews brand lookups can target Spain (location code 2724, language "es").
 
 ## Key pages
 - Pricing: https://findableweb.io/pricing

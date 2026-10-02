@@ -53,7 +53,7 @@ Comprueba que tu `robots.txt` no bloquea a los rastreadores de los buscadores de
 ## Cómo medirlo
 
 - **A mano, cada mes:** haz tus 15-30 preguntas en ChatGPT y en Google, anota si apareces, en qué posición y qué fuentes se citan. Hazlo en ventana privada y sin sesión para reducir el sesgo.
-- **Con herramienta:** Findable tiene una [consulta de marca](/features/ai-brand-visibility) que muestra menciones y fuentes citadas en ChatGPT y Google AI Overviews. Dos límites que conviene conocer: está disponible en los planes de pago y, hoy, consulta datos de Estados Unidos en inglés, así que sirve para ver patrones y fuentes, no para medir tu visibilidad específica en España. Para eso, la comprobación manual sigue siendo la referencia. Comparamos otras opciones en [herramientas GEO para España](/blogs/herramientas-geo-espana-comparativa).
+- **Con herramienta:** Findable tiene una [consulta de marca](/features/ai-brand-visibility) que muestra menciones y fuentes citadas en ChatGPT y Google AI Overviews. Dos límites que conviene conocer: está disponible en los planes de pago y, aunque puedes elegir España para Google AI Overviews, los datos de ChatGPT son solo de Estados Unidos en inglés. Para medir tu visibilidad en ChatGPT en España, la comprobación manual sigue siendo la referencia. Comparamos otras opciones en [herramientas GEO para España](/blogs/herramientas-geo-espana-comparativa).
 - **Tráfico:** en Search Console y Google Analytics 4 puedes ver visitas con origen en chatgpt.com u otros asistentes. Suele ser una cifra pequeña todavía, pero crece y llega con intención alta.
 
 ## Lo que nadie puede garantizarte

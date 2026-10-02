@@ -42,7 +42,7 @@ Findable es una plataforma de SEO con consulta de marca en IA, que se paga por u
 **Lo que no hace (todavía)**
 
 - La consulta de marca cubre ChatGPT y Google AI Overviews, no Perplexity, Gemini ni Claude.
-- En la app usa hoy datos de Estados Unidos en inglés. Si tu prioridad es medir visibilidad en ChatGPT específicamente en España y en español, una herramienta de monitorización especializada o la comprobación manual te darán un dato más fiable.
+- Puedes elegir España para Google AI Overviews, pero los datos de ChatGPT son solo de Estados Unidos en inglés. Si tu prioridad es medir visibilidad en ChatGPT específicamente en España y en español, una herramienta de monitorización especializada o la comprobación manual te darán un dato más fiable.
 - No es un monitor de prompts programado con histórico y alertas al estilo de las herramientas especializadas.
 - La consulta de marca requiere un plan de pago.
 
