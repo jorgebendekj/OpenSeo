@@ -300,6 +300,13 @@ describe("brandLookupSearchSchema — `c` competitor param", () => {
   });
 });
 
+describe("brandLookupSearchSchema — `loc` country param", () => {
+  it("coerces the URL string to a location code and drops junk", () => {
+    expect(brandLookupSearchSchema.parse({ loc: "2724" }).loc).toBe(2724);
+    expect(brandLookupSearchSchema.parse({ loc: "spain" }).loc).toBeUndefined();
+  });
+});
+
 function citedMention(
   question: string,
   aiSearchVolume: number | null,

@@ -27,6 +27,10 @@ import {
 } from "@/types/schemas/ai-search";
 import { detectTarget } from "@/shared/targetDetection";
 import {
+  DEFAULT_LOCATION_CODE,
+  getLanguageCode,
+} from "@/client/features/keywords/locations";
+import {
   parseResearchTarget,
   toScopeSearchParam,
   type ResearchScope,
@@ -37,10 +41,12 @@ type Props = {
   initialQuery: string;
   initialCompetitors: string[];
   initialScope: ResearchScope | undefined;
+  initialLocationCode: number | undefined;
   onSearchChange: (
     nextQuery: string,
     nextCompetitors: string[],
     nextScope: ResearchScope | undefined,
+    nextLocationCode: number | undefined,
   ) => void;
 };
 
@@ -77,6 +83,7 @@ function BrandLookupPageInner({
   initialQuery,
   initialCompetitors,
   initialScope,
+  initialLocationCode,
   onSearchChange,
   planGate,
 }: Props & { planGate: HostedPlanGateState }) {
@@ -85,6 +92,9 @@ function BrandLookupPageInner({
   const [scopeChoice, setScopeChoice] = useState<ResearchScope | undefined>(
     initialScope,
   );
+  // Omitted in the URL means the default country.
+  const activeLocationCode = initialLocationCode ?? DEFAULT_LOCATION_CODE;
+  const [locationChoice, setLocationChoice] = useState(activeLocationCode);
   // Raw comma-separated competitor text; parsed into a deduped array on submit.
   const [competitorsInput, setCompetitorsInput] = useState(
     initialCompetitors.join(", "),
@@ -124,6 +134,7 @@ function BrandLookupPageInner({
       trimmedInitialQuery,
       competitorKey,
       initialScope ?? "",
+      activeLocationCode,
     ],
     queryFn: () =>
       lookupBrand({
@@ -132,8 +143,8 @@ function BrandLookupPageInner({
           query: trimmedInitialQuery,
           competitors: initialCompetitors,
           scope: initialScope,
-          locationCode: 2840,
-          languageCode: "en",
+          locationCode: activeLocationCode,
+          languageCode: getLanguageCode(activeLocationCode),
         },
       }),
     // Client-side gate is a UX optimization only; the paywall is enforced
@@ -235,7 +246,12 @@ function BrandLookupPageInner({
     const explicitScope = scopeTarget
       ? toScopeSearchParam(trimmed, selectedScope)
       : undefined;
-    onSearchChange(trimmed, competitors, explicitScope);
+    onSearchChange(
+      trimmed,
+      competitors,
+      explicitScope,
+      locationChoice === DEFAULT_LOCATION_CODE ? undefined : locationChoice,
+    );
   };
 
   // The form inputs are reset whenever the URL `q`/`c` changes — including the
@@ -247,8 +263,9 @@ function BrandLookupPageInner({
     setQuery(initialQuery);
     setCompetitorsInput(competitorKey.split(",").join(", "));
     setScopeChoice(initialScope);
+    setLocationChoice(activeLocationCode);
     setValidationError(null);
-  }, [initialQuery, competitorKey, initialScope]);
+  }, [initialQuery, competitorKey, initialScope, activeLocationCode]);
 
   const isLoading = hasActiveQuery && lookupQuery.isPending;
   const errorMessage =
@@ -286,6 +303,8 @@ function BrandLookupPageInner({
               scope={selectedScope}
               onScopeChange={setScopeChoice}
               scopeDisabledReason={scopeDisabledReason}
+              locationCode={locationChoice}
+              onLocationChange={setLocationChoice}
               competitors={competitorsInput}
               onCompetitorsChange={(next) => {
                 setCompetitorsInput(next);
@@ -315,7 +334,12 @@ function BrandLookupPageInner({
                     from="/p/$projectId/brand-lookup"
                     to="/p/$projectId/brand-lookup"
                     params={{ projectId }}
-                    search={{ q: undefined, c: undefined, scope: undefined }}
+                    search={{
+                      q: undefined,
+                      c: undefined,
+                      scope: undefined,
+                      loc: undefined,
+                    }}
                     replace
                     className="btn btn-ghost btn-sm gap-2 px-0 text-base-content/70 hover:bg-transparent"
                   >

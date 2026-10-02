@@ -3,6 +3,7 @@ title: "Jak Wykorzystać AI i GEO w SEO 2026"
 description: "Praktyczny przewodnik po Generative Engine Optimization (GEO) i automatyzacji SEO. Sprawdź, jak optymalizować witrynę pod ChatGPT Search i Perplexity."
 author: "Findable Team"
 date: "2026-09-05"
+lang: "pl"
 ---
 
 W 2026 roku krajobraz wyszukiwania przeszedł największą transformację od czasu powstania algorytmu PageRank. Użytkownicy coraz rzadziej zadowalają się suchą listą linków, oczekując bezpośrednich, wyczerpujących odpowiedzi generowanych przez sztuczną inteligencję w ChatGPT Search, Perplexity AI, Claude czy Google AI Overviews.

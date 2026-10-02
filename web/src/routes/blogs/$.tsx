@@ -8,7 +8,7 @@ import type { ComponentPropsWithoutRef } from "react";
 import { Suspense } from "react";
 import { getBlogPost } from "@/lib/content.functions";
 import { blog } from "../../../source.generated";
-import { buildPageSeo } from "@/lib/seo";
+import { buildPageSeo, toCanonicalUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/blogs/$")({
   loader: async ({ params }: { params: { _splat?: string } }) => {
@@ -19,17 +19,49 @@ export const Route = createFileRoute("/blogs/$")({
   },
   head: ({ loaderData }: { loaderData?: unknown }) => {
     const data = loaderData as
-      | { title?: string; description?: string; url?: string }
+      | {
+          title?: string;
+          description?: string;
+          url?: string;
+          author?: string;
+          date?: string;
+          lang?: string;
+        }
       | undefined;
     const title = data?.title ?? "Findable Blog";
     const description = data?.description;
-    return buildPageSeo({
+    const path = data?.url ?? "/blogs";
+    const seo = buildPageSeo({
       title,
       description,
-      path: data?.url ?? "/blogs",
+      path,
       titleSuffix: "Findable",
       ogType: "article",
+      locale: data?.lang === "es" ? "es_ES" : undefined,
     });
+    if (!data?.date) return seo;
+
+    // Article markup gives search and AI engines the author, date and language.
+    const articleJsonLd = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: title,
+      description,
+      inLanguage: data.lang ?? "en",
+      datePublished: data.date,
+      dateModified: data.date,
+      mainEntityOfPage: toCanonicalUrl(path),
+      author: { "@type": "Organization", name: data.author ?? "Findable" },
+      publisher: {
+        "@type": "Organization",
+        name: "Findable",
+        logo: { "@type": "ImageObject", url: toCanonicalUrl("/logo.svg") },
+      },
+    });
+    return {
+      ...seo,
+      scripts: [{ type: "application/ld+json", children: articleJsonLd }],
+    };
   },
   component: BlogPost,
 });

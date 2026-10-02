@@ -3,6 +3,7 @@ title: "Pozycjonowanie Sklepów z AI: E-commerce"
 description: "Jak pozycjonować sklep internetowy w Polsce przy pomocy AI. Automatyzacja opisów kategorii i produktów dla Shoper, PrestaShop, WooCommerce i Shopify."
 author: "Findable Team"
 date: "2026-09-05"
+lang: "pl"
 ---
 
 Pozycjonowanie e-commerce w Polsce to jedno z najbardziej konkurencyjnych środowisk marketingowych. Właściciele sklepów internetowych na platformach takich jak Shoper, WooCommerce, PrestaShop, IdoSell czy Shopify muszą rywalizować nie tylko ze sobą nawzajem, ale przede wszystkim z gigantami marketplace: Allegro, Amazon, Erli czy Ceneo.

@@ -14,6 +14,8 @@ export const blog = defineCollections({
   schema: pageSchema.extend({
     author: z.string(),
     date: z.string(),
+    // Posts without a lang are English.
+    lang: z.enum(["en", "es", "pl"]).optional(),
   }),
 });
 

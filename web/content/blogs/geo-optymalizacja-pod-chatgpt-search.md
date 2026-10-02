@@ -3,6 +3,7 @@ title: "GEO: Optymalizacja pod ChatGPT Search"
 description: "Czym jest Generative Engine Optimization (GEO)? Dowiedz się, jak przygotować stronę do cytowania przez silniki AI: ChatGPT, Perplexity i Claude."
 author: "Findable Team"
 date: "2026-09-05"
+lang: "pl"
 ---
 
 Wyszukiwanie informacji w internecie przeżywa rewolucję, jakiej nie widzieliśmy od lat 90. Użytkownicy coraz częściej rezygnują z wpisywania 2-wyrazowych haseł w Google na rzecz zadawania złożonych, kontekstowych pytań w **ChatGPT Search**, **Perplexity AI**, **Claude** oraz **Google Gemini**.

@@ -3,6 +3,7 @@ title: "Audyt SEO Krok po Kroku: Checklista 2026"
 description: "Praktyczny przewodnik po technicznym audycie SEO strony. Sprawdź indeksację, Core Web Vitals, strukturę adresów URL i błędy 404 krok po kroku."
 author: "Findable Team"
 date: "2026-09-05"
+lang: "pl"
 ---
 
 Regularny techniczny audyt SEO to fundament stabilnego pozycjonowania w Google. Nawet najlepsze artykuły i najsilniejsze linki zwrotne nie przyniosą oczekiwanych pozycji, jeśli roboty indeksujące (Googlebot) napotkają blokady w pliku robots.txt, pętle przekierowań, powolne renderowanie JavaScriptu lub błędy w danych kanonicznych.

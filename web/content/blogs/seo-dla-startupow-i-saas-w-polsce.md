@@ -3,6 +3,7 @@ title: "SEO dla Startupów i SaaS w Polsce"
 description: "Strategia pozycjonowania dla firm SaaS i startupów w Polsce. Dowiedz się, jak skalować ruch organiczny przy ograniczonym budżecie marketingowym."
 author: "Findable Team"
 date: "2026-09-05"
+lang: "pl"
 ---
 
 Dla startupów technologicznych i firm SaaS w fazie wczesnego wzrostu (early stage), płatne kampanie Google Ads i Meta Ads stają się z miesiąca na miesiąc coraz droższe. Koszt pozyskania klienta (CAC) rośnie, a po wyczerpaniu budżetu ruch natychmiast spada do zera.

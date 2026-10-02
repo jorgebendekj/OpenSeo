@@ -276,6 +276,8 @@ export type PromptExplorerResult = z.infer<typeof promptExplorerResultSchema>;
  */
 export const brandLookupSearchSchema = z.object({
   q: z.string().optional(),
+  // Country (DataForSEO location code); omitted means the default (US).
+  loc: z.coerce.number().int().positive().optional().catch(undefined),
   scope: researchScopeSchema.optional().catch(undefined),
   c: z
     .union([z.string(), z.array(z.string())])

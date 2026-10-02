@@ -1,4 +1,4 @@
-# Permissive robots.txt for Findable (https://findable.io)
+# Permissive robots.txt for Findable (https://findableweb.io)
 User-agent: *
 Allow: /
 
@@ -30,4 +30,4 @@ Allow: /
 User-agent: OAI-SearchBot
 Allow: /
 
-Sitemap: https://findable.io/sitemap.xml
+Sitemap: https://findableweb.io/sitemap.xml

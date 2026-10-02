@@ -28,6 +28,7 @@ import { Route as MarketingRoadmapRouteImport } from './routes/_marketing/roadma
 import { Route as MarketingPricingRouteImport } from './routes/_marketing/pricing'
 import { Route as MarketingOpenSourceSeoRouteImport } from './routes/_marketing/open-source-seo'
 import { Route as MarketingGoogleSearchConsoleMcpRouteImport } from './routes/_marketing/google-search-console-mcp'
+import { Route as MarketingEsRouteImport } from './routes/_marketing/es'
 import { Route as MarketingBacklinkCheckerRouteImport } from './routes/_marketing/backlink-checker'
 import { Route as MarketingLibraryIndexRouteImport } from './routes/_marketing/library/index'
 import { Route as MarketingFeaturesIndexRouteImport } from './routes/_marketing/features/index'
@@ -151,6 +152,11 @@ const MarketingGoogleSearchConsoleMcpRoute =
     path: '/google-search-console-mcp',
     getParentRoute: () => MarketingRoute,
   } as any)
+const MarketingEsRoute = MarketingEsRouteImport.update({
+  id: '/es',
+  path: '/es',
+  getParentRoute: () => MarketingRoute,
+} as any)
 const MarketingBacklinkCheckerRoute =
   MarketingBacklinkCheckerRouteImport.update({
     id: '/backlink-checker',
@@ -320,6 +326,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/backlink-checker': typeof MarketingBacklinkCheckerRoute
+  '/es': typeof MarketingEsRoute
   '/google-search-console-mcp': typeof MarketingGoogleSearchConsoleMcpRoute
   '/open-source-seo': typeof MarketingOpenSourceSeoRoute
   '/pricing': typeof MarketingPricingRoute
@@ -366,6 +373,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/backlink-checker': typeof MarketingBacklinkCheckerRoute
+  '/es': typeof MarketingEsRoute
   '/google-search-console-mcp': typeof MarketingGoogleSearchConsoleMcpRoute
   '/open-source-seo': typeof MarketingOpenSourceSeoRoute
   '/pricing': typeof MarketingPricingRoute
@@ -415,6 +423,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/_marketing/backlink-checker': typeof MarketingBacklinkCheckerRoute
+  '/_marketing/es': typeof MarketingEsRoute
   '/_marketing/google-search-console-mcp': typeof MarketingGoogleSearchConsoleMcpRoute
   '/_marketing/open-source-seo': typeof MarketingOpenSourceSeoRoute
   '/_marketing/pricing': typeof MarketingPricingRoute
@@ -465,6 +474,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/terms-and-conditions'
     | '/backlink-checker'
+    | '/es'
     | '/google-search-console-mcp'
     | '/open-source-seo'
     | '/pricing'
@@ -511,6 +521,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/terms-and-conditions'
     | '/backlink-checker'
+    | '/es'
     | '/google-search-console-mcp'
     | '/open-source-seo'
     | '/pricing'
@@ -559,6 +570,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/terms-and-conditions'
     | '/_marketing/backlink-checker'
+    | '/_marketing/es'
     | '/_marketing/google-search-console-mcp'
     | '/_marketing/open-source-seo'
     | '/_marketing/pricing'
@@ -752,6 +764,13 @@ declare module '@tanstack/react-router' {
       path: '/google-search-console-mcp'
       fullPath: '/google-search-console-mcp'
       preLoaderRoute: typeof MarketingGoogleSearchConsoleMcpRouteImport
+      parentRoute: typeof MarketingRoute
+    }
+    '/_marketing/es': {
+      id: '/_marketing/es'
+      path: '/es'
+      fullPath: '/es'
+      preLoaderRoute: typeof MarketingEsRouteImport
       parentRoute: typeof MarketingRoute
     }
     '/_marketing/backlink-checker': {
@@ -948,6 +967,7 @@ declare module '@tanstack/react-router' {
 
 interface MarketingRouteChildren {
   MarketingBacklinkCheckerRoute: typeof MarketingBacklinkCheckerRoute
+  MarketingEsRoute: typeof MarketingEsRoute
   MarketingGoogleSearchConsoleMcpRoute: typeof MarketingGoogleSearchConsoleMcpRoute
   MarketingOpenSourceSeoRoute: typeof MarketingOpenSourceSeoRoute
   MarketingPricingRoute: typeof MarketingPricingRoute
@@ -984,6 +1004,7 @@ interface MarketingRouteChildren {
 
 const MarketingRouteChildren: MarketingRouteChildren = {
   MarketingBacklinkCheckerRoute: MarketingBacklinkCheckerRoute,
+  MarketingEsRoute: MarketingEsRoute,
   MarketingGoogleSearchConsoleMcpRoute: MarketingGoogleSearchConsoleMcpRoute,
   MarketingOpenSourceSeoRoute: MarketingOpenSourceSeoRoute,
   MarketingPricingRoute: MarketingPricingRoute,

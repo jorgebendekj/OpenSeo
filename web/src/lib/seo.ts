@@ -41,6 +41,9 @@ type BuildSeoParams = {
   titleSuffix?: string;
   ogType?: "website" | "article";
   imageAlt?: string;
+  /** hreflang alternates, e.g. [{ hreflang: "es", path: "/es" }]. */
+  alternates?: Array<{ hreflang: string; path: string }>;
+  locale?: string;
 };
 
 export function buildPageSeo({
@@ -50,6 +53,8 @@ export function buildPageSeo({
   titleSuffix,
   ogType = "website",
   imageAlt = DEFAULT_SOCIAL_IMAGE_ALT,
+  alternates = [],
+  locale,
 }: BuildSeoParams) {
   const fullTitle = titleSuffix ? `${title} - ${titleSuffix}` : title;
   const canonicalUrl = toCanonicalUrl(path);
@@ -61,6 +66,7 @@ export function buildPageSeo({
       ...(description ? [{ name: "description", content: description }] : []),
       { property: "og:site_name", content: "Findable" },
       { property: "og:type", content: ogType },
+      ...(locale ? [{ property: "og:locale", content: locale }] : []),
       { property: "og:title", content: fullTitle },
       ...(description
         ? [{ property: "og:description", content: description }]
@@ -80,6 +86,13 @@ export function buildPageSeo({
       { name: "twitter:image", content: socialImageUrl },
       { name: "twitter:image:alt", content: imageAlt },
     ],
-    links: [{ rel: "canonical", href: canonicalUrl }],
+    links: [
+      { rel: "canonical", href: canonicalUrl },
+      ...alternates.map((alt) => ({
+        rel: "alternate",
+        hrefLang: alt.hreflang,
+        href: toCanonicalUrl(alt.path),
+      })),
+    ],
   };
 }

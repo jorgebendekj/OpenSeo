@@ -3,6 +3,7 @@ title: "Pozycjonowanie Lokalne i Google Maps"
 description: "Kompleksowy poradnik lokalnego SEO w Polsce. Jak optymalizować Profil Firmy w Google (GBP), zdobywać opinie i wygrywać w lokalnym Local Packu."
 author: "Findable Team"
 date: "2026-09-05"
+lang: "pl"
 ---
 
 Dla firm usługowych, gabinetów medycznych, restauracji, salonów kosmetycznych i przedsiębiorstw regionalnych w Polsce, pozycjonowanie lokalne to najbardziej bezpośrednie źródło zapytań ofertowych i telefonów. Ponad 46% wszystkich wyszukiwań w Google ma intencję lokalną, a użytkownicy wpisujący zapytania typu *"dentysta wrocław krzyki"* czy *"wymiana opon kraków"* są gotowi do natychmiastowego zakupu.

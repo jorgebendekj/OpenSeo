@@ -3,6 +3,7 @@ title: "Monitoring Pozycji Google na Żywo 2026"
 description: "Dlaczego codzienne śledzenie pozycji w Google jest kluczem do sukcesu SEO. Monitoruj frazy desktop i mobile w polskich miastach i reaguj na spadki."
 author: "Findable Team"
 date: "2026-09-05"
+lang: "pl"
 ---
 
 Pozycjonowanie stron to gra o zmiennych regułach. Google wdraża kilka tysięcy mikro-aktualizacji algorytmu rocznie oraz regularne aktualizacje główne (Core Updates, Spam Updates, Helpful Content Updates). W dynamicznym środowisku biznesowym cotygodniowe lub comiesięczne sprawdzanie pozycji to proszenie się o kłopoty.
