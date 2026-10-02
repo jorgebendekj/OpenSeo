@@ -3,6 +3,7 @@ title: "Automatyzacja SEO z Claude Code i MCP"
 description: "Dowiedz się, jak połączyć Claude Code i protokół MCP z Findable, aby badać frazy kluczowe, audytować kod i analizować SERP bezpośrednio w terminalu."
 author: "Findable Team"
 date: "2026-09-05"
+lang: "pl"
 ---
 
 Połączenie sztucznej inteligencji z inżynierią oprogramowania stworzyło nową generację narzędzi: asystentów terminalowych, takich jak **Claude Code**, oraz środowiska IDE nowej ery (Cursor, Windsurf). Dzięki otwartemu standardowi **Model Context Protocol (MCP)**, stworzonemu przez firmę Anthropic, agenci AI mogą teraz wchodzić w interakcję z zewnętrznymi API i bazami danych dokładnie tak, jak programista korzystający z terminala.

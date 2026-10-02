@@ -3,6 +3,7 @@ title: "Kanibalizacja Słów Kluczowych: Diagnoza"
 description: "Dowiedz się, jak rozpoznać kanibalizację słów kluczowych w Google Search Console i jak scalić podstrony, aby odzyskać utracone pozycje i ruch."
 author: "Findable Team"
 date: "2026-09-05"
+lang: "pl"
 ---
 
 Kanibalizacja słów kluczowych (Keyword Cannibalization) to jedno z najczęstszych zjawisk osłabiających widoczność serwisów internetowych. Występuje wtedy, gdy dwie lub więcej podstron w Twojej domenie rywalizuje o tę samą intencję wyszukiwania i te same słowa kluczowe.

@@ -3,6 +3,7 @@ title: "GSC Striking Distance: Pozycje 4–20"
 description: "Metoda Striking Distance w Google Search Console. Jak w kilka dni przesunąć frazy z pozycji 4–20 do TOP 3 i podwoić ruch organiczny bez nowych linków."
 author: "Findable Team"
 date: "2026-09-05"
+lang: "pl"
 ---
 
 Większość specjalistów SEO traci energię na próby wypozycjonowania fraz, które znajdują się na 80. czy 90. pozycji w wynikach wyszukiwania. Wymaga to miesięcy pracy i olbrzymich nakładów na link building. Tymczasem w prawie każdym koncie Google Search Console drzemie gigantyczny, niewykorzystany potencjał: **frazy w odległości uderzeniowej (Striking Distance Keywords)**.

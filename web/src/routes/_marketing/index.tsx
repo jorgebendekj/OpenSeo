@@ -19,7 +19,7 @@ const schemaJson = JSON.stringify({
       "description": homeDescription,
       "featureList": [
         "1-Click AI Article Generator with FAQ Schema JSON-LD and SERP synthesis",
-        "AI Search Visibility (GEO) monitoring in ChatGPT, Perplexity, Claude, and Gemini",
+        "AI Search Visibility (GEO) lookup for ChatGPT and Google AI Overviews",
         "Real-Time Google Rank Tracking in 190+ countries and local cities",
         "Automated Technical Site Audits and 404 crawler",
         "Google Search Console & Google Analytics 4 native synchronization",
@@ -53,7 +53,7 @@ const schemaJson = JSON.stringify({
             "price": "69",
             "priceCurrency": "USD",
             "billingDuration": "P1M",
-            "description": "6 websites, 35,000 monthly usage credits, 30 1-Click AI articles/month (1 daily), ChatGPT & Perplexity AI monitoring, weekly audits."
+            "description": "6 websites, 35,000 monthly usage credits, 30 1-Click AI articles/month (1 daily), ChatGPT & Google AI Overviews brand visibility, weekly audits."
           },
           {
             "@type": "Offer",
@@ -71,7 +71,7 @@ const schemaJson = JSON.stringify({
       "@id": "https://findableweb.io/#website",
       "name": "Findable",
       "url": "https://findableweb.io",
-      "inLanguage": ["es", "en"],
+      "inLanguage": ["en", "es", "pl"],
       "publisher": {
         "@type": "Organization",
         "name": "Findable",
@@ -127,6 +127,11 @@ export const Route = createFileRoute("/_marketing/")({
       description: homeDescription,
       path: "/",
       imageAlt: "Findable AI-powered SEO and search visibility dashboard",
+      alternates: [
+        { hreflang: "en", path: "/" },
+        { hreflang: "es", path: "/es" },
+        { hreflang: "x-default", path: "/" },
+      ],
     });
 
     return {
@@ -136,7 +141,7 @@ export const Route = createFileRoute("/_marketing/")({
         {
           name: "keywords",
           content:
-            "1-click ai article generator, seo automation, generative engine optimization, geo search, google rank tracker, technical seo audit, google search console mcp, ai search visibility, chatgpt brand monitoring, perplexity seo, posicionamiento seo, herramientas seo ia, rank tracking, backlinks",
+            "1-click ai article generator, seo automation, generative engine optimization, geo search, google rank tracker, technical seo audit, google search console mcp, ai search visibility, chatgpt brand visibility, google ai overviews visibility, rank tracking, backlinks",
         },
         {
           name: "robots",

@@ -3,6 +3,7 @@ title: "Optymalizacja Core Web Vitals: Poradnik"
 description: "Praktyczny przewodnik po metrykach Core Web Vitals: LCP, INP i CLS. Dowiedz się, jak przyspieszyć stronę i spełnić rygorystyczne wymogi Google."
 author: "Findable Team"
 date: "2026-09-05"
+lang: "pl"
 ---
 
 Wskaźniki Core Web Vitals (Podstawowe Wskaźniki Internetowe) to zestaw metryk opracowanych przez inżynierów Google, mierzących realne doświadczenia użytkowników związane z szybkością ładowania, responsywnością i stabilnością wizualną stron. W 2026 roku stanowią one nieodzowny element oceny jakości strony (Page Experience Signals).

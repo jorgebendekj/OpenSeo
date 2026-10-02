@@ -3,6 +3,7 @@ title: "Badanie Słów Kluczowych w Polsce 2026"
 description: "Przewodnik po doborze słów kluczowych na rynku polskim. Poznaj wolumen wyszukiwań, intencję zapytań (search intent) i odmianę fleksyjną w SEO."
 author: "Findable Team"
 date: "2026-09-05"
+lang: "pl"
 ---
 
 Dobór słów kluczowych to fundament każdej udanej kampanii SEO. Prawidłowo przeprowadzone badanie fraz decyduje o strukturze kategorii w sklepie internetowym, architekturze artykułów na blogu oraz hierarchii menu. Błędny dobór słów skutkuje pozyskiwaniem pustego ruchu – tysięcy użytkowników, którzy nigdy nie zostaną Twoimi klientami.

@@ -3,6 +3,7 @@ title: "Dane Strukturalne Schema.org: JSON-LD"
 description: "Kompleksowy poradnik wdrażania znaczników Schema.org i JSON-LD. Zwiększ CTR w wynikach wyszukiwania Google dzięki wynikom z elementami rozszerzonymi."
 author: "Findable Team"
 date: "2026-09-05"
+lang: "pl"
 ---
 
 Dane strukturalne (Structured Data) oparte na słowniku Schema.org to uniwersalny język, za pomocą którego przekazujesz wyszukiwarkom i modelom sztucznej inteligencji dokładne znaczenie elementów na Twojej stronie. Zamiast zmuszać algorytm do domyślania się, co jest ceną, opinią, autorem czy adresem siedziby, podajesz te fakty w ustandaryzowanym formacie **JSON-LD**.

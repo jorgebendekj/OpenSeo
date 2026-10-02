@@ -1,6 +1,30 @@
+import { useLocation, useNavigate } from "@tanstack/react-router";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 export type Language = "en" | "es" | "pl";
+
+export const esHomeFaqs = [
+  {
+    q: "¿Qué es el GEO y en qué se diferencia del SEO?",
+    a: "El GEO (Generative Engine Optimization) busca que ChatGPT, Google AI Overviews y otros buscadores con IA mencionen y citen tu marca en sus respuestas. El SEO sigue siendo la base: las respuestas de la IA se apoyan en páginas que ya posicionan y en fuentes que otras webs citan.",
+  },
+  {
+    q: "¿Mide Findable mi visibilidad en ChatGPT en España?",
+    a: "Todavía no por país. La consulta de marca de la app (disponible en los planes de pago) usa hoy datos de Estados Unidos en inglés, tanto para ChatGPT como para Google AI Overviews. Lo que sí funciona con datos de España es la investigación de palabras clave, el seguimiento de posiciones en Google y Search Console.",
+  },
+  {
+    q: "¿Cuánto cuesta Findable?",
+    a: "Empiezas con 500 créditos de prueba sin tarjeta y recibes 100 créditos al mes mientras uses tu cuenta. Los planes de pago empiezan en 39 USD al mes (10.000 créditos). También puedes comprar créditos sueltos desde 25 USD. Ver, filtrar y exportar datos ya consultados no consume créditos.",
+  },
+  {
+    q: "¿Tengo que pagar por cada usuario?",
+    a: "No. Pagas por los datos que consultas, no por asientos. Puedes invitar a tu equipo y a tus clientes sin coste adicional por usuario.",
+  },
+  {
+    q: "¿Puedo usar Findable desde Claude, Cursor o ChatGPT?",
+    a: "Sí. Findable incluye un servidor MCP para conectar agentes como Claude Code, Cursor o Codex con tus datos de palabras clave, dominios, enlaces y Search Console.",
+  },
+];
 
 export const translations = {
   en: {
@@ -15,7 +39,7 @@ export const translations = {
       badge: "⚡ 1-Click AI Articles, Rank Tracking & GEO Intelligence",
       title: "The AI-Powered SEO Engine That Ranks Your Business Everywhere.",
       subtitle:
-        "Findable unites 1-Click AI article generation, Google Search Console sync, real-time rank tracking, technical audits, and AI search visibility (ChatGPT, Perplexity & Gemini) into one high-performance platform.",
+        "Findable unites 1-Click AI article generation, Google Search Console sync, real-time rank tracking, technical audits, and AI search visibility (ChatGPT & Google AI Overviews) into one high-performance platform.",
       cta: "Get Started Free",
       note: "Free plan includes 100 monthly credits + 500 trial credits · No credit card required",
     },
@@ -35,7 +59,7 @@ export const translations = {
       module1Desc:
         "Generate 1,500–2,500 word ranking articles with H2/H3s, JSON-LD FAQ Schema, and competitor SERP insights.",
       module2Title: "AI Search & Brand Visibility",
-      module2Sub: "ChatGPT, Perplexity & Gemini",
+      module2Sub: "ChatGPT & Google AI Overviews",
       module2Desc:
         "Track brand mentions, citations, and AI recommendations compared to your direct competitors.",
       module3Title: "Search Console & GA4 Sync",
@@ -53,7 +77,7 @@ export const translations = {
         "Transform high-intent keywords and GSC queries into structured, comprehensive 1,500–2,500 word articles with automatic FAQ Schema and internal link suggestions.",
       card2Title: "🤖 AI Search Visibility & GEO Matrix",
       card2Desc:
-        "Measure and optimize how your brand is cited and recommended in ChatGPT, Perplexity, Claude, and Gemini relative to your competitors.",
+        "Measure and optimize how your brand is mentioned and cited in ChatGPT and Google AI Overviews relative to your competitors.",
       card3Title: "📈 Real-Time Google Rank Tracking",
       card3Desc:
         "Track keyword rankings daily across desktop and mobile in 190+ countries, states, and cities with accurate SERP snapshots.",
@@ -76,7 +100,7 @@ export const translations = {
       freeTier: {
         name: "Free Plan",
         price: "$0",
-        period: "free forever",
+        period: "100 credits per month",
         description: "Perfect for testing Findable and connecting your Google Search Console with zero commitments.",
         cta: "Start Free",
         features: [
@@ -114,7 +138,7 @@ export const translations = {
           "6 Connected Websites / Projects",
           "35,000 Monthly Usage Credits",
           "30 1-Click AI Articles / mo (1 article daily / scheduled)",
-          "ChatGPT, Perplexity & Gemini brand monitoring",
+          "ChatGPT & Google AI Overviews brand lookup",
           "Weekly automated technical site audit",
           "Full backlink & competitor intelligence",
           "Export to CMS & Webhooks",
@@ -228,12 +252,12 @@ export const translations = {
       blogs: "Blog",
     },
     hero: {
-      badge: "⚡ Artículos con IA en 1-Clic, Rastreo de Rankings y Visibilidad GEO",
-      title: "El Motor de SEO e Inteligencia Artificial que Posiciona tu Negocio en Todo Internet.",
+      badge: "⚡ SEO en España + visibilidad en ChatGPT y Google AI Overviews",
+      title: "Descubre si la IA y Google recomiendan tu negocio.",
       subtitle:
-        "Findable combina la generación de artículos con IA en 1-clic, sincronización nativa con Google Search Console, auditorías técnicas, rastreo de rankings y visibilidad en motores de IA (ChatGPT, Perplexity y Gemini) en una sola plataforma.",
-      cta: "Empezar Gratis Ahora",
-      note: "Plan Free incluye 100 créditos mensuales + 500 de prueba · Sin tarjeta de crédito",
+        "Findable reúne en una plataforma la consulta de tu marca en ChatGPT y Google AI Overviews, la investigación de palabras clave en español, el seguimiento de posiciones en España, las auditorías técnicas y Search Console. Pagas por uso, nunca por usuario.",
+      cta: "Empezar gratis",
+      note: "500 créditos de prueba + 100 créditos al mes mientras uses tu cuenta · Sin tarjeta de crédito",
     },
     dashboard: {
       url: "app.findableweb.io",
@@ -251,7 +275,7 @@ export const translations = {
       module1Desc:
         "Genera artículos de 1,500 a 2,500 palabras estructurados con H2/H3, FAQ Schema JSON-LD y análisis SERP.",
       module2Title: "Visibilidad en Búsqueda IA (GEO)",
-      module2Sub: "ChatGPT, Perplexity y Gemini",
+      module2Sub: "ChatGPT y Google AI Overviews",
       module2Desc:
         "Monitorea menciones de marca, citas y recomendaciones de IA frente a tus competidores directos.",
       module3Title: "Sincronización Search Console & GA4",
@@ -269,7 +293,7 @@ export const translations = {
         "Convierte palabras clave y consultas de Search Console en artículos completos de 1,500 a 2,500 palabras con FAQ Schema JSON-LD y recomendaciones de enlazado interno.",
       card2Title: "🤖 Matriz de Visibilidad en IA y GEO",
       card2Desc:
-        "Mide y optimiza la frecuencia y el contexto con que ChatGPT, Perplexity, Claude y Gemini recomiendan tu marca frente a tus rivales.",
+        "Mide y optimiza la frecuencia y el contexto con que ChatGPT y Google AI Overviews mencionan y citan tu marca frente a tus rivales.",
       card3Title: "📈 Rastreo de Rankings en Tiempo Real",
       card3Desc:
         "Monitorea posiciones diarias en Google para escritorio y móvil en más de 190 países, ciudades e idiomas con capturas de SERP oficiales.",
@@ -292,7 +316,7 @@ export const translations = {
       freeTier: {
         name: "Plan Free",
         price: "$0",
-        period: "gratis para siempre",
+        period: "100 créditos al mes",
         description: "Ideal para probar Findable y conectar Google Search Console sin ningún compromiso.",
         cta: "Probar Gratis",
         features: [
@@ -330,7 +354,7 @@ export const translations = {
           "6 Sitios Web / Proyectos conectados",
           "35,000 Créditos de datos mensuales",
           "30 Artículos generados con IA al mes (1 artículo diario)",
-          "Monitoreo de marca en ChatGPT, Perplexity y Gemini",
+          "Consulta de marca en ChatGPT y Google AI Overviews",
           "Auditoría técnica semanal automatizada",
           "Inteligencia completa de backlinks y competidores",
           "Exportación a CMS y Webhooks",
@@ -357,28 +381,7 @@ export const translations = {
       comparisonTitle: "Comparación con la alternativa:",
       comparisonText: "Los planes de entrada de Ahrefs y Semrush parten de $129/mes con límites estrictos de 1 usuario. Findable te ofrece gestión multi-sitio, artículos con IA y MCP desde $0 a $39.",
       faqTitle: "Preguntas Frecuentes",
-      faqs: [
-        {
-          q: "¿Cómo funciona el Generador de Artículos con IA en 1-Clic?",
-          a: "Toma tu palabra clave objetivo, volumen, intención de búsqueda y el contenido de las páginas mejor posicionadas en la SERP real de Google para redactar un artículo de 1,500 a 2,500 palabras. Incluye encabezados H2/H3, FAQ Schema en JSON-LD y sugerencias de enlaces internos listos para publicar.",
-        },
-        {
-          q: "¿Cómo funcionan los créditos de datos mensuales?",
-          a: "Los créditos alimentan las consultas de datos como investigación de palabras clave, comprobaciones SERP en vivo, análisis de backlinks y rastreos técnicos. Cada plan incluye una asignación mensual (10,000 en Starter, 35,000 en Growth, 100,000 en Scale) que se renueva automáticamente cada ciclo.",
-        },
-        {
-          q: "¿Puedo conectar Google Search Console y GA4 de forma gratuita?",
-          a: "¡Sí! La sincronización con Google Search Console y Google Analytics 4 está incluida en todos los planes, incluido el Plan Free. Obtienes seguimiento de consultas 'striking-distance' (posiciones 4-20), clics, impresiones y CTR real.",
-        },
-        {
-          q: "¿Qué es la Optimización para Búsqueda en IA (GEO)?",
-          a: "Generative Engine Optimization (GEO) mide cómo y cuándo los modelos de IA como ChatGPT, Perplexity, Claude y Google AI Overviews citan y recomiendan tu negocio o web frente a tus competidores.",
-        },
-        {
-          q: "¿Cómo funciona el servidor MCP con Claude Code o Cursor?",
-          a: "Findable incluye un servidor MCP nativo. Puedes conectarlo con Claude Desktop, la terminal de Claude Code, Cursor o Codex para consultar tus métricas de SEO y ejecutar búsquedas de keywords sin salir de tu entorno de desarrollo.",
-        },
-      ],
+      faqs: esHomeFaqs,
     },
     mcp: {
       eyebrow: "Protocolo de Contexto de Modelos (MCP)",
@@ -447,7 +450,7 @@ export const translations = {
       badge: "⚡ Artykuły AI w 1-Klik, Monitoring Pozycji i Widoczność w GEO",
       title: "Silnik SEO i AI, który pozycjonuje Twój biznes w Google i Wyszukiwarkach AI.",
       subtitle:
-        "Findable łączy generowanie artykułów SEO z AI w 1 klik, synchronizację z Google Search Console, monitoring pozycji na żywo, audyty techniczne oraz widoczność w wyszukiwarkach AI (ChatGPT, Perplexity, Gemini) w jednej platformie.",
+        "Findable łączy generowanie artykułów SEO z AI w 1 klik, synchronizację z Google Search Console, monitoring pozycji na żywo, audyty techniczne oraz widoczność w wyszukiwarkach AI (ChatGPT i Google AI Overviews) w jednej platformie.",
       cta: "Zacznij za darmo",
       note: "Plan Free zawiera 100 kredytów/miesiąc + 500 próbnych · Bez karty kredytowej",
     },
@@ -467,7 +470,7 @@ export const translations = {
       module1Desc:
         "Generuj rankingowe artykuły 1,500–2,500 słów z nagłówkami H2/H3, danymi JSON-LD FAQ Schema i analizą SERP konkurencji.",
       module2Title: "Widoczność w Wyszukiwarkach AI (GEO)",
-      module2Sub: "ChatGPT, Perplexity i Gemini",
+      module2Sub: "ChatGPT i Google AI Overviews",
       module2Desc:
         "Monitoruj wzmianki o marce, cytowania i rekomendacje sztucznej inteligencji w porównaniu z bezpośrednimi konkurentami.",
       module3Title: "Synchronizacja Search Console & GA4",
@@ -485,7 +488,7 @@ export const translations = {
         "Zamieniaj intencyjne słowa kluczowe i zapytania z GSC w ustrukturyzowane, wyczerpujące artykuły 1,500–2,500 słów z automatyczną strukturą Schema FAQ i linkowaniem.",
       card2Title: "🤖 Widoczność w Wyszukiwarkach AI i Macierz GEO",
       card2Desc:
-        "Mierz i optymalizuj częstotliwość oraz kontekst, w jakim ChatGPT, Perplexity, Claude i Gemini polecają Twoją markę na tle konkurentów.",
+        "Mierz i optymalizuj częstotliwość oraz kontekst, w jakim ChatGPT i Google AI Overviews wspominają i cytują Twoją markę na tle konkurentów.",
       card3Title: "📈 Monitoring Pozycji Google na Żywo",
       card3Desc:
         "Śledź pozycje słów kluczowych codziennie na desktopie i mobile w ponad 190 krajach i miastach z dokładnymi zrzutami SERP.",
@@ -508,7 +511,7 @@ export const translations = {
       freeTier: {
         name: "Plan Free",
         price: "$0",
-        period: "zawsze za darmo",
+        period: "100 kredytów miesięcznie",
         description: "Idealny do przetestowania Findable i połączenia Google Search Console bez żadnych zobowiązań.",
         cta: "Zacznij za darmo",
         features: [
@@ -546,7 +549,7 @@ export const translations = {
           "6 Połączonych Witryn / Projektów",
           "35,000 Kredytów danych miesięcznie",
           "30 Artykułów AI w 1-Klik / mies. (1 artykuł dziennie)",
-          "Monitoring marki w ChatGPT, Perplexity i Gemini",
+          "Sprawdzanie marki w ChatGPT i Google AI Overviews",
           "Cotygodniowy zautomatyzowany audyt techniczny",
           "Pełna analityka linków zwrotnych i konkurentów",
           "Eksport do CMS i Webhooks",
@@ -660,39 +663,51 @@ type I18nContextType = {
 };
 
 const I18nContext = createContext<I18nContextType>({
-  lang: "es",
+  lang: "en",
   setLang: () => {},
-  t: translations.es,
+  t: translations.en,
 });
 
+// URL wins over any stored preference: /es is the Spanish site, so crawlers and
+// users who land there always get Spanish. Everywhere else the default is
+// English until a visitor picks another language.
+export function getUrlLanguage(pathname: string): Language | null {
+  return pathname === "/es" || pathname.startsWith("/es/") ? "es" : null;
+}
+
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Language>("es");
+  const { pathname } = useLocation();
+  const urlLang = getUrlLanguage(pathname);
+  const [preferred, setPreferred] = useState<Language>("en");
+  const lang = urlLang ?? preferred;
 
   useEffect(() => {
     try {
-      const stored = localStorage.getItem("findable_lang") as Language;
+      const stored = localStorage.getItem("findable_lang");
       if (stored === "en" || stored === "es" || stored === "pl") {
-        setLangState(stored);
-        document.documentElement.lang = stored;
+        setPreferred(stored);
       } else {
-        const browserLang = navigator.language.startsWith("pl")
-          ? "pl"
-          : navigator.language.startsWith("es")
-          ? "es"
-          : "en";
-        setLangState(browserLang);
-        document.documentElement.lang = browserLang;
+        setPreferred(
+          navigator.language.startsWith("pl")
+            ? "pl"
+            : navigator.language.startsWith("es")
+              ? "es"
+              : "en",
+        );
       }
     } catch {
       // ignore
     }
   }, []);
 
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   const setLang = (newLang: Language) => {
-    setLangState(newLang);
+    setPreferred(newLang);
     try {
       localStorage.setItem("findable_lang", newLang);
-      document.documentElement.lang = newLang;
     } catch {
       // ignore
     }
@@ -713,6 +728,16 @@ export function useI18n() {
 
 export function LanguageSelector({ className }: { className?: string }) {
   const { lang, setLang } = useI18n();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  // The homepage has a dedicated Spanish URL; switching language moves between
+  // them so the address always matches the language on screen.
+  const choose = (next: Language) => {
+    setLang(next);
+    if (pathname === "/" && next === "es") void navigate({ to: "/es" });
+    if (pathname === "/es" && next !== "es") void navigate({ to: "/" });
+  };
 
   return (
     <div
@@ -722,7 +747,7 @@ export function LanguageSelector({ className }: { className?: string }) {
     >
       <button
         type="button"
-        onClick={() => setLang("en")}
+        onClick={() => choose("en")}
         className={`flex items-center gap-0.5 rounded-full px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-[11px] sm:text-xs transition-all ${
           lang === "en"
             ? "bg-white text-[#2B66FE] shadow-xs font-bold"
@@ -734,7 +759,7 @@ export function LanguageSelector({ className }: { className?: string }) {
       </button>
       <button
         type="button"
-        onClick={() => setLang("es")}
+        onClick={() => choose("es")}
         className={`flex items-center gap-0.5 rounded-full px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-[11px] sm:text-xs transition-all ${
           lang === "es"
             ? "bg-white text-[#2B66FE] shadow-xs font-bold"
@@ -746,7 +771,7 @@ export function LanguageSelector({ className }: { className?: string }) {
       </button>
       <button
         type="button"
-        onClick={() => setLang("pl")}
+        onClick={() => choose("pl")}
         className={`flex items-center gap-0.5 rounded-full px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-[11px] sm:text-xs transition-all ${
           lang === "pl"
             ? "bg-white text-[#2B66FE] shadow-xs font-bold"

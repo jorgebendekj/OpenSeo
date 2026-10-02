@@ -13,6 +13,9 @@ export const getBlogPost = createServerFn({ method: "GET" })
       title: page.data.title,
       description: page.data.description,
       url: page.url,
+      author: page.data.author,
+      date: page.data.date,
+      lang: page.data.lang ?? "en",
     };
   });
 
@@ -24,6 +27,7 @@ export const getBlogPosts = createServerFn({ method: "GET" }).handler(
       description: page.data.description,
       url: page.url,
       slugs: page.slugs,
+      lang: page.data.lang ?? "en",
     }));
   },
 );

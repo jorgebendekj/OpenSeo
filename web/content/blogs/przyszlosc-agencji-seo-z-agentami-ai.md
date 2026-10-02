@@ -3,6 +3,7 @@ title: "Przyszłość Agencji SEO z Agentami AI"
 description: "Jak agencje SEO w Polsce wdrażają agentów AI i protokół MCP. Automatyzacja audytów, badania fraz i analiz konkurencji na rzecz wyższej marży."
 author: "Findable Team"
 date: "2026-09-05"
+lang: "pl"
 ---
 
 Model biznesowy tradycyjnych agencji SEO w Polsce przechodzi fundamentalną transformację. Jeszcze kilka lat temu agencje sprzedawały roboczogodziny junior specjalistów, którzy ręcznie wprowadzali słowa kluczowe do arkuszy, pisali powtarzalne meta opisy i tworzyli 40-stronicowe raporty PDF, których nikt nie czytał.
